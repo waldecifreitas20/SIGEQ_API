@@ -23,7 +23,7 @@ const User = sequelize.define('user', {
 }, {
     hooks : {
         beforeSave : function(user) {
-            console.log('usuario : ' + user);
+            console.log('usuario pass : ' + user.password);
         }
     }
 }); 
