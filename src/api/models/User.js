@@ -1,7 +1,5 @@
 const {database, datatype} = require('../../database/db'); 
 
-const Permission = require('./Permission');
-
 const User = database.define('user', {
     fullName : {
         type : datatype.STRING,
@@ -29,7 +27,5 @@ const User = database.define('user', {
         }
     }
 }); 
-
-
 
 module.exports = User;

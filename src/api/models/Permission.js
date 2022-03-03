@@ -1,7 +1,5 @@
 const {database, datatype} = require('../../database/db'); 
 
-const User = require('./User');
-
 const Permission = database.define('permission', {
     name : {
         type : datatype.STRING,
@@ -13,6 +11,5 @@ const Permission = database.define('permission', {
     }
    
 }, { timestamps : true});
-
 
 module.exports = Permission; 
