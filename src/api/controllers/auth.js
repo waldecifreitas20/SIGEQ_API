@@ -14,7 +14,7 @@ router.post('/register', async (req, res) => {
     const userData = req.body
     const response = await userServices.register(userData);
 
-    return res.send({ response });
+    return res.status(response.status).send({ response });
 });
 
 

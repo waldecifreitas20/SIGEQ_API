@@ -1,4 +1,4 @@
-const UserModel = require('../models')('User');
+const UserModel = require('../models/User');
 
 async function createUser(userData) {
     try {
@@ -6,7 +6,8 @@ async function createUser(userData) {
     } catch (error) {
         return { 
             user : null, 
-            status : 401 
+            status : 401,
+            message : 'User already exist' 
         };       
     }
 }
