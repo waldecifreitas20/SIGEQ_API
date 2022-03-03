@@ -1,11 +1,9 @@
-const path = require('path');
 const fs = require('fs');
 
 module.exports = {
-    getModulesPathByFolder : (folder) => {              
-        let directory = path.resolve('src', 'api', folder);
+    getFilesName : (path) => {              
         return fs 
-            .readdirSync(directory)
+            .readdirSync(path)
             .filter(file => file.indexOf('index') == -1)
     }
 }

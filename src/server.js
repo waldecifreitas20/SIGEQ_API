@@ -5,7 +5,11 @@ require('./database/connection');
 
 require('./api/controllers')(app);
 
+const database = require('./database/db')
+
+database.initModels();
+database.syncDatabase();
+
 app.listen(process.env.PORT, async () => {    
-    await require('./database/db').syncAllModels()
     console.log("SERVER HAS BEEN STARTED");
 });   

@@ -10,11 +10,14 @@ const database = new Sequelize(DATABASE, USER, PASSWORD, {
 module.exports = {
     datatype : Sequelize,
     database : database,
-    syncAllModels : async () => {
-       require('../api/models').forEach(file => {
-           require('../api/models/'+file);
-       });
-
+    initModels : () => {
+        const allModels = require('../api/models');
+        
+        allModels.forEach(file => {
+            require('../api/models/'+file);
+        });
+    },
+    syncDatabase : async () => {
         await database.sync({ force : true });
     }
 };
