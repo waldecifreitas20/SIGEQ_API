@@ -1,34 +1,33 @@
-const {sequelize, datatypes} = require('../../database/sequelize'); 
+const {database, datatype} = require('../../database/db'); 
 
-const Equipment = sequelize.define('equipment', {
+const Equipment = database.define('equipment', {
     company : {
-        type : datatypes.STRING,
+        type : datatype.STRING,
         allowNull : false
     },
     model : {
-        type : datatypes.STRING,
+        type : datatype.STRING,
         allowNull : false
     },
     heritage : {
-        type : datatypes.STRING,
+        type : datatype.STRING,
         allowNull : false,
         unique : true
     },
     current_location : {
-        type : datatypes.STRING,
+        type : datatype.STRING,
         allowNull : false,
     },
     status : {
-        type : datatypes.STRING,
+        type : datatype.STRING,
         allowNull : false,
         default : false
     },
     image : {
-        type : datatypes.BLOB,
+        type : datatype.BLOB,
         allowNull : true
     }
 });
  
-Equipment.sync({force : true});
 
 module.exports = Equipment;

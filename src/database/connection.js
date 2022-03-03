@@ -1,6 +1,6 @@
-const { sequelize } = require('./sequelize');
+const { database } = require('./db');
 
-module.exports = sequelize.authenticate()
+module.exports = database.authenticate()
 .then(() => {
     console.log('DATABASE CONNECTED WITH SUCCESS');
 })

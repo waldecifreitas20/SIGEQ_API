@@ -9,5 +9,12 @@ const database = new Sequelize(DATABASE, USER, PASSWORD, {
 
 module.exports = {
     datatype : Sequelize,
-    sequelize : database,
+    database : database,
+    syncAllModels : async () => {
+       require('../api/models').forEach(file => {
+           require('../api/models/'+file);
+       });
+
+        await database.sync({ force : true });
+    }
 };

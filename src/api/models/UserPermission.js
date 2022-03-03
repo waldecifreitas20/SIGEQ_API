@@ -1,6 +1,6 @@
-const {sequelize, datatype} = require('../../database/sequelize'); 
+const {database, datatype} = require('../../database/db'); 
 
-const UserPermission = sequelize.define('user_permission', {
+const UserPermission = database.define('user_permission', {
     id : {
         type : datatype.INTEGER,
         allowNull : false,
@@ -9,6 +9,4 @@ const UserPermission = sequelize.define('user_permission', {
     }   
 });
 
-
- 
 module.exports = UserPermission; 

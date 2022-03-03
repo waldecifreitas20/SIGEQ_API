@@ -1,9 +1,8 @@
-const {sequelize, datatype} = require('../../database/sequelize'); 
+const {database, datatype} = require('../../database/db'); 
 
 const Permission = require('./Permission');
 
-
-const User = sequelize.define('user', {
+const User = database.define('user', {
     fullName : {
         type : datatype.STRING,
         allowNull : false,
@@ -31,13 +30,6 @@ const User = sequelize.define('user', {
     }
 }); 
 
-User.belongsTo(Permission, {
-    constraint : true,
-    foreignKey : 'user_id'
-});
 
-Permission.hasMany(User, {
-    foreignKey : 'user_id'
-});
 
 module.exports = User;
