@@ -18,8 +18,8 @@ const Equipment = sequelize.define('equipment', {
         type : datatypes.STRING,
         allowNull : false,
     },
-    avaiable : {
-        type : datatypes.BOOLEAN,
+    status : {
+        type : datatypes.STRING,
         allowNull : false,
         default : false
     },

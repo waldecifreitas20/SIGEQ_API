@@ -6,6 +6,7 @@ const database = new Sequelize(DATABASE, USER, PASSWORD, {
     dialect : DIALECT || 'postgres'
 });
 
+
 module.exports = {
     datatype : Sequelize,
     sequelize : database,

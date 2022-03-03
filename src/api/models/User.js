@@ -1,26 +1,29 @@
-const {data, datatypes} = require('../../database/sequelize'); 
+const {sequelize, datatype} = require('../../database/sequelize'); 
+
 const Permission = require('./Permission');
+
 
 const User = sequelize.define('user', {
     fullName : {
-        type : datatypes.STRING,
+        type : datatype.STRING,
         allowNull : false,
     },
     email : {
-        type : datatypes.STRING,
+        type : datatype.STRING,
         allowNull : false,
         unique : true
     },
     password : {
-        type : datatypes.STRING,
+        type : datatype.STRING,
         allowNull : false,
     },
     cpf : {
-        type : datatypes.STRING,
+        type : datatype.STRING,
         allowNull : false,
         unique : true
     },
 }, {
+    timestamps : true, 
     hooks : {
         beforeSave : function(user) {
             console.log('usuario pass : ' + user.password);
@@ -30,11 +33,11 @@ const User = sequelize.define('user', {
 
 User.belongsTo(Permission, {
     constraint : true,
-    foreignKey : 'permissionId' 
+    foreignKey : 'user_id'
 });
-    
-User.sync();
 
-
+Permission.hasMany(User, {
+    foreignKey : 'user_id'
+});
 
 module.exports = User;
