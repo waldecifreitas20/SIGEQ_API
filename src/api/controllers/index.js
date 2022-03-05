@@ -1,12 +1,9 @@
-const fs = require('fs');
-const path = require('path');
+const { controllers } = require('../../utils/paths');
 
 module.exports = app => {
     require('../../utils/finder')
-    .getFilesName(path.resolve('src', 'api', 'controllers'))
+    .getFilesName(controllers.index)
     .forEach(file => {
-        require(
-            path.resolve('src','api','controllers',file)
-        )(app);
+        require(`${controllers.index}/${file}`)(app);
     });
 };

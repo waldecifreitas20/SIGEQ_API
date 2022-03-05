@@ -1,4 +1,5 @@
-const {database, datatype} = require('../../database/db'); 
+const paths = require('../../../utils/paths');
+const {database, datatype} = require(paths.database); 
 
 const Permission = database.define('permission', {
     name : {
@@ -10,6 +11,6 @@ const Permission = database.define('permission', {
         allowNull : false
     }
    
-}, { timestamps : true});
+}, { timestamps : false});
 
 module.exports = Permission; 

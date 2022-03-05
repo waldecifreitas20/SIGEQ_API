@@ -1,10 +1,10 @@
 const express = require('express');
 const router =  express.Router();
+const {services, middlewares} = require('../../utils/paths');
 
-const userServices = require('../services/authServices');
-const formValidation = require('../middlewares/formValidation');
+const userServices = require(services.auth);
 
-router.use(formValidation);
+router.use(require(middlewares.formValidation));
 
 router.get('/', (req, res) => {
     return res.send({ ok : 'route get'})

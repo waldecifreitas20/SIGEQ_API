@@ -1,4 +1,5 @@
-const path = require('path');
-const { getFilesName } = require(path.resolve('src', 'utils', 'finder.js'));
+const {resolve : getPath } = require('path');
+const { models } = require(getPath('src', 'utils', 'paths'));
+const { getFilesName } = require(getPath('src', 'utils', 'finder.js'));
 
-module.exports = getFilesName(path.resolve('src', 'api', 'models'));
+module.exports = folder => getFilesName(`${models.index}/${folder}`);

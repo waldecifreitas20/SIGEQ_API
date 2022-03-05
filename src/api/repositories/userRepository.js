@@ -1,4 +1,7 @@
-const UserModel = require('../models/User');
+const { resolve : getPath } = require('path');
+const { models } = require(getPath('src', 'utils', 'paths'));
+const UserModel = require(`${models.user}/User`);
+
 
 async function createUser(userData) {
     try {

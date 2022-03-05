@@ -1,4 +1,5 @@
-const {database, datatype} = require('../../database/db'); 
+const paths = require('../../../utils/paths');
+const {database, datatype} = require(paths.database); 
 
 const User = require('./User');
 const Permission = require('./Permission');
@@ -17,7 +18,7 @@ User.belongsToMany(Permission, {
         model : UserPermission
     },
     constraint : true,
-    foreignKey : 'permission_id'
+    foreignKey : 'permissionId'
 })
 
 Permission.belongsToMany(User, {
@@ -25,7 +26,7 @@ Permission.belongsToMany(User, {
         model : UserPermission
     },
     constraint : true,
-    foreignKey : 'user_id'
+    foreignKey : 'userId'
 })
 
 
