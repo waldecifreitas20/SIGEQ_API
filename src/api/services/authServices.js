@@ -1,22 +1,24 @@
 const userRepository = require('../repositories/userRepository');
 const { genetateToken } = require('../../utils/security');
 
+const _getFirstName = userFullName => userFullName.split(' ')[0];
+
+const _isUserNull = user => user == false;
+
 async function register(userData) {
-    if (!userData) {
-        return { 
-            error : 'user is null', 
-            status : 401 
-        };
-    }
-
-    const user = await userRepository.createUser(userData);    
-    const [name, ...trash] = user.fullName.split(' ');
-
-    return {
-        name : name,  
-        token : genetateToken(userData),
-        status : 200          
-    }
+    try {
+        const user = await userRepository.createUser(userData);    
+        return {
+            id : user.id,
+            name : _getFirstName(user.fullName),
+            token : genetateToken(userData)
+        }
+    } catch (error) {
+        return {
+            status : 400,
+            error,
+        }
+    }   
 }
 
 async function login(userData) {}
