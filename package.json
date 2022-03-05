@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
-    "test": "NODE_ENV=test jest"
+    "test": "jest"
   },
   "author": "Waldeci Santos de Freitas",
   "license": "ISC",
@@ -20,6 +20,7 @@
     "express": "^4.17.3",
     "jsonwebtoken": "^8.5.1",
     "pg": "^8.7.3",
-    "sequelize": "^6.17.0"
+    "sequelize": "^6.17.0",
+    "win-node-env": "^0.6.1"
   }
 }

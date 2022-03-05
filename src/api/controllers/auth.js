@@ -12,9 +12,9 @@ router.get('/', (req, res) => {
 
 router.post('/register', async (req, res) => {
     const userData = req.body
-    const response = await userServices.register(userData);
+    const user = await userServices.register(userData);
 
-    return res.status(response.status).send({ response });
+    return res.status(user.status).send(user);
 });
 
 
