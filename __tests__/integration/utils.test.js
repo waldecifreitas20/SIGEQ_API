@@ -6,8 +6,17 @@ describe('Finder.js test', () => {
         const folderPath = getPath('src', 'api', 'controllers');
         const filenames = finder.getFilesName(folderPath);
 
-        console.log(filenames);
-
         expect(filenames.length > 0).toBe(true);
+    });
+});
+
+describe('security.js test', () => {
+    const { genetateToken } = require('../../src/utils/security');
+    
+    it('should return a token', () => {
+        const userData = require('../factory').generateUser();    
+        const token = genetateToken(userData);
+        
+        expect(token.length > 0).toBe(true);
     });
 });

@@ -4,7 +4,8 @@ module.exports = {
     models : {
         index : getPath('src', 'api', 'models'),
         equipment : getPath('src', 'api', 'models', 'equipment'),
-        user : getPath('src', 'api', 'models', 'user'),
+        user : getPath('src', 'api', 'models', 'user', 'User'),
+        permission : getPath('src', 'api', 'models', 'user', 'Permission')
     },
     services : {
         index : getPath('src', 'api', 'services'),

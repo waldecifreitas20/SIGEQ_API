@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-require('dotenv');
+require('../config/dotenv');
 
 function genetateToken(userData) {
     return jwt.sign(userData, process.env.API_SECRET, {

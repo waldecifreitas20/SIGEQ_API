@@ -11,18 +11,15 @@ const database = new Sequelize(DATABASE, USER, PASSWORD, {
 module.exports = {
     datatype : Sequelize,
     database : database,
-    initModels : () => {
-        const { resolve : getPath } = require('path')
-        const { models } = require(getPath('src', 'utils', 'paths'));
-        
-        const userModels = require(models.index)('user');
-        const equimentModels = require(models.index)('equipment');
-        
-        userModels.forEach(file => {
-            require(`${models.user}/${file}`);
-        });
-        equimentModels.forEach(file => {
-            require(`${models.equipment}/${file}`);
+    initModels : () => { 
+        const { models } = require('../utils/paths');
+        const modelFolders = ['user', 'equipment'];
+
+        modelFolders.forEach(folder => {
+            require(models.index)(folder)
+            .forEach(file => {
+                require(`${models.index}/${folder}/${file}`);
+            })
         });
     },  
     syncDatabase : async () => {
