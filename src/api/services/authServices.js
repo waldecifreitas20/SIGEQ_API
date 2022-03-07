@@ -1,7 +1,14 @@
 const userRepository = require('../repositories/userRepository');
 const permissionRepository = require('../repositories/permissionRepository');
-const permissions = require('../repositories/permissions');
 
+const permissions = require('../repositories/permissions');
+const permissionsIDs = require('../../config/Permissions');
+
+const initPermissions = async () => {
+    for (let i = 0; i < permissions.length; i++) {
+        await permissionRepository.createPermision(permissions[i]);
+    }
+}
 
 async function register(userData) {
     try {
@@ -18,19 +25,21 @@ async function register(userData) {
     }   
 }
 
-async function addPermissionsTo(user, permissionsData) {
+async function addPermissionsTo(user, permissionsIds) {
     try {
-        var userPermissions = [];
-       
-        for (let i = 0; i < permissionsData.length; i++) {
-            userPermissions.push(await permissionRepository.createPermision(permissionsData[i]));
-        }
-        console.log(user.id);
+        
+        const permissionGateway = await permissionRepository
+                .findPermissionById(1);
+                console.log(permissionGateway);
+        user = await permissionRepository.setLinkBetween(user, permissionGateway);
+                console.log(permissionGateway.id);
+                console.log('===============================================');
+        
         return {
             status : 200,
-            id : user.id,
-            fullName : user.fullName,
-            permissions : userPermissions,
+            id : 4,
+            fullName : 'user.fullName',
+            permissions : 'user.permissions',
         };
 
     } catch (error) {
@@ -49,6 +58,7 @@ async function login(userData) {}
 async function isValidToken(token) {}
 
 module.exports = {
+    initPermissions : initPermissions,
     register : register,
     addPermissionsTo : addPermissionsTo,
     login : login,

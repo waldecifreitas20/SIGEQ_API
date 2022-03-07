@@ -1,7 +1,7 @@
 const express = require('express');
 const router =  express.Router();
 const {services, middlewares} = require('../../utils/paths');
-const permissions = require('../repositories/permissions');
+const permissions = require('../../config/Permissions');
 const userServices = require(services.auth);
 
 const { genetateToken } = require('../../utils/security');
@@ -12,21 +12,20 @@ router.get('/', (req, res) => {
     return res.send({ ok : 'route get'})
 });
 
+//userServices.initPermissions();
+
 router.post('/register', async (req, res) => {
     const userData = req.body;
-   
     var response = await userServices.register(userData);
-    console.log(response.user.id);
+
     if (response.status == 200) {   
-        const user = {
-            id : response.user.id,
-            fullName : response.user.fullName
-        }
-        
-        response = await userServices.addPermissionsTo(user, [
-            permissions.add,
-            permissions.delete,
-            permissions.read
+
+        const userId = response.user.id;
+
+        response = await userServices.addPermissionsTo(response.user, [
+            permissions.ADD,
+            permissions.DELETE,
+            permissions.READ
         ]);
 
         response.token = genetateToken(response)
@@ -35,6 +34,8 @@ router.post('/register', async (req, res) => {
     
     return res.status(response.status).send(response);
 });
+
+
 
 
 module.exports = app => app.use('/auth', router);
