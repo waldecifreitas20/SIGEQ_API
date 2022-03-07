@@ -1,7 +1,7 @@
 const { resolve : getPath } = require('path');
 const { models } = require(getPath('src', 'utils', 'paths'));
 
-const UserModel = require(`${models.user}/User`);
+const UserModel = require(`${models.user}`);
 
 
 async function createUser(userData) {

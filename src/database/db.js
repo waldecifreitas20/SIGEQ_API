@@ -23,6 +23,6 @@ module.exports = {
         });
     },  
     syncDatabase : async () => {
-        await database.sync();
+        await database.sync({ force : true });
     }
 };

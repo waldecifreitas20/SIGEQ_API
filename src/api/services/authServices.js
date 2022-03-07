@@ -1,16 +1,17 @@
 const userRepository = require('../repositories/userRepository');
+const permissionRepository = require('../repositories/permissionRepository');
+const permissions = require('../repositories/permissions');
 const { genetateToken } = require('../../utils/security');
-
-const _getFirstName = userFullName => userFullName.split(' ')[0];
 
 async function register(userData) {
     try {
         const user = await userRepository.createUser(userData);    
+
+        const _user = await _addPermissions(user);
         return {
             status : 200,
-            id : user.id,
-            name : _getFirstName(user.fullName),
-            token : genetateToken(userData)
+            _user,
+            token : genetateToken(userData),
         }
     } catch (error) {
         return {
@@ -18,6 +19,19 @@ async function register(userData) {
             error,
         }
     }   
+}
+
+async function _addPermissions(user) {
+    try {
+        const permission = await permissionRepository.createPermision({
+            name : 'add', 
+            description : 'aaaaa'
+        });
+
+        return await permissionRepository.setLinkBetween(user, permission);
+    } catch (error) {
+        throw error;
+    }
 }
 
 async function login(userData) {}
