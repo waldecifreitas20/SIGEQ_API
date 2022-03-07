@@ -1,17 +1,14 @@
 const userRepository = require('../repositories/userRepository');
 const permissionRepository = require('../repositories/permissionRepository');
 const permissions = require('../repositories/permissions');
-const { genetateToken } = require('../../utils/security');
+
 
 async function register(userData) {
     try {
-        const user = await userRepository.createUser(userData);    
-
-        const _user = await _addPermissions(user);
+        const user = await userRepository.createUser(userData);
         return {
             status : 200,
-            _user,
-            token : genetateToken(userData),
+            user,
         }
     } catch (error) {
         return {
@@ -21,18 +18,31 @@ async function register(userData) {
     }   
 }
 
-async function _addPermissions(user) {
+async function addPermissionsTo(user, permissionsData) {
     try {
-        const permission = await permissionRepository.createPermision({
-            name : 'add', 
-            description : 'aaaaa'
-        });
+        var userPermissions = [];
+       
+        for (let i = 0; i < permissionsData.length; i++) {
+            userPermissions.push(await permissionRepository.createPermision(permissionsData[i]));
+        }
+        console.log(user.id);
+        return {
+            status : 200,
+            id : user.id,
+            fullName : user.fullName,
+            permissions : userPermissions,
+        };
 
-        return await permissionRepository.setLinkBetween(user, permission);
     } catch (error) {
-        throw error;
+        console.log(error);
+        return {
+            status : 406,
+            error
+        };
     }
 }
+
+
 
 async function login(userData) {}
 
@@ -40,6 +50,7 @@ async function isValidToken(token) {}
 
 module.exports = {
     register : register,
+    addPermissionsTo : addPermissionsTo,
     login : login,
     isValidToken : isValidToken
 }
