@@ -17,8 +17,8 @@ module.exports = (req, res, next) => {
 
     if (paramsReceived < 4) {
         return res.status(400).send({ 
-            error : true,
-            msg : 'expected to receive 4 params. But, was gived '+ paramsReceived
+            status : 400,
+            error : 'expected to receive 4 params. But, was gived '+ paramsReceived
         }); 
     }
 

@@ -11,7 +11,7 @@ const UserPermission = database.define('user_permission', {
         primaryKey : true,
         autoIncrement : true
     }   
-});
+}, { timestamps : false });
 
 User.belongsToMany(Permission, {
     through : {

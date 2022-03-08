@@ -4,14 +4,16 @@ const { genetateToken } = require('../../utils/security');
 async function register(userData) {
     try {
         const user = await userRepository.createUser(userData);
-        const userFormated = {
-            id : user.id,
-            fullName : user.fullName, 
-        }
         return {
             status : 200,
-            user,
-            token : genetateToken(user)
+            user : {
+                id : user.id,
+                fullName : user.fullName
+            },
+            token : genetateToken({
+                id : user.id,
+                fullName : user.fullName, 
+            })
         }
     } catch (error) {
         console.log(error);
