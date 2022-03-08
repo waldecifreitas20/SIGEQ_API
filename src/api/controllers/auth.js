@@ -10,15 +10,19 @@ router.get('/', (req, res) => {
 });
 
 
-router.post('/register',formValidation, async (req, res) => {
+router.post('/register',formValidation.register, async (req, res) => {
     const userData = req.body;
     var response = await userServices.register(userData);
 
     return res.status(response.status).send(response);
 });
 
-router.post('/authenticate', (req, res) => {
-    return res.status(200).send({ ok : true});
+router.post('/authenticate', formValidation.login, async (req, res) => {
+    const userData = req.body
+
+    var response = await userServices.login(userData);
+
+    return res.status(response.status).send(response);
 });
 
 

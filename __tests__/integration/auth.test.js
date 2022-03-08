@@ -31,17 +31,20 @@ describe('bcrypt test', () => {
 });
 
 describe('Authenticate test', () => {
+
     const { generateUser } = require('../factory');    
     const services = require(paths.services.auth);    
     const newUser = generateUser();
     
     it('should register a new user in database', async () => {
         const response = await services.register(newUser);
+
         expect(response.status).toBe(200);
     });
-
+    
     it('should gives error trying to register an already registered user', async () => {
         const response = await services.register(newUser);
+  
         expect(response.status).toBe(400);
     });
 });

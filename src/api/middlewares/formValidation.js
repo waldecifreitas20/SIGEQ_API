@@ -1,26 +1,48 @@
-module.exports = (req, res, next) => {
-    const user = req.body;
-    let paramsReceived = 4;
+module.exports = {
+    register : (req, res, next) => {
+        const user = req.body;
+        let receivedParams = 4;
 
-    if (!user.fullName) {
-        --paramsReceived;
-    }
-    if (!user.email) {
-        --paramsReceived;
-    }
-    if (!user.password) {
-        --paramsReceived;
-    }
-    if (!user.cpf) {
-        --paramsReceived;
-    }
+        if (!user.fullName) {
+            --receivedParams;
+        }
+        if (!user.email) {
+            --receivedParams;
+        }
+        if (!user.password) {
+            --receivedParams;
+        }
+        if (!user.cpf) {
+            --receivedParams;
+        }
 
-    if (paramsReceived < 4) {
-        return res.status(400).send({ 
-            status : 400,
-            error : 'expected to receive 4 params. But, was gived '+ paramsReceived
-        }); 
-    }
+        if (receivedParams < 4) {
+            return res.status(400).send({ 
+                status : 400,
+                error : 'expected to receive 4 params. But, was gived '+ receivedParams
+            }); 
+        }
 
-    next();
-}
+        next();
+    },
+    login : (req, res, next) => {
+        const user = req.body;
+        let receivedParams = 2;
+
+        if (!user.email) {
+            --receivedParams;
+        }
+        if (!user.password) {
+            --receivedParams;
+        }
+
+        if (receivedParams < 2) {
+            return res.status(400).send({ 
+                status : 400,
+                error : 'expected to receive 2 params. But, was gived '+ receivedParams
+            }); 
+        }
+
+        next();
+    }
+};
