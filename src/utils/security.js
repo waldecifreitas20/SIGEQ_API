@@ -7,6 +7,11 @@ function genetateToken(userData) {
     });
 }
 
+function checkToken(token) {
+    return jwt.verify(token, process.env.API_SECRET);
+}
+
 module.exports = {
-    genetateToken : genetateToken
+    genetateToken : genetateToken,
+    checkToken : checkToken,
 }

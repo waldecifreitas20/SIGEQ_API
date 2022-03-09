@@ -49,10 +49,8 @@ async function login(userData) {
     }
 }
 
-async function isValidToken(token) {}
 
 module.exports = {
     register : register,
     login : login,
-    isValidToken : isValidToken
 }

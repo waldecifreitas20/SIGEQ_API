@@ -3,7 +3,10 @@ const router =  express.Router();
 
 const {services, middlewares} = require('../../utils/paths');
 const userServices = require(services.auth);
-const formValidation = require(middlewares.formValidation);
+const [formValidation, authorization] = [
+    require(middlewares.formValidation),
+    require(middlewares.authorization) 
+];
 
 router.get('/', (req, res) => {
     return res.send({ ok : 'route get'})
@@ -25,6 +28,11 @@ router.post('/authenticate', formValidation.login, async (req, res) => {
     return res.status(response.status).send(response);
 });
 
+
+router.post('/check_token', authorization,(req, res) => {
+    const user = req.userData;
+    return res.status(200).send({message : 'valid token'});
+});
 
 
 module.exports = app => app.use('/auth', router);
