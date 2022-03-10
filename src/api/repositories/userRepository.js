@@ -8,6 +8,7 @@ async function createUser(userData) {
     try {
         return await UserModel.create(userData);
     } catch (error) {
+        console.log(userData);
         throw 'User already registered';   
     }
 }
@@ -23,7 +24,6 @@ async function findUserByEmail(email) {
         }
         return user;
     } catch (error) {
-        console.log(error);
         throw error;
     }
 }

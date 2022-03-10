@@ -3,7 +3,7 @@ module.exports = {
         const user = req.body;
         let receivedParams = 4;
 
-        if (!user.fullName) {
+        if (!user.full_name) {
             --receivedParams;
         }
         if (!user.email) {

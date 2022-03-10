@@ -1,23 +1,27 @@
 const userRepository = require('../repositories/userRepository');
-const { genetateToken } = require('../../utils/security');
+const { genetateToken, checkPassword } = require('../../utils/security');
+
+const userDataFormat = (user, permissions=[]) => {
+    return {
+        status : 200,
+        user : {
+            id : user.id,
+            full_name : user.full_name,
+            permissions : permissions
+        }, 
+        token : genetateToken({
+            id : user.id,
+            full_name : user.full_name, 
+            permissions : permissions
+        })  
+    }
+}
 
 async function register(userData) {
     try {
         const user = await userRepository.createUser(userData);
-        return {
-            status : 200,
-            user : {
-                id : user.id,
-                fullName : user.fullName
-            },
-            token : genetateToken({
-                id : user.id,
-                fullName : user.fullName, 
-                permissions : []
-            })
-        }
+        return userDataFormat(user);
     } catch (error) {
-        console.log(error);
         return {
             status : 400,
             error,
@@ -28,21 +32,13 @@ async function register(userData) {
 async function login(userData) {
     try {
         const user = await userRepository.findUserByEmail(userData.email);
-        return {
-            status : 200,
-            user : {
-                id : user.id,
-                full_name : user.full_name,
-                permissions : user.permissions,
-            },
-            token : genetateToken({
-                id : user.id, 
-                full_name: user.full_name, 
-                permissions: user.permissions
-            })
+
+        if (!checkPassword(userData.password, user.password)) {
+            throw 'invalid password';
         }
+        
+        return userDataFormat(user);
     } catch(error) {
-     //   console.log(error);
         return {
             status : 401,
             error,
