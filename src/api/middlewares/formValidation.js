@@ -41,8 +41,9 @@ module.exports = {
                 status : 400,
                 error : 'expected to receive 2 params. But, was gived '+ receivedParams
             }); 
+        } else {
+            next();
         }
 
-        next();
     }
 };

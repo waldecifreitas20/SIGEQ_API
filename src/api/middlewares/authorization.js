@@ -9,10 +9,10 @@ module.exports = (req, res, next) => {
     
     const [bearer, token] = authorization.split(' ');
     
-    if (bearer == null) {
+    if (bearer !== 'Bearer') {
         return res.status(401).send({error : "expected gives bearer"});
     }
-
+    
     try {
         const userData = checkToken(token);
         req.userData = userData;

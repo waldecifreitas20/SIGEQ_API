@@ -32,16 +32,17 @@ async function login(userData) {
             status : 200,
             user : {
                 id : user.id,
-                fullName : user.fullName,
+                full_name : user.full_name,
                 permissions : user.permissions,
             },
             token : genetateToken({
                 id : user.id, 
-                fullName: user.fullName, 
+                full_name: user.full_name, 
                 permissions: user.permissions
             })
         }
     } catch(error) {
+     //   console.log(error);
         return {
             status : 401,
             error,

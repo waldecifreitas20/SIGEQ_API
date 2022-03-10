@@ -30,7 +30,6 @@ router.post('/authenticate', formValidation.login, async (req, res) => {
 
 
 router.post('/check_token', authorization,(req, res) => {
-    const user = req.userData;
     return res.status(200).send({message : 'valid token'});
 });
 

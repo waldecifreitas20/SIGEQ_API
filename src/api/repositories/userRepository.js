@@ -18,11 +18,12 @@ async function findUserByEmail(email) {
             where : {email : email}, 
             include : PermissionModel
         });
-        if (!user) {
+        if (user == null) {
             throw 'user not found';
         }
         return user;
     } catch (error) {
+        console.log(error);
         throw error;
     }
 }
