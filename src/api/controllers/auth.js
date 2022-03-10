@@ -8,10 +8,6 @@ const [formValidation, authorization] = [
     require(middlewares.authorization) 
 ];
 
-router.get('/', (req, res) => {
-    return res.send({ ok : 'route get'})
-});
-
 
 router.post('/register',formValidation.register, async (req, res) => {
     const userData = req.body;
@@ -19,6 +15,7 @@ router.post('/register',formValidation.register, async (req, res) => {
 
     return res.status(response.status).send(response);
 });
+
 
 router.post('/authenticate', formValidation.login, async (req, res) => {
     const userData = req.body

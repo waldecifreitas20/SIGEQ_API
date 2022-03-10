@@ -45,5 +45,14 @@ module.exports = {
             next();
         }
 
+    },
+    equipment : (req, res, next) => {
+        const equipemnt = req.body;
+
+        if(!equipemnt){
+            return res.status(406).send({ error : 'no params received' });
+        }
+
+        next();
     }
 };
