@@ -1,9 +1,13 @@
 const express = require('express');
 const router = express.Router();
 
-const { services } = require('../../utils/paths');
-
+const { services, middlewares } = require('../../utils/paths');
 const equipmentServices = require(services.equipment);
+
+const permissionsMiddleware = require(middlewares.authorization).checkPermissions;
+
+
+router.use(permissionsMiddleware);
 
 router.get('/', (req, res) => {
     return res.status(200).send({ok : 'all right'});
