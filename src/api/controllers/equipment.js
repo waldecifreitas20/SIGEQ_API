@@ -1,11 +1,13 @@
 const express = require('express');
 const router = express.Router();
 
-const { services, middlewares } = require('../../utils/paths');
-const equipmentServices = require(services.equipment);
-
-const permissionsMiddleware = require(middlewares.authorization).checkPermissions;
-
+const [ 
+    equipmentServices, 
+    permissionsMiddleware 
+] = [
+    require(require('../../utils/paths').services.equipment),
+    require(require('../../utils/paths').middlewares.authorization).checkPermissions
+];
 
 router.use(permissionsMiddleware);
 
@@ -15,7 +17,6 @@ router.get('/', (req, res) => {
 
 router.get('/by_heritage/:heritage', (req, res) => {
     const heritage = req.params.heritage;
-
     const response = equipmentServices.getEquipmentBy({heritage : heritage});
 
     return res.status(response.status).send(response);
