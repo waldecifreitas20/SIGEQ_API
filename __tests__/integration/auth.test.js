@@ -1,34 +1,34 @@
-const bcrypt = require('bcryptjs');
+/* 
+
+Register user:
+    - Register user with success                        1
+    - Attempt to register already existing user         1
+    - Attempt to register user null or undefined
+
+User authentication: 
+    - Authenticate user with success
+    - Authenticate attempt user with false password
+    - Authenticate attempt user with false email
+
+*/
+
 const paths = require('../../src/utils/paths');
 require('../../src/database/connection');
 
-const database = require(paths.database);
-database.database.authenticate();
-database.initModels();
-database.syncDatabase();
+const { 
+    database, 
+    initModels, 
+    syncDatabase 
+} = require(paths.database);
 
-describe('bcrypt test', () => {
-    const fakePassword = '159731';
-    const hash = bcrypt.hashSync(fakePassword, 10);
+const initDatabase = async () => {
+    database.authenticate();
+    initModels();
+    await syncDatabase({force : true});
+    await syncDatabase();
+}
 
-    it('should generate a hash', () => {
-      
-        expect(hash.length > 0).toBe(true);
-    });
-    
-    it('should compare hash that returns true', async () => {
-        const isEquals = await bcrypt.compare(fakePassword, hash);
-
-        expect(isEquals).toBe(true);
-    });
-
-    it('should compare hash that returns true', async () => {
-        const wrongPassword = '5987';
-        const isEquals = await bcrypt.compare(wrongPassword, hash);
-
-        expect(isEquals).toBe(false);
-    });
-});
+initDatabase();
 
 describe('Authenticate test', () => {
 
@@ -38,7 +38,7 @@ describe('Authenticate test', () => {
     
     it('should register a new user in database', async () => {
         const response = await services.register(newUser);
-
+        
         expect(response.status).toBe(200);
     });
     
@@ -47,4 +47,5 @@ describe('Authenticate test', () => {
   
         expect(response.status).toBe(400);
     });
+
 });
