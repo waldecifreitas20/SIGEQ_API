@@ -22,7 +22,7 @@ module.exports = {
             })
         });
     },  
-    syncDatabase : async () => {
-        await database.sync();
+    syncDatabase : async (clearDatabase={force : false}) => {
+        await database.sync(clearDatabase);
     }
 };
