@@ -8,7 +8,6 @@ async function createUser(userData) {
     try {
         return await UserModel.create(userData);
     } catch (error) {
-        console.log(userData);
         throw 'User already registered';   
     }
 }
