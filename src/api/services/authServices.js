@@ -7,12 +7,12 @@ const userDataFormat = (user, permissions=[]) => {
         user : {
             id : user.id,
             full_name : user.full_name,
-            permissions : permissions
+            permissions : user.permissions
         }, 
         token : genetateToken({
             id : user.id,
             full_name : user.full_name, 
-            permissions : permissions
+            permissions : user.permissions
         })  
     }
 }
