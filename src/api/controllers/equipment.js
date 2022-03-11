@@ -6,20 +6,34 @@ const [
     permissionsMiddleware 
 ] = [
     require(require('../../utils/paths').services.equipment),
-    require(require('../../utils/paths').middlewares.authorization).checkPermissions
+    require(require('../../utils/paths').middlewares.authorization)
 ];
 
-router.use(permissionsMiddleware);
+router.use(permissionsMiddleware.checkToken);
+router.use(permissionsMiddleware.checkPermissions);
 
-router.get('/', (req, res) => {
-    return res.status(200).send({ok : 'all right'});
-});
 
-router.get('/by_heritage/:heritage', (req, res) => {
-    const heritage = req.params.heritage;
-    const response = equipmentServices.getEquipmentBy({heritage : heritage});
+router.get('/all', async (req, res) => {
+
+    const response = await equipmentServices.getAllEquipment();
 
     return res.status(response.status).send(response);
 });
+
+
+router.get('/by_heritage/:heritage', async (req, res) => {
+
+    const heritage = req.params.heritage;
+    const response = await equipmentServices.getEquipmentBy({heritage : heritage});
+
+    return res.status(response.status).send(response);
+});
+
+
+router.post('/create', (req, res) => {
+
+    const equipmentData = req.body;
+});
+
 
 module.exports = app => app.use('/equipment', router);

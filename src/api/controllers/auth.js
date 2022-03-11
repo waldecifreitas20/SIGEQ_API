@@ -26,7 +26,7 @@ router.post('/authenticate', formValidation.login, async (req, res) => {
 });
 
 
-router.post('/check_token', authorization.tokenVerify,(req, res) => {
+router.post('/check_token', authorization.checkToken,(req, res) => {
     return res.status(200).send({message : 'valid token'});
 });
 
