@@ -7,12 +7,12 @@ const userDataFormat = (user, permissions=[]) => {
         user : {
             id : user.id,
             full_name : user.full_name,
-            permissions : user.permissions
+            permissions : permissions
         }, 
         token : genetateToken({
             id : user.id,
             full_name : user.full_name, 
-            permissions : user.permissions
+            permissions : permissions
         })  
     }
 }
@@ -20,7 +20,7 @@ const userDataFormat = (user, permissions=[]) => {
 async function register(userData) {
     try {
         const user = await userRepository.createUser(userData);
-        return userDataFormat(user);
+        return userDataFormat(user, user.permissions);
     } catch (error) {
         return {
             status : 400,
@@ -37,7 +37,7 @@ async function login(userData) {
             throw 'invalid password';
         }
         
-        return userDataFormat(user);
+        return userDataFormat(user, user.permissions);
     } catch(error) {
         return {
             status : 401,

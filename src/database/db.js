@@ -7,22 +7,32 @@ const database = new Sequelize(DATABASE, USER, PASSWORD, {
     logging : false
 });
 
+const initModels = () => { 
+    const { models } = require('../utils/paths');
+    const modelFolders = ['user', 'equipment'];
+
+    modelFolders.forEach(folder => {
+        require(models.index)(folder)
+        .forEach(file => {
+            require(`${models.index}/${folder}/${file}`);
+        })
+    });
+}
+
+const syncDatabase = async (clearDatabase={force : false}) => {
+    await database.sync(clearDatabase);
+}
 
 module.exports = {
     datatype : Sequelize,
     database : database,
-    initModels : () => { 
-        const { models } = require('../utils/paths');
-        const modelFolders = ['user', 'equipment'];
-
-        modelFolders.forEach(folder => {
-            require(models.index)(folder)
-            .forEach(file => {
-                require(`${models.index}/${folder}/${file}`);
-            })
-        });
-    },  
-    syncDatabase : async (clearDatabase={force : false}) => {
-        await database.sync(clearDatabase);
+    initDatabase : async () => {
+        initModels();
+        await syncDatabase();
+    },
+    initDatabaseInTestMode : async () => {
+        initModels();
+        await syncDatabase({force : true});
+        await syncDatabase();
     }
 };

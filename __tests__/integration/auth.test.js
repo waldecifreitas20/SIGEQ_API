@@ -12,23 +12,11 @@ User authentication:
 
 */
 
+const { initDatabaseInTestMode } = require('../../src/database/db');
 const paths = require('../../src/utils/paths');
 require('../../src/database/connection');
 
-const { 
-    database, 
-    initModels, 
-    syncDatabase 
-} = require(paths.database);
-
-const initDatabase = async () => {
-    database.authenticate();
-    initModels();
-    await syncDatabase({force : true});
-    await syncDatabase();
-}
-
-initDatabase();
+initDatabaseInTestMode();
 
 describe('Register test', () => {
 

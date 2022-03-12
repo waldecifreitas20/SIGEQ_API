@@ -12,7 +12,8 @@
   "license": "ISC",
   "devDependencies": {
     "faker-br": "^0.4.1",
-    "jest": "^27.5.1"
+    "jest": "^27.5.1",
+    "supertest": "^6.2.2"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

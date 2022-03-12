@@ -1,6 +1,6 @@
 const { database } = require('./db');
 
-module.exports = database.authenticate()
+module.exports = async () => await database.authenticate()
 .then(() => {
     console.log('DATABASE CONNECTED WITH SUCCESS');
 })

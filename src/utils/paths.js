@@ -19,6 +19,8 @@ module.exports = {
     },
     controllers : {
         index : getPath('src', 'api', 'controllers'),
+        auth : getPath('src', 'api', 'controllers', 'auth'),
+        equipment : getPath('src', 'api', 'controllers', 'equipment'),
     },
     functions : {
         finder : getPath('src', 'utils', 'finder'),
