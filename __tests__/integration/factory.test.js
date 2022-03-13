@@ -1,6 +1,6 @@
 describe('Factory', () => {
     
-    it('should get a new user', () => {
+    it('should generate a new user', () => {
         const factory = require('../factory');
         const newUser = factory.generateUser();
 

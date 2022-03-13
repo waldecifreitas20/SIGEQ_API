@@ -1,26 +1,29 @@
 const userRepository = require('../repositories/userRepository');
 const { genetateToken, checkPassword } = require('../../utils/security');
 
-const userDataFormat = (user, permissions=[]) => {
+const getUserPermissions = user => {
+    if(!user.permissions)
+        return [];
+    return user.permissions;
+}
+
+const userDataFormat = user => {
+    const userData = {
+        id : user.id,
+        full_name : user.full_name,
+        permissions : getUserPermissions(user)
+    }
     return {
         status : 200,
-        user : {
-            id : user.id,
-            full_name : user.full_name,
-            permissions : permissions
-        }, 
-        token : genetateToken({
-            id : user.id,
-            full_name : user.full_name, 
-            permissions : permissions
-        })  
+        user : userData, 
+        token : genetateToken(userData)  
     }
 }
 
 async function register(userData) {
     try {
         const user = await userRepository.createUser(userData);
-        return userDataFormat(user, user.permissions);
+        return userDataFormat(user);
     } catch (error) {
         return {
             status : 400,
@@ -37,7 +40,7 @@ async function login(userData) {
             throw 'invalid password';
         }
         
-        return userDataFormat(user, user.permissions);
+        return userDataFormat(user);
     } catch(error) {
         return {
             status : 401,

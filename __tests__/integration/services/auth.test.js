@@ -1,10 +1,5 @@
 /* 
 
-Register user:
-    - Register user with success                        1
-    - Attempt to register already existing user         1
-    - Attempt to register user null or undefined
-
 User authentication: 
     - Authenticate user with success
     - Authenticate attempt user with false password
@@ -12,15 +7,15 @@ User authentication:
 
 */
 
-const { initDatabaseInTestMode } = require('../../src/database/db');
-const paths = require('../../src/utils/paths');
-require('../../src/database/connection');
+const { initDatabaseInTestMode } = require('../../../src/database/db');
+const paths = require('../../../src/utils/paths');
+require('../../../src/database/connection');
 
 initDatabaseInTestMode();
 
 describe('Register test', () => {
 
-    const { generateUser } = require('../factory');    
+    const { generateUser } = require('../../factory');    
     const services = require(paths.services.auth);    
     const newUser = generateUser();
     
