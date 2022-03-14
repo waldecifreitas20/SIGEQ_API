@@ -18,8 +18,7 @@ describe('Register test', () => {
     const newUser = generateUser();
     
     it('should register a new user in database', async () => {
-        const response = await services.register(newUser);  
-        console.log(response);      
+        const response = await services.register(newUser);    
         expect(response.status).toBe(200);
     });
     
