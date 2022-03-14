@@ -42,6 +42,7 @@ describe('Authenticate test', () => {
 
     it('should authenticate an user with success', async () => {
         const response = await postRequest(routes.authenticate, user);
+        console.log(response);
         expect(response.status).toBe(200);
     });
     
@@ -70,12 +71,11 @@ describe('Check token test', () => {
     it('should return an error when trying to authenticate an user with invalid password', async () => {
         const { generateToken } = require(getPath('src/utils/security'));
         const token = 'Bearer ' + generateToken(generateUser());
-
-        const response = await postRequest.call(routes.checkToken, 'nobody', { authorization : token });
-
-        console.log(token);
-        console.log(response._body);
-        
+        const response = await postRequest(
+            routes.checkToken, 
+            'nobody', 
+            { authorization : token }
+        );
         expect(response.status).toBe(200)
     });
 });

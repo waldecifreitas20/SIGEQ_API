@@ -7,9 +7,9 @@ User authentication:
 
 */
 
+const { initDatabaseInTestMode } = require('../../../src/database/db');
 const paths = require('../../../src/utils/paths');
 require('../../../src/database/connection');
-
 
 describe('Register test', () => {
 
@@ -18,7 +18,8 @@ describe('Register test', () => {
     const newUser = generateUser();
     
     it('should register a new user in database', async () => {
-        const response = await services.register(newUser);        
+        const response = await services.register(newUser);  
+        console.log(response);      
         expect(response.status).toBe(200);
     });
     

@@ -4,11 +4,13 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended : false}));
 
-require('./config/dotenv');
+const toStablishConnection = require('./database/connection');
+const { initDatabase } = require('./database/db')
 
+require('./config/dotenv');
 require('./api/controllers')(app);
 
-require('./database/connection');
-require('./database/db').initDatabase();
+initDatabase();
+toStablishConnection();
 
 module.exports = app;
