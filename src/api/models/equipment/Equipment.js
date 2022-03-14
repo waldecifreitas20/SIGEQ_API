@@ -6,6 +6,10 @@ const Equipment = database.define('equipments', {
         type : datatype.STRING,
         allowNull : false
     },
+    category : {
+        type : datatype.STRING,
+        allowNull : false
+    },
     model : {
         type : datatype.STRING,
         allowNull : false
