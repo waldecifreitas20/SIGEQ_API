@@ -1,5 +1,5 @@
 const userRepository = require('../repositories/userRepository');
-const { genetateToken, checkPassword } = require('../../utils/security');
+const { generateToken, checkPassword } = require('../../utils/security');
 
 const getUserPermissions = user => {
     if(!user.permissions)
@@ -16,7 +16,7 @@ const userDataFormat = user => {
     return {
         status : 200,
         user : userData, 
-        token : genetateToken(userData)  
+        token : generateToken(userData)  
     }
 }
 

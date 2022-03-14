@@ -11,11 +11,11 @@ describe('Finder.js test', () => {
 });
 
 describe('security.js test', () => {
-    const { genetateToken } = require('../../src/utils/security');
+    const { generateToken } = require('../../src/utils/security');
     
     it('should return a token', () => {
         const userData = require('../factory').generateUser();    
-        const token = genetateToken(userData);
+        const token = generateToken(userData);
         
         expect(token.length > 0).toBe(true);
     });

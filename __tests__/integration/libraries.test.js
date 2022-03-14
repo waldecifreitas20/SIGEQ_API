@@ -42,7 +42,7 @@ describe('JWT test', () => {
     });
     
     it('should verify if token sent it is valid', () => {
-        const token = security.genetateToken(factory.generateUser());
+        const token = security.generateToken(factory.generateUser());
         const result = security.checkToken(token);
 
          expect(result != null).toBe(true);

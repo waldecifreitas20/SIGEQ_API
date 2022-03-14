@@ -3,8 +3,8 @@ const { checkToken } = require('../../utils/security');
 module.exports = {
     checkToken : (req, res, next) => {
         const authorization = req.headers.authorization;
-
-        if (!authorization) 
+        console.log(req.body);
+        if (authorization == undefined) 
             return res.status(401).send({error : 'token is null'});
         
         const [ bearer, token ] = authorization.split(' ');

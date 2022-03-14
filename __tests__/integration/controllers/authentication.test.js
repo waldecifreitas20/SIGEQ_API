@@ -1,6 +1,6 @@
 const request = require('supertest');
-
-const app = require('../../../src/app');
+const { resolve : getPath } = require('path');
+const app = require(getPath('src', 'app'));
 const { generateUser } = require('../../factory');
 
 const routes = {
@@ -9,10 +9,10 @@ const routes = {
     checkToken : '/auth/check_token'
 }
 
-const postRequest = async (route, data={}) => {
+const postRequest = async (route, data={}, headers = {}) => {
     return await request(app)
         .post(route)
-        .send(data);
+        .send(data).set(headers);
 };
 
 const user = generateUser();
@@ -67,7 +67,17 @@ describe('Authenticate test', () => {
 
 });
 describe('Check token test', () => {
+    it('should return an error when trying to authenticate an user with invalid password', async () => {
+        const { generateToken } = require(getPath('src/utils/security'));
+        const token = 'Bearer ' + generateToken(generateUser());
 
+        const response = await postRequest.call(routes.checkToken, 'nobody', { authorization : token });
+
+        console.log(token);
+        console.log(response._body);
+        
+        expect(response.status).toBe(200)
+    });
 });
 
 

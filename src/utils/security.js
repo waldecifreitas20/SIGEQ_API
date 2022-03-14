@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 require('../config/dotenv');
 
-function genetateToken(userData) {
+function generateToken(userData) {
     return jwt.sign(userData, process.env.API_SECRET, {
         expiresIn : 3600
     });
@@ -17,7 +17,7 @@ function checkPassword(password, hash) {
 }
 
 module.exports = {
-    genetateToken : genetateToken,
+    generateToken : generateToken,
     checkToken : checkToken,
     checkPassword : checkPassword
 }
