@@ -7,11 +7,9 @@ User authentication:
 
 */
 
-const { initDatabaseInTestMode } = require('../../../src/database/db');
 const paths = require('../../../src/utils/paths');
 require('../../../src/database/connection');
 
-initDatabaseInTestMode();
 
 describe('Register test', () => {
 
