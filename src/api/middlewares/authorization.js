@@ -21,11 +21,12 @@ module.exports = {
             return res.status(401).send({error : "invalid token"});
         }
     },
+    
     checkPermissions : (req, res, next) => {
         const permissions = req.permissions;
 
         if (!permissions || permissions.length === 0) 
             return res.status(401).send({ error : 'user has no permissions'})
         next();
-    }  
+    }
 }

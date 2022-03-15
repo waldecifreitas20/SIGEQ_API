@@ -13,7 +13,7 @@ module.exports = {
 
     getAll : async () => {
         const all = await EquipmentModel.findAll();
-       
+        
         if (all.length === 0) {
             throw 'cannot find any equipment into the database';  
         }

@@ -24,12 +24,10 @@ describe('Register test', () => {
         expect(response.status).toBe(200);
     });
     
-    
     it('should return an error on try to register an user without body', async () => {
         const response = await postRequest(routes.register);       
         expect(response.status).toBe(400);
     });
-
 
     it('should return an error when trying to register an user without required params', async () => {
         const response = await postRequest(routes.register, {full_name : 'junior'});
@@ -44,13 +42,11 @@ describe('Authenticate test', () => {
         const response = await postRequest(routes.authenticate, user);
         expect(response.status).toBe(200);
     });
-
     
     it('should return an error when trying to authenticate an user without body', async () => {
         const response = await postRequest(routes.authenticate);
         expect(response.status).toBe(400);
     });
-
 
     it('should return an error when trying to authenticate an user with invalid email', async () => {
         const response = await postRequest(routes.authenticate, {
@@ -60,7 +56,6 @@ describe('Authenticate test', () => {
         expect(response.status).toBe(401);
     });
     
-
     it('should return an error when trying to authenticate an user with invalid password', async () => {
         const response = await postRequest(routes.authenticate, {
             email : user.email, 

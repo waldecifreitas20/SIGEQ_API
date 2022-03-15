@@ -32,5 +32,18 @@ module.exports = {
             warrantyExpireAt : Date.now(),
             image : faker.random.image()
         }
+    },
+
+    generatePermissions : (
+        create=false, 
+        remove=false, 
+        read=false, 
+        update=false
+    ) => {
+        return {
+            permissions : [
+                {}
+            ]
+        }
     }
 }

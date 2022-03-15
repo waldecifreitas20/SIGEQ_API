@@ -4,9 +4,10 @@ const callRepository = async (callback, params=undefined) => {
     try {        
         return {
             status : 200,    
-            equipment : await callback(),
+            equipment : await callback(params),
         };
     } catch (error) {
+        console.log(error);
         return {
             status : 400,    
             error,
@@ -14,8 +15,8 @@ const callRepository = async (callback, params=undefined) => {
     }
 }
 
-function getEquipmentBy(field) {
-   return callRepository(equipmentRepository.getEquipmentBy, field);
+async function getEquipmentBy(field) { 
+   return await callRepository(equipmentRepository.getEquipmentBy, field);
 }
 
 async function getAllEquipment() {
@@ -31,7 +32,13 @@ async function createEquipment(equipmentData) {
     }
 }
 
+async function deleteEquipment(equipmentId) {}
+async function updateEquipment(equipmentId) {}
+
 module.exports = {
     getEquipmentBy : getEquipmentBy,
-    getAllEquipment : getAllEquipment
+    getAllEquipment : getAllEquipment,
+    createEquipment : createEquipment,
+    deleteEquipment : deleteEquipment,
+    updateEquipment : updateEquipment,
 }

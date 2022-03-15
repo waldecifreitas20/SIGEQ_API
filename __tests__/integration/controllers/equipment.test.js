@@ -1,12 +1,17 @@
-const fs = require('fs');
+const factory = require('../../factory');
 const {resolve : getPath} = require('path');
 
 describe('Create equipment test', () => {
-    it('should return true', () => {
-        const file = fs.readFileSync(getPath('__tests__/mouse.jpg'));
-        console.log(file[1]);
+    
+    it('should return status 200 OK when trying create new equipment into the database', async () => {
 
-        expect(file != null).toBe(true);
+    });
+    
+    it('should return status 401 when trying create new equioment without token', async () => {
+
+    });
+    
+    it('should return status 401 when trying create new equipment without create permission', async () => {
 
     });
 });

@@ -14,24 +14,20 @@ router.use(permissionsMiddleware.checkPermissions);
 
 
 router.get('/all', async (req, res) => {
-
     const response = await equipmentServices.getAllEquipment();
-
+    console.log(response);
     return res.status(response.status).send(response);
 });
 
 
 router.get('/by_heritage/:heritage', async (req, res) => {
-
     const heritage = req.params.heritage;
     const response = await equipmentServices.getEquipmentBy({heritage : heritage});
-
     return res.status(response.status).send(response);
 });
 
 
 router.post('/create', (req, res) => {
-
     const equipmentData = req.body;
 });
 
