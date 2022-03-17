@@ -11,6 +11,14 @@ const PROGEP_SECTORS = [
     'SECRETARIA', 
 ];
 
+
+const setPermission = (name) => {
+    return {
+        name,
+        description : '---'
+    };
+}
+
 module.exports = {
     generateUser : () => {
         return {
@@ -34,16 +42,22 @@ module.exports = {
         }
     },
 
-    generatePermissions : (
-        create=false, 
-        remove=false, 
-        read=false, 
-        update=false
-    ) => {
-        return {
-            permissions : [
-                {}
-            ]
+    generatePermissions : (read=true, create=true, update=true, remove=true) => {
+       let permissions = [];
+
+        if (read) {
+            permissions.push(setPermission('read'));
         }
+        if (create) {
+            permissions.push(setPermission('create'));
+        }
+        if (update) {
+            permissions.push(setPermission('update'));
+        }
+        if (remove) {
+            permissions.push(setPermission('remove'));
+        }
+
+        return permissions;
     }
 }

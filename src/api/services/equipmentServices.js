@@ -7,7 +7,6 @@ const callRepository = async (callback, params=undefined) => {
             equipment : await callback(params),
         };
     } catch (error) {
-        console.log(error);
         return {
             status : 400,    
             error,

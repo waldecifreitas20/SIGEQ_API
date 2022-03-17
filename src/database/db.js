@@ -19,8 +19,8 @@ const initModels = () => {
     });
 }
 
-const syncDatabase = async (clearDatabase={force : false}) => {
-    await database.sync(clearDatabase);
+const syncDatabase = async () => {
+    await database.sync();
 }
 
 module.exports = {
@@ -28,11 +28,6 @@ module.exports = {
     database : database,
     initDatabase : async () => {
         initModels();
-        await syncDatabase();
-    },
-    initDatabaseInTestMode : async () => {
-        initModels();
-        await syncDatabase({force : true});
         await syncDatabase();
     }
 };
