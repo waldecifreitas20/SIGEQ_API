@@ -15,7 +15,6 @@ router.use(permissionsMiddleware.checkPermissions);
 
 router.get('/all', async (req, res) => {
     const response = await equipmentServices.getAllEquipment();
-    console.log(response);
     return res.status(response.status).send(response);
 });
 
