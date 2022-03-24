@@ -27,7 +27,7 @@ module.exports = {
     deleteEquipmentById : async (id) => {
         return await callRepository(equipmentRepository.remove, id);
     },
-    updateEquipmentById : async (id) => {
-        return await callRepository(equipmentRepository.update, id);
+    updateEquipment : async (equipment) => {
+        return await callRepository(equipmentRepository.update, equipment);
     },
 }

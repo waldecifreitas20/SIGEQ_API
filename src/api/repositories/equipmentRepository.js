@@ -24,6 +24,12 @@ module.exports = {
         return await EquipmentModel.create(equipmentData);
     },
 
-    remove : () => {},
-    update : () => {},
+    remove : async (equipmentId) => {
+        return await EquipmentModel.findOne({id : equipmentId}).then(equipment => {
+            equipment.destroy();
+        });
+    },
+    update : async (equipment) => {
+        return await EquipmentModel.findOne({id : equipment.id})
+    }
 }
