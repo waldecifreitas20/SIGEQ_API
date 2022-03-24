@@ -23,15 +23,11 @@ async function getAllEquipment() {
 }
 
 async function createEquipment(equipmentData) {
-    try {
-        const equipment = await equipmentRepository.create(equipmentData);
-        return equipment;
-    } catch (error) {
-        return 'deu merda aqui';
-    }
+    return await callRepository(equipmentRepository.create, equipmentData);
 }
 
 async function deleteEquipment(equipmentId) {}
+
 async function updateEquipment(equipmentId) {}
 
 module.exports = {
