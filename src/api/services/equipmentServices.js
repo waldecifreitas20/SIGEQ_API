@@ -14,26 +14,20 @@ const callRepository = async (callback, params=undefined) => {
     }
 }
 
-async function getEquipmentBy(field) { 
-   return await callRepository(equipmentRepository.getEquipmentBy, field);
-}
-
-async function getAllEquipment() {
-    return await callRepository(equipmentRepository.getAll);
-}
-
-async function createEquipment(equipmentData) {
-    return await callRepository(equipmentRepository.create, equipmentData);
-}
-
-async function deleteEquipment(equipmentId) {}
-
-async function updateEquipment(equipmentId) {}
-
 module.exports = {
-    getEquipmentBy : getEquipmentBy,
-    getAllEquipment : getAllEquipment,
-    createEquipment : createEquipment,
-    deleteEquipment : deleteEquipment,
-    updateEquipment : updateEquipment,
+    getEquipmentByField : async (field) => { 
+        return await callRepository(equipmentRepository.getEquipmentBy, field);
+    },
+    getAllEquipment : async () => {
+        return await callRepository(equipmentRepository.getAll);
+    },
+    createEquipment : async (equipmentData) => {
+        return await callRepository(equipmentRepository.create, equipmentData);  
+    },
+    deleteEquipmentById : async (id) => {
+        return await callRepository(equipmentRepository.remove, id);
+    },
+    updateEquipmentById : async (id) => {
+        return await callRepository(equipmentRepository.update, id);
+    },
 }
