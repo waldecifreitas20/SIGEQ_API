@@ -1,5 +1,5 @@
 module.exports = {
-    register : (req, res, next) => {
+    register : function(req, res, next) {
         const user = req.body;
         let receivedParams = 4;
 
@@ -25,7 +25,7 @@ module.exports = {
 
         next();
     },
-    login : (req, res, next) => {
+    login : function(req, res, next) {
         const user = req.body;
         let receivedParams = 2;
 
@@ -46,7 +46,7 @@ module.exports = {
         }
 
     },
-    equipment : (req, res, next) => {
+    equipment : function(req, res, next) {
         const equipemnt = req.body;
 
         if(!equipemnt){

@@ -26,7 +26,8 @@ const syncDatabase = async () => {
 module.exports = {
     datatype : Sequelize,
     database : database,
-    initDatabase : async () => {
+    
+    initDatabase : async function() {
         initModels();
         await syncDatabase();
     }

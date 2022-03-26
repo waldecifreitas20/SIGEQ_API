@@ -3,7 +3,7 @@ const EquipmentModel = require(paths.models.equipment);
 
 module.exports = {
     
-    getEquipmentBy : async (field) => {
+    getEquipmentBy : async function(field) {
         const equipment = await EquipmentModel.findOne({ where : field});
         if (!equipment) {
             throw 'equipment not found';  
@@ -11,25 +11,26 @@ module.exports = {
         return equipment;
     },
 
-    getAll : async () => {
-        const all = await EquipmentModel.findAll();
-        
+    getAll : async function() {
+        const all = await EquipmentModel.findAll();        
         if (all.length === 0) {
             throw 'cannot find any equipment into the database';  
         }
         return all;
     },
 
-    create : async (equipmentData) => {
+    create : async function(equipmentData) {
         return await EquipmentModel.create(equipmentData);
     },
 
-    remove : async (equipmentId) => {
-        return await EquipmentModel.findOne({id : equipmentId}).then(equipment => {
+    remove : async function(equipmentId) {
+        return await EquipmentModel.findOne({id : equipmentId})
+        .then(equipment => {
             equipment.destroy();
         });
     },
-    update : async (equipment) => {
+    
+    update : async function(equipment) {
         return await EquipmentModel.findOne({id : equipment.id})
     }
 }
