@@ -8,7 +8,6 @@ describe('Create test', () => {
 
     it('should register a new equipment in database with success', async () => {
         const response = await services.createEquipment(equipment);
-        console.log(response);
         expect(response.status).toBe(200);
     });
     

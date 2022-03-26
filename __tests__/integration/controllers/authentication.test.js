@@ -40,6 +40,7 @@ describe('Authenticate test', () => {
 
     it('should authenticate an user with success', async () => {
         const response = await postRequest(routes.authenticate, user);
+        console.log(response.body);
         expect(response.status).toBe(200);
     });
     

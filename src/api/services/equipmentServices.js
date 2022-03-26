@@ -1,6 +1,6 @@
 const equipmentRepository = require('../repositories/equipmentRepository');
 
-const callRepository = async (callback, params=undefined) => {
+const _callRepository = async (callback, params=undefined) => {
     try {        
         return {
             status : 200,    
@@ -15,19 +15,23 @@ const callRepository = async (callback, params=undefined) => {
 }
 
 module.exports = {
-    getEquipmentByField : async (field) => { 
-        return await callRepository(equipmentRepository.getEquipmentBy, field);
+    getEquipmentByField : async function(field)  { 
+        return await _callRepository(equipmentRepository.getEquipmentBy, field);
     },
-    getAllEquipment : async () => {
-        return await callRepository(equipmentRepository.getAll);
+    
+    getAllEquipment : async function() {
+        return await _callRepository(equipmentRepository.getAll);
     },
-    createEquipment : async (equipmentData) => {
-        return await callRepository(equipmentRepository.create, equipmentData);  
+
+    createEquipment : async function(equipmentData) {
+        return await _callRepository(equipmentRepository.create, equipmentData);  
     },
-    deleteEquipmentById : async (id) => {
-        return await callRepository(equipmentRepository.remove, id);
+
+    updateEquipment : async function(equipment) {
+        return await _callRepository(equipmentRepository.update, equipment);
     },
-    updateEquipment : async (equipment) => {
-        return await callRepository(equipmentRepository.update, equipment);
+    
+    deleteEquipmentById : async function(id) {
+        return await _callRepository(equipmentRepository.remove, id);
     },
 }

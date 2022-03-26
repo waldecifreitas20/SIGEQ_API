@@ -19,8 +19,8 @@ router.post('/register',formValidation.register, async (req, res) => {
 
 
 router.post('/authenticate', formValidation.login, async (req, res) => {
-    const userData = req.body;
-    var response = await userServices.login(userData);
+    const { email, password } = req.body;
+    var response = await userServices.login(email, password);
 
     return res.status(response.status).send(response);
 });
