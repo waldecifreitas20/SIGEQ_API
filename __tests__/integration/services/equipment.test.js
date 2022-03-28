@@ -18,11 +18,19 @@ describe('Create test', () => {
     
     it('should return status 400 when trying create a null in database', async () => {
         const response = await services.createEquipment(undefined);
-        expect(response.status).toBe(401);
+        expect(response.status).toBe(400);
     });
 });
 
-describe('Delete equipment test', () => {});
+describe('Delete equipment test', () => {
+    
+    it('should return status 200 when trying delete a equipment using their id', async () => {
+        const { equipment } = await services.createEquipment(factory.generateEquipment());
+        const response = await services.deleteEquipmentById(equipment.id);
+        console.log(response.body);
+        expect(response.status).toBe(200);
+    });
+});
 describe('Get by heritage equipment test', () => {});
 describe('Get all equipment test', () => {});
 describe('Update equipment test', () => {});

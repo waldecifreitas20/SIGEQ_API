@@ -1,14 +1,13 @@
 const paths = require('../../utils/paths');
 const EquipmentModel = require(paths.models.equipment);
+const 
+
 
 module.exports = {
     
     getEquipmentBy : async function(field) {
         const equipment = await EquipmentModel.findOne({ where : field});
-        if (!equipment) {
-            throw 'equipment not found';  
-        }
-        return equipment;
+        return isEmptyObject(equipment, 'equipment not found');
     },
 
     getAll : async function() {
@@ -19,18 +18,17 @@ module.exports = {
         return all;
     },
 
-    create : async function(equipmentData) {
-        return await EquipmentModel.create(equipmentData);
+    create : async function(equipment) {
+        return await EquipmentModel.create(equipment);
     },
 
-    remove : async function(equipmentId) {
-        return await EquipmentModel.findOne({id : equipmentId})
-        .then(equipment => {
-            equipment.destroy();
-        });
+    remove : async function(id) {
+        const equipment = await EquipmentModel.findOne({where : {id : id}});
+        
+        return await equipment.destroy();
     },
     
-    update : async function(equipment) {
-        return await EquipmentModel.findOne({id : equipment.id})
+    update : async function(id) {
+        return await EquipmentModel.findOne({where : {id : id}})
     }
 }
