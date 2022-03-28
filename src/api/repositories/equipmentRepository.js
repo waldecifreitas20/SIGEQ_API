@@ -1,6 +1,6 @@
 const paths = require('../../utils/paths');
 const EquipmentModel = require(paths.models.equipment);
-const 
+const { isEmptyObject } = require('../../utils/shorts');
 
 
 module.exports = {
@@ -12,10 +12,7 @@ module.exports = {
 
     getAll : async function() {
         const all = await EquipmentModel.findAll();        
-        if (all.length === 0) {
-            throw 'cannot find any equipment into the database';  
-        }
-        return all;
+        return isEmptyObject(all, 'cannot find any equipment into the database');
     },
 
     create : async function(equipment) {
@@ -23,9 +20,9 @@ module.exports = {
     },
 
     remove : async function(id) {
-        const equipment = await EquipmentModel.findOne({where : {id : id}});
-        
-        return await equipment.destroy();
+        return await EquipmentModel.findOne({
+            where : {id : id}
+        }).equipment.destroy();
     },
     
     update : async function(id) {

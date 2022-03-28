@@ -14,8 +14,6 @@ describe('Factory', () => {
         const factory = require('../factory');
         const newEquipment = factory.generateEquipment();
 
-        console.log(newEquipment);
-
         expect(newEquipment.company.length > 0).toBe(true);
         expect(newEquipment.current_location.length > 0).toBe(true);
         expect(newEquipment.heritage > 0).toBe(true);

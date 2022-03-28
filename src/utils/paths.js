@@ -3,7 +3,7 @@ const { resolve : getPath } = require('path');
 module.exports = {
     models : {
         index : getPath('src', 'api', 'models'),
-        equipment : getPath('src', 'api', 'models', 'equipment', 'Equipment'),
+        equipment : getPath('./src/api/models/equipment/Equipment.js'),
         user : getPath('src', 'api', 'models', 'user', 'User'),
         permission : getPath('src', 'api', 'models', 'user', 'Permission')
     },

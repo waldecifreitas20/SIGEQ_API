@@ -7,8 +7,8 @@ module.exports = {
             .filter(file => file.indexOf('index') == -1)
     },
 
-    isEmptyObject : function(object, exception='object is null') {
-        if (!object) {
+    isEmptyObject : function(object, exception='Object is empty') {
+        if (!object || object.length === 0) {
             throw exception;  
         }
         return object;

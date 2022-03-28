@@ -27,7 +27,7 @@ describe('Delete equipment test', () => {
     it('should return status 200 when trying delete a equipment using their id', async () => {
         const { equipment } = await services.createEquipment(factory.generateEquipment());
         const response = await services.deleteEquipmentById(equipment.id);
-        console.log(response.body);
+        console.log(response);
         expect(response.status).toBe(200);
     });
 });

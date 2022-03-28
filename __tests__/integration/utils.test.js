@@ -1,5 +1,5 @@
 describe('Finder.js test', () => {
-    const finder = require('../../src/utils/finder');
+    const finder = require('../../src/utils/shorts');
     const { resolve : getPath } = require('path');
 
     it('should return an array of filenames by a specific folder without their index.js', () => {
