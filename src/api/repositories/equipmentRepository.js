@@ -20,9 +20,10 @@ module.exports = {
     },
 
     remove : async function(id) {
-        return await EquipmentModel.findOne({
+        const equipment = await EquipmentModel.findOne({
             where : {id : id}
-        }).equipment.destroy();
+        });
+        return await equipment.destroy();
     },
     
     update : async function(id) {
