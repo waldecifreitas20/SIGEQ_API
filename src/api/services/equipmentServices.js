@@ -14,6 +14,26 @@ const _callRepository = async (callback, params=undefined) => {
     }
 }
 
+const _whichChangesToDo = async equipment => {
+    var failed = false;
+
+    if (equipment.status !== undefined) {
+        failed = await equipmentRepository.updateStatus(equipment);
+    }
+
+    if (equipment.current_location !== undefined) {
+        failed = await equipmentRepository.updateLocation(equipment);
+    }
+
+    if (equipment.image !== undefined) {
+        failed = await equipmentRepository.updateImage(equipment);
+    }
+
+
+
+    return failed;
+}
+
 module.exports = {
     getEquipmentByField : async function(field)  { 
         return await _callRepository(equipmentRepository.getEquipmentBy, field);
@@ -28,7 +48,7 @@ module.exports = {
     },
 
     updateEquipment : async function(equipment) {
-        return await _callRepository(equipmentRepository.update, equipment);
+        return await _callRepository(_whichChangesToDo, equipment);
     },
     
     deleteEquipmentById : async function(id) {

@@ -3,6 +3,14 @@ const EquipmentModel = require(paths.models.equipment);
 const { isEmptyObject } = require('../../utils/shorts');
 
 
+const _saveChanges = async (model) => {
+    return await model.save()
+        .then(() => true)
+        .catch(() => {
+            throw 'cannot save changes'
+        });
+}
+
 module.exports = {
     
     getEquipmentBy : async function(field) {
@@ -16,7 +24,13 @@ module.exports = {
     },
 
     create : async function(equipment) {
-        return await EquipmentModel.create(equipment);
+        return await EquipmentModel.create(equipment)
+        .then(equipment => {
+            return equipment.id;
+        })
+        .catch(err => {
+            throw 'cannot create new equipment';
+        });
     },
 
     remove : async function(id) {
@@ -26,7 +40,33 @@ module.exports = {
         return await equipment.destroy();
     },
     
-    update : async function(id) {
-        return await EquipmentModel.findOne({where : {id : id}})
+    updateImage : async function(equipment) {
+        return await EquipmentModel.findOne({
+            where : {id : equipment.id}
+        }).then(async oldEquipment => {
+            oldEquipment.image = equipment.image;
+            
+            return await _saveChanges(oldEquipment);
+            
+        })  
+    },
+
+    updateLocation : async function(equipment) {
+        return await EquipmentModel.findOne({
+            where : {id : equipment.id}
+        }).then(async oldEquipment => {
+            oldEquipment.current_location = equipment.current_location;
+        
+            return await _saveChanges(oldEquipment);
+        })  
+    },
+
+    updateStatus : async function(equipment) {
+        return await EquipmentModel.findOne({
+            where : {id : equipment.id}
+        }).then(async oldEquipment => {
+            oldEquipment.status = equipment.status;
+            return await _saveChanges(oldEquipment);            
+        })  
     }
 }

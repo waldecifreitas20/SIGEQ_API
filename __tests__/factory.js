@@ -36,7 +36,7 @@ module.exports = {
             model : faker.commerce.product(),
             heritage : faker.br.cpf(),
             current_location : PROGEP_SECTORS[0],
-            status : 'it is avaiable',
+            status : 'it is available',
             warrantyExpireAt : Date.now(),
             image : faker.random.image()
         }

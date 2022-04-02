@@ -8,7 +8,6 @@ User authentication:
 */
 
 const paths = require('../../../src/utils/paths');
-require('../../../src/database/connection');
 
 describe('Register test', () => {
 
