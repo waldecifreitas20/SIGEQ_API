@@ -1,6 +1,4 @@
-const request = require('supertest');
 const { resolve : getPath } = require('path');
-const app = require(getPath('src', 'app'));
 const { generateUser } = require('../../factory');
 const requester = require('./requestTester');
 
@@ -9,12 +7,6 @@ const routes = {
     authenticate : '/auth/authenticate',
     checkToken : '/auth/check_token'
 }
-
-/*const requester.post = async (route, data={}, token='') => {
-    return await request(app)
-        .post(route)
-        .send(data).set({authorization : token});
-};*/
 
 const user = generateUser();
 
