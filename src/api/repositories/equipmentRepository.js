@@ -5,7 +5,7 @@ const { isEmptyObject } = require('../../utils/shorts');
 
 const _saveChanges = async (model) => {
     return await model.save()
-        .then(() => true)
+        .then(() => undefined)
         .catch(() => {
             throw 'cannot save changes'
         });

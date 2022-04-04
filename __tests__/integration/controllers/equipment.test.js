@@ -8,12 +8,14 @@ const { generateToken } = require(getPath('src', 'utils', 'shorts.js'));
 
 
 describe('Create equipment test', () => {
-
+    const equipment = factory.generateEquipment();
+    const permissions = factory.generatePermissions();
+    console.log(permissions);
     it('should return status 200 OK when trying create new equipment into the database', async () => {
 
     });
     
-    it('should return status 401 when trying create new equioment without token', async () => {
+    it('should return status 401 when trying create new equipment without token', async () => {
 
     });
     

@@ -65,12 +65,13 @@ describe('Update equipment test', () => {
 
         const updatedEquipment = {
             id : equipment_id,
-            status : 'it is not available',            
+            status : 'it is not available',   
+            current_location : 'SIASS'         
         };
         
         const response = await services.updateEquipment(updatedEquipment);
         console.log(response);
-        expect(response.equipment).toBe(true);
+        expect(response.status).toBe(200);
     })
 });
 

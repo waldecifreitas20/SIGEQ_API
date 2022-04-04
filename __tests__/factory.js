@@ -19,6 +19,7 @@ const setPermission = (name) => {
     };
 }
 
+
 module.exports = {
     generateUser : () => {
         return {
@@ -42,9 +43,9 @@ module.exports = {
         }
     },
 
-    generatePermissions : (read=true, create=true, update=true, remove=true) => {
+    generatePermissions : ({read=true, create=true, update=true, remove=true}) => {
        let permissions = [];
-
+        
         if (read) {
             permissions.push(setPermission('read'));
         }

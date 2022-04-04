@@ -29,8 +29,6 @@ const _whichChangesToDo = async equipment => {
         failed = await equipmentRepository.updateImage(equipment);
     }
 
-
-
     return failed;
 }
 

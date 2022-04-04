@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const [ 
-    equipmentServices, 
+    services, 
     permissionsMiddleware 
 ] = [
     require(require('../../utils/paths').services.equipment),
@@ -14,20 +14,22 @@ router.use(permissionsMiddleware.checkPermissions);
 
 
 router.get('/all', async (req, res) => {
-    const response = await equipmentServices.getAllEquipment();
+    const response = await services.getAllEquipment();
     return res.status(response.status).send(response);
 });
 
 
 router.get('/by_heritage/:heritage', async (req, res) => {
     const heritage = req.params.heritage;
-    const response = await equipmentServices.getEquipmentBy({heritage : heritage});
+    const response = await services.getEquipmentBy({heritage : heritage});
     return res.status(response.status).send(response);
 });
 
 
-router.post('/create', (req, res) => {
+router.post('/create', async (req, res) => {
     const equipmentData = req.body;
+    const response = await services.createEquipment(equipmentData);
+    return res.status(response.status).send(response);
 });
 
 
