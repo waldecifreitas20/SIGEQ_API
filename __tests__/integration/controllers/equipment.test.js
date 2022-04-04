@@ -1,7 +1,5 @@
 const {resolve : getPath} = require('path');
 
-const request = require('supertest');
-
 const factory = require('../../factory');
 const app = require(getPath('src', 'app'));
 const { generateToken } = require(getPath('src', 'utils', 'shorts.js'));
@@ -9,8 +7,8 @@ const { generateToken } = require(getPath('src', 'utils', 'shorts.js'));
 
 describe('Create equipment test', () => {
     const equipment = factory.generateEquipment();
-    const permissions = factory.generatePermissions();
-    console.log(permissions);
+    const permissions = factory.generatePermissions({});
+
     it('should return status 200 OK when trying create new equipment into the database', async () => {
 
     });
