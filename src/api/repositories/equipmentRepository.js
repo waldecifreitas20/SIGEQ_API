@@ -29,7 +29,7 @@ module.exports = {
             return equipment.id;
         })
         .catch(err => {
-            console.log(err);
+            
             throw 'cannot create new equipment';
         });
     },

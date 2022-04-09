@@ -11,13 +11,13 @@ const routes = {
     update: '/equipment/update',
     delete: (id) => `/equipment/delete/${id}`
 }
+const validToken = 'Bearer ' + generateToken({
+    user: factory.generateUser(),
+    permissions: factory.generatePermissions({}),
+});
 
 describe('Create equipment test', () => {
     const equipment = factory.generateEquipment();
-    const validToken = 'Bearer ' + generateToken({
-        user: factory.generateUser(),
-        permissions: factory.generatePermissions({}),
-    });
 
     it('should return status 200 OK when trying create new equipment into the database', async () => {
         const response = await request.post({
@@ -56,7 +56,35 @@ describe('Create equipment test', () => {
     });
 });
 
-describe('Delete equipment test', () => { });
 describe('Get by heritage equipment test', () => { });
-describe('Get all equipment test', () => { });
+
+describe('Get all equipment test', () => {
+    it('should return status 200 ok when trying get all equipments', async () => {
+        const response = await request.get({
+            route: routes.getAll,
+            headers: { authorization: validToken }
+        });
+        expect(response.status).toBe(200);
+    });
+});
+
+describe('Delete equipment test', () => {
+
+    it('should return 200 ok when trying delete a equipment', async () => {
+        const res = await request.get({
+            route: routes.getAll,
+            headers: { authorization: validToken }
+        });
+
+ 
+        const response = await request.delete({
+            route: routes.delete(res.equipment[0].id),
+            headers: { authorization: validToken }
+        });
+
+        expect(response.status).toBe(200);
+    });
+});
+
+
 describe('Update equipment test', () => { });
