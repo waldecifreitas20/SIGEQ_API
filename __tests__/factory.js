@@ -11,7 +11,10 @@ const PROGEP_SECTORS = [
     'SECRETARIA', 
 ];
 
-
+const _getRandomSector = () => {
+    const i = Math.floor(Math.random() * PROGEP_SECTORS.length);
+    return PROGEP_SECTORS[i];
+}
 const setPermission = (name) => {
     return {
         name,
@@ -36,7 +39,7 @@ module.exports = {
             category : faker.commerce.product(),
             model : faker.commerce.product(),
             heritage : faker.br.cpf(),
-            current_location : PROGEP_SECTORS[0],
+            current_location : _getRandomSector(),
             status : 'it is available',
             warrantyExpireAt : Date.now(),
             image : faker.random.image()

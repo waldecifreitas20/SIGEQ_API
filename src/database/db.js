@@ -2,20 +2,20 @@ const { DATABASE, USER, PASSWORD, HOST, DIALECT } = require('../config/database'
 
 const Sequelize = require('sequelize');
 const database = new Sequelize(DATABASE, USER, PASSWORD, {
-    HOST, 
-    dialect : DIALECT || 'postgres',
-    logging : false
+    HOST,
+    dialect: DIALECT || 'postgres',
+    logging: false
 });
 
-const initModels = () => { 
+const initModels = () => {
     const { models } = require('../utils/paths');
     const modelFolders = ['user', 'equipment'];
 
     modelFolders.forEach(folder => {
         require(models.index)(folder)
-        .forEach(file => {
-            require(`${models.index}/${folder}/${file}`);
-        })
+            .forEach(file => {
+                require(`${models.index}/${folder}/${file}`);
+            })
     });
 }
 
@@ -24,10 +24,10 @@ const syncDatabase = async () => {
 }
 
 module.exports = {
-    datatype : Sequelize,
-    database : database,
-    
-    initDatabase : async function() {
+    datatype: Sequelize,
+    database: database,
+
+    initDatabase: async function () {
         initModels();
         await syncDatabase();
     }

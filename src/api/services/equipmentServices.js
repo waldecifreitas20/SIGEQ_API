@@ -32,6 +32,9 @@ const _whichChangesToDo = async equipment => {
     return failed;
 }
 
+const _hasPermission = (permission, action) => permission.name === action;
+
+
 module.exports = {
     getEquipmentByField : async function(field)  { 
         return await _callRepository(equipmentRepository.getEquipmentBy, field);

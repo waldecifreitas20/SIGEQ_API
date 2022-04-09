@@ -4,7 +4,7 @@ require('../config/dotenv');
 
 function generateToken(userData) {
     return jwt.sign(userData, process.env.API_SECRET, {
-        expiresIn : 3600
+        expiresIn: 3600
     });
 }
 
@@ -17,7 +17,7 @@ function checkPassword(password, hash) {
 }
 
 module.exports = {
-    generateToken : generateToken,
-    checkToken : checkToken,
-    checkPassword : checkPassword
+    generateToken: generateToken,
+    checkToken: checkToken,
+    checkPassword: checkPassword
 }
