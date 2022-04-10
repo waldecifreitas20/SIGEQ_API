@@ -8,9 +8,12 @@ module.exports = {
     },
 
     isEmptyArray: function (array, exception = 'Object is empty') {
-        if (!object || object.length === 0) {
+        console.log(array);
+        if (!array || array.length === 0) {
             throw exception;
-        }
-        return object;
+        }       
+        return array;
     },
+
+
 }

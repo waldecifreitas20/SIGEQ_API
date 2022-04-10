@@ -23,12 +23,12 @@ router.get('/all', async (req, res) => {
 
 router.get('/by_heritage/:heritage', async (req, res) => {
     const { heritage } = req.params;
-    const response = await services.getEquipmentBy({ heritage: heritage });
+    const response = await services.getEquipmentByField({ heritage: heritage });
     return res.status(response.status).send(response);
 });
 
 
-router.post('/create', formValidation.equipment,async (req, res) => {
+router.post('/create', formValidation.equipment, async (req, res) => {
     const equipmentData = req.body;
     const response = await services.createEquipment(equipmentData);
     return res.status(response.status).send(response);
