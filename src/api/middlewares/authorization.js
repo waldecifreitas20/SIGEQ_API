@@ -10,7 +10,7 @@ const _getPermissionNameByRoute = (route = String) => {
     if (route === '/update') {
         return 'update';
     }
-    if (route === '/delete') {
+    if (route.indexOf('/delete') !== -1) {
         return 'delete';
     }
 }
@@ -41,9 +41,9 @@ module.exports = {
         const current_route = req.url;
 
         const permissionName = _getPermissionNameByRoute(current_route);
-
         for (let i = 0; i < req.permissions.length; i++) {
             const permission = req.permissions[i];
+
             if (permission.name == permissionName) {
                 return next();
             }

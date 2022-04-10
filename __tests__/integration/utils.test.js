@@ -1,6 +1,6 @@
 describe('Finder.js test', () => {
     const finder = require('../../src/utils/shorts');
-    const { resolve : getPath } = require('path');
+    const { resolve: getPath } = require('path');
 
     it('should return an array of filenames by a specific folder without their index.js', () => {
         const folderPath = getPath('src', 'api', 'controllers');
@@ -12,11 +12,12 @@ describe('Finder.js test', () => {
 
 describe('security.js test', () => {
     const { generateToken } = require('../../src/utils/security');
-    
+
     it('should return a token', () => {
-        const userData = require('../factory').generateUser();    
+        const userData = require('../factory').generateUser();
         const token = generateToken(userData);
-        
+
         expect(token.length > 0).toBe(true);
     });
 });
+

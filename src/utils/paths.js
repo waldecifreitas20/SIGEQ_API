@@ -22,11 +22,6 @@ module.exports = {
         auth: getPath('src', 'api', 'controllers', 'auth'),
         equipment: getPath('src', 'api', 'controllers', 'equipment'),
     },
-    functions: {
-        finder: getPath('src', 'utils', 'finder'),
-        security: getPath('src', 'utils', 'finder'),
-        shorts: getPath('src', 'utils', 'finder'),
-    },
-    repositories: getPath('src', 'api', 'repositories'),
+   // repositories: getPath('src', 'api', 'repositories'),
     database: getPath('src', 'database', 'db'),
 }

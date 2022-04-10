@@ -1,5 +1,19 @@
+const isEmptyObject = (object) => {
+    try {
+        const keys = ['status', 'current_location', 'image']; 
+        for (const key of keys) {
+            console.log(object.hasOwnProperty(key));
+            if (object.hasOwnProperty(key)) {
+                return false;
+            } 
+        }
+    } catch (error) { 
+        return true;
+    }
+}
+
 module.exports = {
-    register : function(req, res, next) {
+    register: function (req, res, next) {
         const user = req.body;
         let receivedParams = 4;
 
@@ -17,15 +31,16 @@ module.exports = {
         }
 
         if (receivedParams < 4) {
-            return res.status(400).send({ 
-                status : 400,
-                error : 'expected to receive 4 params. But, was gived '+ receivedParams
-            }); 
+            return res.status(400).send({
+                status: 400,
+                error: 'expected to receive 4 params. But, was given ' + receivedParams
+            });
         }
 
-        next();
+        return next();
     },
-    login : function(req, res, next) {
+
+    login: function (req, res, next) {
         const user = req.body;
         let receivedParams = 2;
 
@@ -37,22 +52,22 @@ module.exports = {
         }
 
         if (receivedParams < 2) {
-            return res.status(400).send({ 
-                status : 400,
-                error : 'expected to receive 2 params. But, was gived '+ receivedParams
-            }); 
-        } else {
-            next();
+            return res.status(400).send({
+                status: 400,
+                error: 'expected to receive 2 params. But, was given ' + receivedParams
+            });
         }
-
+        return next();
     },
-    equipment : function(req, res, next) {
-        const equipemnt = req.body;
 
-        if(!equipemnt){
-            return res.status(406).send({ error : 'no params received' });
+    equipment: function (req, res, next) {
+        const equipment = req.body;
+        const isEmpty = isEmptyObject(equipment);
+        console.log(isEmpty);
+        if (isEmpty) {
+            return res.status(400).send({ error: 'no params received' });
         }
 
-        next();
+        return next();
     }
 };

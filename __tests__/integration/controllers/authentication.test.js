@@ -21,7 +21,7 @@ describe('Register test', () => {
         expect(response.status).toBe(200);
     });
 
-    it('should return an error on try to register an user without body', async () => {
+    it('should return status 400 when trying to register an user without body', async () => {
         const response = await requester.post({ route: routes.register });
         expect(response.status).toBe(400);
     });
@@ -46,14 +46,14 @@ describe('Authenticate test', () => {
         expect(response.status).toBe(200);
     });
 
-    it('should return an error when trying to authenticate an user without body', async () => {
+    it('should return status 400 when trying to authenticate an user without body', async () => {
         const response = await requester.post({
             route: routes.authenticate,
         });
         expect(response.status).toBe(400);
     });
 
-    it('should return an error when trying to authenticate an user with invalid email', async () => {
+    it('should return status 401 when trying to authenticate an user with invalid email', async () => {
         const response = await requester.post({
             route: routes.authenticate,
             body: {
@@ -64,7 +64,7 @@ describe('Authenticate test', () => {
         expect(response.status).toBe(401);
     });
 
-    it('should return an error when trying to authenticate an user with invalid password', async () => {
+    it('should return status 401 when trying to authenticate an user with invalid password', async () => {
         const response = await requester.post({
             route: routes.authenticate,
             body: {

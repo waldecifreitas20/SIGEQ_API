@@ -3,10 +3,12 @@ const router = express.Router();
 
 const [
     services,
-    permissionsMiddleware
+    permissionsMiddleware,
+    formValidation
 ] = [
         require(require('../../utils/paths').services.equipment),
-        require(require('../../utils/paths').middlewares.authorization)
+        require(require('../../utils/paths').middlewares.authorization),
+        require(require('../../utils/paths').middlewares.formValidation),
     ];
 
 router.use(permissionsMiddleware.checkToken);
@@ -26,13 +28,13 @@ router.get('/by_heritage/:heritage', async (req, res) => {
 });
 
 
-router.post('/create', async (req, res) => {
+router.post('/create', formValidation.equipment,async (req, res) => {
     const equipmentData = req.body;
     const response = await services.createEquipment(equipmentData);
     return res.status(response.status).send(response);
 });
 
-router.put('/update', async (req, res) => {
+router.post('/update', formValidation.equipment, async (req, res) => {
     const equipmentData = req.body;
     const response = await services.updateEquipment(equipmentData);
     return res.status(response.status).send(response);

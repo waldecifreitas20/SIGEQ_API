@@ -58,7 +58,7 @@ module.exports = {
             permissions.push(setPermission('update'));
         }
         if (remove) {
-            permissions.push(setPermission('remove'));
+            permissions.push(setPermission('delete'));
         }
 
         return permissions;

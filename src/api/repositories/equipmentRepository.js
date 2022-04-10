@@ -1,11 +1,10 @@
 const paths = require('../../utils/paths');
 const EquipmentModel = require(paths.models.equipment);
-const { isEmptyObject } = require('../../utils/shorts');
+const { isEmptyArray } = require('../../utils/shorts');
 
 
 const _saveChanges = async (model) => {
     return await model.save()
-        .then(() => undefined)
         .catch(() => {
             throw 'cannot save changes'
         });
@@ -15,12 +14,12 @@ module.exports = {
     
     getEquipmentBy : async function(field) {
         const equipment = await EquipmentModel.findOne({ where : field});
-        return isEmptyObject(equipment, 'equipment not found');
+        return isEmptyArray(equipment, 'equipment not found');
     },
 
     getAll : async function() {
         const all = await EquipmentModel.findAll();        
-        return isEmptyObject(all, 'cannot find any equipment into the database');
+        return isEmptyArray(all, 'cannot find any equipment into the database');
     },
 
     create : async function(equipment) {

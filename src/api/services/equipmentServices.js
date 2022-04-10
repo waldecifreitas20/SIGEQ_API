@@ -1,58 +1,64 @@
 const equipmentRepository = require('../repositories/equipmentRepository');
 
-const _callRepository = async (callback, params=undefined) => {
-    try {        
+const _callRepository = async (callback, params = undefined) => {
+    try {
         return {
-            status : 200,    
-            equipment : await callback(params),
+            status: 200,
+            equipment: await callback(params),
         };
     } catch (error) {
         return {
-            status : 400,    
+            status: 400,
             error,
         };
     }
 }
 
-const _whichChangesToDo = async equipment => {
-    var failed = false;
+const _toUpdate = async equipment => {
+    try {
+        if (equipment.status !== undefined) {
+            await equipmentRepository.updateStatus(equipment);
+        }
 
-    if (equipment.status !== undefined) {
-        failed = await equipmentRepository.updateStatus(equipment);
+        if (equipment.current_location !== undefined) {
+            await equipmentRepository.updateLocation(equipment);
+        }
+
+        if (equipment.image !== undefined) {
+            await equipmentRepository.updateImage(equipment);
+        }
+
+        return {
+            status: 200,
+            message: 'equipment updated with success'
+        }
+    } catch (error) {
+        return {
+            status: 400,
+            error
+        }
     }
-
-    if (equipment.current_location !== undefined) {
-        failed = await equipmentRepository.updateLocation(equipment);
-    }
-
-    if (equipment.image !== undefined) {
-        failed = await equipmentRepository.updateImage(equipment);
-    }
-
-    return failed;
 }
-
-const _hasPermission = (permission, action) => permission.name === action;
 
 
 module.exports = {
-    getEquipmentByField : async function(field)  { 
+    getEquipmentByField: async function (field) {
         return await _callRepository(equipmentRepository.getEquipmentBy, field);
     },
-    
-    getAllEquipment : async function() {
+
+    getAllEquipment: async function () {
         return await _callRepository(equipmentRepository.getAll);
     },
 
-    createEquipment : async function(equipmentData) {
-        return await _callRepository(equipmentRepository.create, equipmentData);  
+    createEquipment: async function (equipmentData) {
+        return await _callRepository(equipmentRepository.create, equipmentData);
     },
 
-    updateEquipment : async function(equipment) {
-        return await _callRepository(_whichChangesToDo, equipment);
+    updateEquipment: async function (equipment) {
+        return await _toUpdate(equipment);
     },
-    
-    deleteEquipmentById : async function(id) {
+
+    deleteEquipmentById: async function (id) {
         return await _callRepository(equipmentRepository.remove, id);
     },
 }
