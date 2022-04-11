@@ -4,10 +4,14 @@ const {database, datatype} = require(paths.database);
 const bcrypt = require('bcryptjs');
 
 const User = database.define('user', {
-    full_name : {
+    first_name : {
         type : datatype.STRING,
         allowNull : false,
     },
+    surname : {
+        type : datatype.STRING,
+        allowNull : false,
+    },    
     email : {
         type : datatype.STRING,
         allowNull : false,
@@ -23,8 +27,6 @@ const User = database.define('user', {
         unique : true
     },
 }, {
-    timestamps : false,
-    underscored : true,
     hooks : {
         beforeSave : function(user) {
             const hash = bcrypt.hashSync(user.password, 10);

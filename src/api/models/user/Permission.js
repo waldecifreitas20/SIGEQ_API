@@ -12,7 +12,7 @@ const Permission = database.define('permission', {
         allowNull : false
     }
    
-}, { timestamps : false});
+});
 
 
 module.exports = Permission; 

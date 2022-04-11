@@ -10,6 +10,7 @@ module.exports = {
         try {
             return await UserModel.create(userData);
         } catch (error) {
+          
             throw 'User already registered';   
         }
     },

@@ -4,7 +4,11 @@ const Sequelize = require('sequelize');
 const database = new Sequelize(DATABASE, USER, PASSWORD, {
     HOST,
     dialect: DIALECT || 'postgres',
-    logging: false
+    logging: false,
+    define: {
+        timestamps: false,
+        underscored: true,
+    }
 });
 
 const initModels = () => {

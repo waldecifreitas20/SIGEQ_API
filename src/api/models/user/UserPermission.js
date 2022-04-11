@@ -11,7 +11,7 @@ const UserPermission = database.define('user_permission', {
         primaryKey : true,
         autoIncrement : true
     }   
-}, { timestamps : false });
+});
 
 User.belongsToMany(Permission, {
     through : {
@@ -19,7 +19,7 @@ User.belongsToMany(Permission, {
     },
     constraint : true,
     foreignKey : 'user_id'
-})
+});
 
 Permission.belongsToMany(User, {
     through : {
@@ -27,9 +27,7 @@ Permission.belongsToMany(User, {
     },
     constraint : true,
     foreignKey : 'permission_id'
-})
-
-
+});
 
 
 module.exports = UserPermission; 

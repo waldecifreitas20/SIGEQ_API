@@ -26,10 +26,11 @@ const setPermission = (name) => {
 module.exports = {
     generateUser : () => {
         return {
-            full_name : faker.name.findName(),
+            first_name : faker.name.firstName(),
+            surname : faker.name.lastName(),
             email : faker.internet.email(),
             password : faker.internet.password(),
-            cpf : faker.br.cpf()
+            cpf : faker.br.cpf(),
         };
     },
 
