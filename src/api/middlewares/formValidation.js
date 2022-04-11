@@ -1,39 +1,50 @@
-const isEmptyObject = (object) => {
+const _isEmptyObject = (object) => {
     try {
-        const keys = ['status', 'current_location', 'image']; 
-        for (const key of keys) {
-            console.log(object.hasOwnProperty(key));
+        const keysExpected = ['status', 'current_location', 'image'];
+
+        keysExpected.forEach(key => {
             if (object.hasOwnProperty(key)) {
                 return false;
-            } 
-        }
-    } catch (error) { 
+            }
+        });
+    } catch (error) {
         return true;
     }
+};
+
+const _invalidsParamsMessageError = (validParamsExpected, validParamsreceived) => {
+    return `expected to receive ${validParamsExpected} valid params. But, was given ${validParamsreceived}`;
 }
+
+const _hasManyKeysExpected = (keysExpected, object) => {
+    let matchs = 0;
+
+    keysExpected.forEach(key => {
+        if (object.hasOwnProperty(key)) {
+            ++matchs;
+        }
+    });
+
+    return matchs;
+};
 
 module.exports = {
     register: function (req, res, next) {
         const user = req.body;
-        let receivedParams = 4;
+        let keysExpected = [
+            'first_name',
+            'surname',
+            'email',
+            'password',
+            'cpf',
+        ];
 
-        if (!user.full_name) {
-            --receivedParams;
-        }
-        if (!user.email) {
-            --receivedParams;
-        }
-        if (!user.password) {
-            --receivedParams;
-        }
-        if (!user.cpf) {
-            --receivedParams;
-        }
+        let matchs = _hasManyKeysExpected(keysExpected, user);
 
-        if (receivedParams < 4) {
+        if (matchs != keysExpected.length) {
             return res.status(400).send({
                 status: 400,
-                error: 'expected to receive 4 params. But, was given ' + receivedParams
+                error: _invalidsParamsMessageError(keysExpected.length, matchs)
             });
         }
 
@@ -42,19 +53,13 @@ module.exports = {
 
     login: function (req, res, next) {
         const user = req.body;
-        let receivedParams = 2;
+        let keysExpected = ['email', 'password'];
+        let matchs = _hasManyKeysExpected(keysExpected, user);
 
-        if (!user.email) {
-            --receivedParams;
-        }
-        if (!user.password) {
-            --receivedParams;
-        }
-
-        if (receivedParams < 2) {
+        if (matchs != keysExpected.length) {
             return res.status(400).send({
                 status: 400,
-                error: 'expected to receive 2 params. But, was given ' + receivedParams
+                error: _invalidsParamsMessageError(keysExpected.length, matchs)
             });
         }
         return next();
@@ -62,7 +67,7 @@ module.exports = {
 
     equipment: function (req, res, next) {
         const equipment = req.body;
-        const isEmpty = isEmptyObject(equipment);
+        const isEmpty = _isEmptyObject(equipment);
         console.log(isEmpty);
         if (isEmpty) {
             return res.status(400).send({ error: 'no params received' });
