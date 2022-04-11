@@ -17,7 +17,7 @@ describe('Register test', () => {
             route: routes.register,
             body: user
         });
-        console.log(response.body);
+     
         expect(response.status).toBe(200);
     });
 

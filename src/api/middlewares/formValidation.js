@@ -68,7 +68,7 @@ module.exports = {
     equipment: function (req, res, next) {
         const equipment = req.body;
         const isEmpty = _isEmptyObject(equipment);
-        console.log(isEmpty);
+
         if (isEmpty) {
             return res.status(400).send({ error: 'no params received' });
         }

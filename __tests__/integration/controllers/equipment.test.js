@@ -23,6 +23,7 @@ describe('Equipment form validation test', () => {
             route: routes.create,
             headers: { authorization: validToken }
         });
+       
         expect(response.status).toBe(400);
     });
     
@@ -31,7 +32,6 @@ describe('Equipment form validation test', () => {
             route: routes.update,
             headers: { authorization: validToken }
         });
-        console.log(response);
         expect(response.status).toBe(400);
     });
 });

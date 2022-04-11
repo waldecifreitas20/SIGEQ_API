@@ -46,7 +46,7 @@ describe('Get all equipment test', () => {
 
     it('should return all equipments from database', async () => {
         const response = await services.getAllEquipment();
-        console.log(response);
+      
       //  expect(response.equipment.length > 0)
     });
 });
