@@ -16,7 +16,6 @@ const Equipment = database.define('equipments', {
     },
     heritage : {
         type : datatype.STRING,
-        allowNull : false,
         unique : true
     },
     current_location : {
