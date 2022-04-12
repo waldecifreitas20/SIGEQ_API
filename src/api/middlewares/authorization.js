@@ -4,7 +4,7 @@ const _getPermissionNameByRoute = (route = String) => {
     if (route === '/create') {
         return 'create';
     }
-    if (route === '/all' || route.indexOf('/by_heritage') !== -1) {
+    if (route === '/all' || route.indexOf('/search') !== -1) {
         return 'read';
     }
     if (route === '/update') {

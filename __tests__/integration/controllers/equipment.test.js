@@ -7,7 +7,7 @@ const { generateToken } = require(getPath('src', 'utils', 'security.js'));
 const routes = {
     create: '/equipment/create',
     getAll: '/equipment/all',
-    getByHeritage: (heritage) => `/equipment/by_heritage/${heritage}`,
+    getById: (id) => `/equipment/search/${id}`,
     update: '/equipment/update',
     delete: (id) => `/equipment/delete/${id}`
 }
@@ -28,7 +28,7 @@ describe('Equipment form validation test', () => {
     });
 
     it('should return 400 when trying send a null body on update equipment request', async () => {
-        const response = await request.post({
+        const response = await request.put({
             route: routes.update,
             headers: { authorization: validToken }
         });
@@ -76,8 +76,33 @@ describe('Create equipment test', () => {
     });
 });
 
-describe('Get by heritage equipment test', () => { 
+describe('Get by id equipment test', () => {
+
+    it('should return 200 ok when trying get a equipment sending a id', async () => {
+        const { body } = await request.get({
+            route: routes.getAll,
+            headers: { authorization: validToken }
+        });
+        const response = await request.get({
+            route: routes.getById(body.equipment[0].id),
+            headers: { authorization: validToken }
+        });
+
+        expect(response.status).toBe(200);
+    });
     
+    it('should return 400 when trying get a equipment without to send a id', async () => {
+        const { body } = await request.get({
+            route: routes.getAll,
+            headers: { authorization: validToken }
+        });
+        const response = await request.get({
+            route: routes.getById(),
+            headers: { authorization: validToken }
+        });
+
+        expect(response.status).toBe(400);
+    });
 });
 
 describe('Get all equipment test', () => {
@@ -90,6 +115,7 @@ describe('Get all equipment test', () => {
         expect(response.status).toBe(200);
     });
 });
+
 
 const getEquipmentIdFromDatabase = async () => {
     const response = await request.get({
