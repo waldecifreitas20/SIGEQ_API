@@ -21,9 +21,9 @@ router.get('/all', async (req, res) => {
 });
 
 
-router.get('/by_heritage/:heritage', async (req, res) => {
-    const { heritage } = req.params;
-    const response = await services.getEquipmentByField({ heritage: heritage });
+router.get('/search/:id', async (req, res) => {
+    const { id } = req.params;
+    const response = await services.getEquipmentByField({ id : id });
     return res.status(response.status).send(response);
 });
 

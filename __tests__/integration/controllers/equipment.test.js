@@ -76,7 +76,9 @@ describe('Create equipment test', () => {
     });
 });
 
-describe('Get by heritage equipment test', () => { });
+describe('Get by heritage equipment test', () => { 
+    
+});
 
 describe('Get all equipment test', () => {
 

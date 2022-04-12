@@ -1,5 +1,3 @@
-
-
 const _hasManyExpectedKeys = (keysExpected, object) => {
     let matchs = 0;
 
