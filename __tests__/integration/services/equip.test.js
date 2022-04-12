@@ -23,7 +23,7 @@ describe('Create test', () => {
     });
 });
 
-describe('Delete equipment test', () => {
+describe('Delete test', () => {
 
     it('should return status 200 when trying delete a equipment using their id', async () => {
         const { equipment: equipment_id } = await services.createEquipment(factory.generateEquipment());
@@ -32,7 +32,7 @@ describe('Delete equipment test', () => {
     });
 });
 
-describe('Get by heritage equipment test', () => {
+describe('Get by id test', () => {
 
     it('should give true when comparing sent id with equipment.id given', async () => {
         const { equipment: equipment_id } = await services.createEquipment(factory.generateEquipment());
@@ -42,7 +42,7 @@ describe('Get by heritage equipment test', () => {
     });
 });
 
-describe('Get all equipment test', () => {
+describe('Get all test', () => {
 
     it('should return all equipments from database', async () => {
         const response = await services.getAllEquipment();
@@ -51,7 +51,7 @@ describe('Get all equipment test', () => {
     });
 });
 
-describe('Update equipment test', () => {
+describe('Update test', () => {
 
     it('should return status 200 when updating a equipment status on database', async () => {
         const {
