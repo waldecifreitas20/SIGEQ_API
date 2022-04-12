@@ -67,5 +67,17 @@ module.exports = {
             });
         }
         return next();
+    },
+
+    checkParams: function (req, res, next) {
+        const equipmentId = req.params.id;
+        try {
+            const n = Number.parseInt(equipmentId);
+            console.log(n);
+            return res.status(400).send({ error: 'TypeError: Id is not a number' });
+           // return next();
+        } catch (error) {
+            return res.status(400).send({ error: 'TypeError: Id is not a number' });
+        }
     }
 };

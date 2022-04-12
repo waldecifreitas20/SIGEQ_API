@@ -10,7 +10,7 @@ const _getUserPermissions = user => {
 const _userDataFormat = user => {
     const userData = {
         id : user.id,
-        full_name : user.full_name,
+        name : user.first_name,
         permissions : _getUserPermissions(user)
     }
     return {

@@ -28,7 +28,6 @@ module.exports = {
                 return equipment.id;
             })
             .catch(err => {
-
                 throw 'cannot create new equipment';
             });
     },
@@ -37,6 +36,10 @@ module.exports = {
         const equipment = await EquipmentModel.findOne({
             where: { id: id }
         });
+
+        if (!equipment) {
+            throw 'equipment does not exist'
+        }
         return await equipment.destroy();
     },
 
