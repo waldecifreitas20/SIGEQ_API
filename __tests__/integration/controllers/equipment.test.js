@@ -16,6 +16,7 @@ const validToken = 'Bearer ' + generateToken({
     permissions: factory.generatePermissions({}),
 });
 
+
 describe('Equipment form validation test', () => {
 
     it('should return 400 when trying send a null body on create equipment request', async () => {
@@ -23,10 +24,9 @@ describe('Equipment form validation test', () => {
             route: routes.create,
             headers: { authorization: validToken }
         });
-       
-        expect(response.status).toBe(400);
+        expect(response.status == 400).toBe(true);
     });
-    
+
     it('should return 400 when trying send a null body on update equipment request', async () => {
         const response = await request.post({
             route: routes.update,
@@ -35,7 +35,6 @@ describe('Equipment form validation test', () => {
         expect(response.status).toBe(400);
     });
 });
-
 
 describe('Create equipment test', () => {
     const equipment = factory.generateEquipment();

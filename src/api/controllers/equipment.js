@@ -36,6 +36,7 @@ router.post('/create', formValidation.equipment, async (req, res) => {
 
 router.post('/update', formValidation.equipment, async (req, res) => {
     const equipmentData = req.body;
+
     const response = await services.updateEquipment(equipmentData);
     return res.status(response.status).send(response);
 });

@@ -1,22 +1,6 @@
-const _isEmptyObject = (object) => {
-    try {
-        const keysExpected = ['status', 'current_location', 'image'];
 
-        keysExpected.forEach(key => {
-            if (object.hasOwnProperty(key)) {
-                return false;
-            }
-        });
-    } catch (error) {
-        return true;
-    }
-};
 
-const _invalidsParamsMessageError = (validParamsExpected, validParamsreceived) => {
-    return `expected to receive ${validParamsExpected} valid params. But, was given ${validParamsreceived}`;
-}
-
-const _hasManyKeysExpected = (keysExpected, object) => {
+const _hasManyExpectedKeys = (keysExpected, object) => {
     let matchs = 0;
 
     keysExpected.forEach(key => {
@@ -28,7 +12,12 @@ const _hasManyKeysExpected = (keysExpected, object) => {
     return matchs;
 };
 
+const _invalidsParamsMessageError = (validParamsExpected, validParamsreceived) => {
+    return `expected to receive ${validParamsExpected} valid params. But, was given ${validParamsreceived}`;
+}
+
 module.exports = {
+
     register: function (req, res, next) {
         const user = req.body;
         let keysExpected = [
@@ -39,22 +28,39 @@ module.exports = {
             'cpf',
         ];
 
-        let matchs = _hasManyKeysExpected(keysExpected, user);
+        let matchs = _hasManyExpectedKeys(keysExpected, user);
 
-        if (matchs != keysExpected.length) {
+        if (matchs != keysExpected.length)
             return res.status(400).send({
                 status: 400,
                 error: _invalidsParamsMessageError(keysExpected.length, matchs)
             });
-        }
-
         return next();
     },
 
     login: function (req, res, next) {
         const user = req.body;
-        let keysExpected = ['email', 'password'];
-        let matchs = _hasManyKeysExpected(keysExpected, user);
+        const keysExpected = ['email', 'password'];
+        const matchs = _hasManyExpectedKeys(keysExpected, user);
+
+        if (matchs != keysExpected.length)
+            return res.status(400).send({
+                status: 400,
+                error: _invalidsParamsMessageError(keysExpected.length, matchs)
+            });
+        return next();
+    },
+
+    equipment: function (req, res, next) {
+        const equipment = req.body;
+        const keysExpected = [
+            "company",
+            "category",
+            "model",
+            "current_location",
+            "status",
+        ];
+        const matchs = _hasManyExpectedKeys(keysExpected, equipment);
 
         if (matchs != keysExpected.length) {
             return res.status(400).send({
@@ -62,17 +68,6 @@ module.exports = {
                 error: _invalidsParamsMessageError(keysExpected.length, matchs)
             });
         }
-        return next();
-    },
-
-    equipment: function (req, res, next) {
-        const equipment = req.body;
-        const isEmpty = _isEmptyObject(equipment);
-
-        if (isEmpty) {
-            return res.status(400).send({ error: 'no params received' });
-        }
-
         return next();
     }
 };
