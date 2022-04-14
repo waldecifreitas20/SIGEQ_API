@@ -2,51 +2,30 @@ const express = require('express');
 const router = express.Router();
 
 const [
-    services,
     permissionsMiddleware,
-    formValidation
+    formValidation,
+    equipmentRoutes
 ] = [
-        require(require('../../utils/paths').services.equipment),
-        require(require('../../utils/paths').middlewares.authorization),
-        require(require('../../utils/paths').middlewares.formValidation),
+        require(require('../../utils/paths.js').middlewares.authorization),
+        require(require('../../utils/paths.js').middlewares.formValidation),
+        require('../../routes/equipment.js')
     ];
+
 
 router.use(permissionsMiddleware.checkToken);
 router.use(permissionsMiddleware.hasPermission);
 
 
 
-router.get('/all', async (req, res) => {
-    const response = await services.getAllEquipment();
-    return res.status(response.status).send(response);
-});
+router.get('/all', equipmentRoutes.getAll);
 
+router.get('/search/:id', formValidation.checkParams, equipmentRoutes.getById);
 
-router.get('/search/:id', formValidation.checkParams, async (req, res) => {
-    const { id } = req.params;
-    const response = await services.getEquipmentByField({ id: id });
-    return res.status(response.status).send(response);
-});
+router.post('/create', formValidation.equipment, equipmentRoutes.create);
 
+router.put('/update', formValidation.equipment, equipmentRoutes.update);
 
-router.post('/create', formValidation.equipment, async (req, res) => {
-    const equipmentData = req.body;
-    const response = await services.createEquipment(equipmentData);
-    return res.status(response.status).send(response);
-});
-
-router.put('/update', formValidation.equipment, async (req, res) => {
-    const equipmentData = req.body;
-
-    const response = await services.updateEquipment(equipmentData);
-    return res.status(response.status).send(response);
-});
-
-router.delete('/delete/:equipment_id', formValidation.checkParams, async (req, res) => {
-    const { equipment_id } = req.params;
-    const response = await services.deleteEquipmentById(equipment_id);
-    return res.status(response.status).send(response);
-});
+router.delete('/delete/:equipment_id', formValidation.checkParams, equipmentRoutes.delete);
 
 
 module.exports = app => app.use('/equipment', router);
