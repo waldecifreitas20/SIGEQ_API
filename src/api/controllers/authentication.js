@@ -1,19 +1,21 @@
-const express = require('express');
-const router = express.Router();
+const services = require(require('../../utils/paths').services.auth);
 
-const { middlewares } = require('../../utils/paths');
-const authRoutes = require('../../routes/authentication.js');
+module.exports = {
+    register: async (req, res) => {
+        const userData = req.body;
+        var response = await services.register(userData);
 
-const [formValidation, authorization] = [
-    require(middlewares.formValidation),
-    require(middlewares.authorization)
-];
+        return res.status(response.status).send(response);
+    },
 
-router.post('/register', formValidation.register, authRoutes.register);
+    authenticate: async (req, res) => {
+        const { email, password } = req.body;
+        var response = await services.login(email, password);
 
-router.post('/authenticate', formValidation.login, authRoutes.authenticate);
+        return res.status(response.status).send(response);
+    },
 
-router.post('/check_token', authorization.checkToken, authRoutes.check_token);
-
-
-module.exports = app => app.use('/auth', router);
+    check_token: (req, res) => {
+        return res.status(200).send({ message: 'valid token' });
+    }
+}

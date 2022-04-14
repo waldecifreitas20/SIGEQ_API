@@ -8,7 +8,7 @@ const toStablishConnection = require('./database/connection');
 const { initDatabase } = require('./database/db')
 
 require('./config/dotenv');
-require('./api/controllers')(app);
+require('./routes')(app);
 
 initDatabase();
 toStablishConnection();

@@ -22,6 +22,11 @@ module.exports = {
         auth: getPath('src', 'api', 'controllers', 'auth'),
         equipment: getPath('src', 'api', 'controllers', 'equipment'),
     },
-   // repositories: getPath('src', 'api', 'repositories'),
+    routes: {
+        index: getPath('src', 'routes'),
+        auth: getPath('src', 'routes', 'auth'),
+        equipment: getPath('src', 'routes', 'equipment'),
+    },
+    repositories: getPath('src', 'api', 'repositories'),
     database: getPath('src', 'database', 'db'),
 }

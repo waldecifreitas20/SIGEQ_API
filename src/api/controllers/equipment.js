@@ -1,31 +1,43 @@
-const express = require('express');
-const router = express.Router();
 
 const [
     permissionsMiddleware,
     formValidation,
-    equipmentRoutes
+    services
 ] = [
         require(require('../../utils/paths.js').middlewares.authorization),
         require(require('../../utils/paths.js').middlewares.formValidation),
-        require('../../routes/equipment.js')
+        require(require('../../utils/paths').services.equipment)
     ];
 
 
-router.use(permissionsMiddleware.checkToken);
-router.use(permissionsMiddleware.hasPermission);
+module.exports = {
+    getAll: async function (req, res) {
+        const response = await services.getAllEquipment();
+        return res.status(response.status).send(response);
+    },
 
+    getById: async function (req, res) {
+        const { id } = req.params;
+        const response = await services.getEquipmentByField({ id: id });
+        return res.status(response.status).send(response);
+    },
 
+    create: async function (req, res) {
+        const equipmentData = req.body;
+        const response = await services.createEquipment(equipmentData);
+        return res.status(response.status).send(response);
+    },
 
-router.get('/all', equipmentRoutes.getAll);
+    update: async function (req, res) {
+        const equipmentData = req.body;
+        const response = await services.updateEquipment(equipmentData);
+        return res.status(response.status).send(response);
+    },
 
-router.get('/search/:id', formValidation.checkParams, equipmentRoutes.getById);
+    delete: async function (req, res) {
+        const { id } = req.params;
+        const response = await services.deleteEquipmentById(id);
 
-router.post('/create', formValidation.equipment, equipmentRoutes.create);
-
-router.put('/update', formValidation.equipment, equipmentRoutes.update);
-
-router.delete('/delete/:id', formValidation.checkParams, equipmentRoutes.delete);
-
-
-module.exports = app => app.use('/equipment', router);
+        return res.status(response.status).send(response);
+    },
+}
