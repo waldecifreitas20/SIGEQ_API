@@ -25,7 +25,7 @@ router.post('/create', formValidation.equipment, equipmentRoutes.create);
 
 router.put('/update', formValidation.equipment, equipmentRoutes.update);
 
-router.delete('/delete/:equipment_id', formValidation.checkParams, equipmentRoutes.delete);
+router.delete('/delete/:id', formValidation.checkParams, equipmentRoutes.delete);
 
 
 module.exports = app => app.use('/equipment', router);

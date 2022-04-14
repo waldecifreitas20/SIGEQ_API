@@ -20,14 +20,14 @@ module.exports = {
 
     update: async function (req, res) {
         const equipmentData = req.body;
-
         const response = await services.updateEquipment(equipmentData);
         return res.status(response.status).send(response);
     },
 
     delete: async function (req, res) {
-        const { equipment_id } = req.params;
-        const response = await services.deleteEquipmentById(equipment_id);
+        const { id } = req.params;
+        const response = await services.deleteEquipmentById(id);
+
         return res.status(response.status).send(response);
     },
 }

@@ -1,13 +1,12 @@
 const equipmentRepository = require('../repositories/equipmentRepository');
 
-const _callRepository = async (callback, params = undefined) => {
+const _callRepository = async (action, params, sucessStatus = 200) => {
     try {
         return {
-            status: 200,
-            equipment: await callback(params),
+            status: sucessStatus,
+            response: await action(params)
         };
     } catch (error) {
-        console.log(error);
         return {
             status: error.code,
             error: error.message,
@@ -16,50 +15,63 @@ const _callRepository = async (callback, params = undefined) => {
 }
 
 const _toUpdate = async equipment => {
-    try {
-        if (equipment.status !== undefined) {
-            await equipmentRepository.updateStatus(equipment);
-        }
-
-        if (equipment.current_location !== undefined) {
-            await equipmentRepository.updateLocation(equipment);
-        }
-
-        if (equipment.image !== undefined) {
-            await equipmentRepository.updateImage(equipment);
-        }
-
-        return {
-            status: 200,
-            message: 'equipment updated with success'
-        }
-    } catch (error) {
-        return {
-            status: 400,
-            error
-        }
+    if (equipment.status !== undefined) {
+        await equipmentRepository.updateStatus(equipment);
     }
+
+    if (equipment.current_location !== undefined) {
+        await equipmentRepository.updateLocation(equipment);
+    }
+
+    if (equipment.image !== undefined) {
+        await equipmentRepository.updateImage(equipment);
+    }
+
+    return 'equipment updated with success';
 }
 
 
 module.exports = {
     getEquipmentByField: async function (field) {
-        return await _callRepository(equipmentRepository.getEquipmentBy, field);
+        const repositoryResponse = await _callRepository(equipmentRepository.getEquipmentBy, field);
+        return {
+            status: repositoryResponse.status,
+            error: repositoryResponse.error,
+            equipment: repositoryResponse.response
+        };
     },
 
     getAllEquipment: async function () {
-        return await _callRepository(equipmentRepository.getAll);
+        const repositoryResponse = await _callRepository(equipmentRepository.getAll());
+        return {
+            status: repositoryResponse.status,
+            error: repositoryResponse.error,
+            equipments: repositoryResponse.response
+        };
     },
 
     createEquipment: async function (equipmentData) {
-        return await _callRepository(equipmentRepository.create, equipmentData);
+        const repositoryResponse = await _callRepository(equipmentRepository.create, equipmentData);
+        return {
+            status: repositoryResponse.status,
+            error: repositoryResponse.error,
+            equipment_id: repositoryResponse.response
+        };
     },
 
     updateEquipment: async function (equipment) {
-        return await _toUpdate(equipment);
+        const repositoryResponse = await _callRepository(_toUpdate, equipment, 204);
+        return {
+            status: repositoryResponse.status,
+            error: repositoryResponse.error
+        };
     },
 
     deleteEquipmentById: async function (id) {
-        return await _callRepository(equipmentRepository.remove, id);
+        const repositoryResponse = await _callRepository(equipmentRepository.remove, id, 204);
+        return {
+            status: repositoryResponse.status,
+            error: repositoryResponse.error
+        };
     },
 }

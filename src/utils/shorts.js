@@ -21,8 +21,8 @@ module.exports = {
         return matchs === keysExpected.length;
     },
 
-    throwException(error = String, code = 400) {
-        throw { error, code };
+    Exception(message = String, code = 400) {
+        return { message, code };
     }
 
 
