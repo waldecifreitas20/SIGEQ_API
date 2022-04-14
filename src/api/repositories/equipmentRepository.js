@@ -1,12 +1,12 @@
 const paths = require('../../utils/paths');
 const EquipmentModel = require(paths.models.equipment);
-const { isEmptyArray } = require('../../utils/shorts');
+const { isEmptyArray, throwException, isEmptyObject } = require('../../utils/shorts');
 
 
 const _saveChanges = async (model) => {
     return await model.save()
         .catch(() => {
-            throw 'cannot save changes'
+            return throwException('cannot save changes', 502);
         });
 }
 
@@ -14,12 +14,18 @@ module.exports = {
 
     getEquipmentBy: async function (field) {
         const equipment = await EquipmentModel.findOne({ where: field });
-        return isEmptyArray(equipment, 'equipment not found');
+        if (isEmptyArray(equipment)) {
+            return throwException('equipment not found');
+        }
+        return equipment;
     },
 
     getAll: async function () {
-        const all = await EquipmentModel.findAll();
-        return isEmptyArray(all, 'cannot find any equipment into the database');
+        const allEquipments = await EquipmentModel.findAll();
+        if (isEmptyArray(allEquipments)) {
+            return throwException('cannot find any equipment into the database', 204);
+        }
+        return allEquipments;
     },
 
     create: async function (equipment) {
@@ -28,7 +34,7 @@ module.exports = {
                 return equipment.id;
             })
             .catch(err => {
-                throw 'cannot create new equipment';
+                return throwException('cannot create new equipment', 502);
             });
     },
 
@@ -36,10 +42,12 @@ module.exports = {
         const equipment = await EquipmentModel.findOne({
             where: { id: id }
         });
+        const isEquipmentNull = !equipment;
 
-        if (!equipment) {
-            throw 'equipment does not exist'
+        if (isEquipmentNull) {
+            return throwException('equipment does not exist');
         }
+
         return await equipment.destroy();
     },
 

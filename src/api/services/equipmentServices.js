@@ -9,8 +9,8 @@ const _callRepository = async (callback, params = undefined) => {
     } catch (error) {
         console.log(error);
         return {
-            status: 400,
-            error,
+            status: error.code,
+            error: error.message,
         };
     }
 }

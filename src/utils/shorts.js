@@ -1,21 +1,15 @@
 const fs = require('fs');
 
 module.exports = {
-    getFilesName: function (path) {
+    getFilesName: function (path = String) {
         return fs
             .readdirSync(path)
             .filter(file => file.indexOf('index') == -1)
     },
 
-    isEmptyArray: function (array, exception = 'array is empty') {
+    isEmptyArray: (array = Array) => !array || array.length === 0,
 
-        if (!array || array.length === 0) {
-            throw exception;
-        }
-        return array;
-    },
-
-    isEmptyObject: function (keysExpected, object, exception='is empty object') {
+    hasKeys: function (keysExpected = Array, object = Object) {
         let matchs = 0;
 
         keysExpected.forEach(key => {
@@ -24,9 +18,11 @@ module.exports = {
             }
         });
 
-        if (matchs === keysExpected.length) return object
-        
-        return exception;
+        return matchs === keysExpected.length;
+    },
+
+    throwException(error = String, code = 400) {
+        throw { error, code };
     }
 
 

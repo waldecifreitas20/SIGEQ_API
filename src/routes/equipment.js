@@ -18,7 +18,6 @@ module.exports = {
         return res.status(response.status).send(response);
     },
 
-
     update: async function (req, res) {
         const equipmentData = req.body;
 

@@ -1,13 +1,13 @@
 const { checkToken } = require('../../utils/security');
 
-const _getPermissionNameByRoute = (route = String) => {
-    if (route === '/create') {
+const _getPermissionRequiredByRoute = (route = String) => {
+    if (route.indexOf('/create') !== -1) {
         return 'create';
     }
-    if (route === '/all' || route.indexOf('/search') !== -1) {
+    if (route.indexOf('/all') !== -1 || route.indexOf('/search') !== -1) {
         return 'read';
     }
-    if (route === '/update') {
+    if (route.indexOf('/update') !== -1) {
         return 'update';
     }
     if (route.indexOf('/delete') !== -1) {
@@ -40,15 +40,15 @@ module.exports = {
     hasPermission: function (req, res, next) {
         const current_route = req.url;
 
-        const permissionName = _getPermissionNameByRoute(current_route);
+        const permissionRequired = _getPermissionRequiredByRoute(current_route);
         for (let i = 0; i < req.permissions.length; i++) {
             const permission = req.permissions[i];
 
-            if (permission.name == permissionName) {
+            if (permission.name == permissionRequired) {
                 return next();
             }
         }
-        return res.status(401).send({ error: 'user has no permission' })
+        return res.status(403).send({ error: 'user has no permission' })
     },
 
 }
