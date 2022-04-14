@@ -15,7 +15,7 @@ module.exports = {
     getEquipmentBy: async function (field) {
         const equipment = await EquipmentModel.findOne({ where: field });
         if (isEmptyArray(equipment)) {
-            throw Exception('equipment not found');
+            throw Exception('equipment not found', 400);
         }
         return equipment;
     },

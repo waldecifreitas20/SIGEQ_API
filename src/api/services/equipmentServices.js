@@ -1,9 +1,10 @@
 const equipmentRepository = require('../repositories/equipmentRepository');
 
-const _callRepository = async (action, params, sucessStatus = 200) => {
+const _callRepository = async (action, params, successStatus = 200) => {
     try {
+
         return {
-            status: sucessStatus,
+            status: successStatus,
             response: await action(params)
         };
     } catch (error) {
@@ -33,7 +34,10 @@ const _toUpdate = async equipment => {
 
 module.exports = {
     getEquipmentByField: async function (field) {
-        const repositoryResponse = await _callRepository(equipmentRepository.getEquipmentBy, field);
+        const repositoryResponse = await _callRepository(
+            equipmentRepository.getEquipmentBy, field, 200
+        );
+
         return {
             status: repositoryResponse.status,
             error: repositoryResponse.error,
@@ -42,9 +46,9 @@ module.exports = {
     },
 
     getAllEquipment: async function () {
-        const repositoryResponse = await _callRepository(equipmentRepository.getAll());
+        const repositoryResponse = await _callRepository(equipmentRepository.getAll, 200);
         return {
-            status: repositoryResponse.status,
+            status: repositoryResponse.status || 200,
             error: repositoryResponse.error,
             equipments: repositoryResponse.response
         };
