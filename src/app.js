@@ -8,7 +8,11 @@ const toStablishConnection = require('./database/connection');
 const { initDatabase } = require('./database/db')
 
 require('./config/dotenv');
+
+app.use(require('./api/middlewares/notFound.js'));
+
 require('./routes')(app);
+
 
 initDatabase();
 toStablishConnection();
