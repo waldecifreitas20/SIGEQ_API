@@ -46,7 +46,7 @@ module.exports = {
         return {
             status: repositoryResponse.status,
             error: repositoryResponse.error,
-            equipments: repositoryResponse.response
+            
         };
     },
 
