@@ -19,5 +19,7 @@ describe('security.js test', () => {
 
         expect(token.length > 0).toBe(true);
     });
+
+    
 });
 
