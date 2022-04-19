@@ -50,7 +50,7 @@ module.exports = {
         return {
             status: repositoryResponse.status || 200,
             error: repositoryResponse.error,
-            equipments: repositoryResponse.response
+            
         };
     },
 

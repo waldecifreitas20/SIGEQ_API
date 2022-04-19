@@ -2,6 +2,10 @@ const paths = require('../../../utils/paths');
 const { database, datatype } = require(paths.database);
 
 const Equipment = database.define('equipments', {
+    title: {
+        type: datatype.STRING,
+        allowNull: false
+    },
     company: {
         type: datatype.STRING,
         allowNull: false

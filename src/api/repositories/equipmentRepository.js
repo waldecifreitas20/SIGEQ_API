@@ -34,6 +34,7 @@ module.exports = {
                 return equipment.id;
             })
             .catch(err => {
+                console.log(err);
                 throw Exception('cannot create new equipment', 502);
             });
     },

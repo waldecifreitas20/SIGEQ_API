@@ -52,6 +52,7 @@ module.exports = {
     equipment: function (req, res, next) {
         const equipment = req.body;
         const keysExpected = [
+            "title",
             "company",
             "category",
             "model",
