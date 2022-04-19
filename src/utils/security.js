@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+
 require('../config/dotenv');
 
 module.exports = {
