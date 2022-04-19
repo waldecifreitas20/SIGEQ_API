@@ -16,7 +16,7 @@ module.exports = (req, res, next) => {
     const isKnownRoute = knownRoutes.indexOf(route) !== -1;
     
     if (isKnownRoute) {
-        return next();
+        return next(); 
     }
     return res.status(404).send({ error: "endpoint does not exist" })
 }
