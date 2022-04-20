@@ -27,15 +27,5 @@ describe('security.js test', () => {
         expect(token.length > 0).toBe(true);
     });
 
-    it('should return true when compare a password with a hash of itself', () => {
-
-    });
-
-    it('should return false when compare a password with a hash of anything', () => {
-
-    });
-
-
-
 });
 
