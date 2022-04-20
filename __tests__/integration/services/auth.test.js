@@ -11,23 +11,30 @@ const paths = require('../../../src/utils/paths');
 
 describe('Register test', () => {
 
-    const { generateUser } = require('../../factory');    
-    const services = require(paths.services.auth);    
+    const { generateUser } = require('../../factory');
+    const services = require(paths.services.auth);
     const newUser = generateUser();
-    
+
     it('should register a new user in database', async () => {
-        const response = await services.register(newUser);   
+        const response = await services.register(newUser);
         expect(response.status).toBe(200);
     });
-    
+
     it('should give error when trying to register an already registered user', async () => {
-        const response = await services.register(newUser);  
+        const response = await services.register(newUser);
         expect(response.status).toBe(400);
     });
-    
-    
+
+
     it('should to get status 400 on trying to register null user', async () => {
         const response = await services.register(null);
         expect(response.status).toBe(400);
+    });
+});
+
+describe('Authenticate test', () => {
+
+    it('should authenticate a user with status 200', async () => {
+
     });
 });

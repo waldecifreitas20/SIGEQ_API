@@ -23,19 +23,19 @@ module.exports = {
     getAll: async function () {
         const allEquipments = await EquipmentModel.findAll();
         if (isEmptyArray(allEquipments)) {
-            throw Exception('cannot find any equipment into the database', 204);
+            throw Exception('cannot find any equipment into the database', 200);
         }
         return allEquipments;
     },
 
     create: async function (equipment) {
-        return await EquipmentModel.create(equipment)
-            .then(equipment => {
-                return equipment.id;
-            })
-            .catch(err => {
-                throw Exception('cannot create new equipment', 502);
-            });
+        try {
+            const equipmentFromDatabase = await EquipmentModel.create(equipment);
+            return equipmentFromDatabase.id;
+        } catch (error) {
+
+            throw Exception('cannot create equipment', 502);
+        }
     },
 
     remove: async function (id) {
