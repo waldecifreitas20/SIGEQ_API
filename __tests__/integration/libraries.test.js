@@ -22,7 +22,7 @@ describe('bcrypt test', () => {
     });
 
 
-    it('should compare hash that returns true', async () => {
+    it('should return false when comparing a wrong password with the hash', async () => {
         const wrongPassword = '5987';
         const isEquals = await bcrypt.compare(wrongPassword, hash);
         expect(isEquals).toBe(false);
@@ -35,7 +35,7 @@ describe('JWT test', () => {
         user : factory.generateUser()
     }
 
-    it('should give a token', () => {
+    it('should generate a JWT without troubles', () => {
         const token = jwt.sign(payload, process.env.API_SECRET);
         
         expect(token.length > 0).toBe(true);
@@ -48,7 +48,7 @@ describe('JWT test', () => {
          expect(result != null).toBe(true);
     });
 
-    it('must return false as response on send invalid token', () => {
+    it('should return false as response when sending invalid token', () => {
         const falseToken = '15a21dsSaWRY4hsR';
         let isValidtoken;
         
