@@ -10,6 +10,8 @@ module.exports = {
 
     isEmptyArray: (array = Array) => !array || array.length === 0,
 
-    exception: (message = String, errorCode = 400) => { message, errorCode },
+    exception: (message = String, errorCode = 400) => {
+        return { message, errorCode };
+    },
 
 }
