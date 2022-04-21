@@ -1,3 +1,5 @@
+const router = require('express').Router();
+
 const { middlewares } = require('../utils/paths');
 const authController = require('../api/controllers/authentication.js');
 
@@ -8,9 +10,11 @@ const [formValidation, authorization] = [
 
 module.exports = app => {
 
-    app.post('/auth/register', formValidation.register, authController.register);
+    router.post('/register', formValidation.register, authController.register);
 
-    app.post('/auth/authenticate', formValidation.login, authController.authenticate);
+    router.post('/authenticate', formValidation.login, authController.authenticate);
 
-    app.post('/auth/check_token', authorization.checkToken, authController.check_token);
+    router.post('/check_token', authorization.checkToken, authController.check_token);
+
+    app.use('/auth', router);
 }
