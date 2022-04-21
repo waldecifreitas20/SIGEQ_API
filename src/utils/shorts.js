@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 module.exports = {
-    
+
     getFilesName: function (path = String) {
         return fs
             .readdirSync(path)
@@ -10,9 +10,6 @@ module.exports = {
 
     isEmptyArray: (array = Array) => !array || array.length === 0,
 
-    Exception(message = String, code = 400) {
-        return { message, code };
-    }
-
+    exception: (message = String, errorCode = 400) => { message, errorCode },
 
 }
