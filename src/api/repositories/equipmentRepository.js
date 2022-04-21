@@ -36,6 +36,7 @@ module.exports = {
 
             throw Exception('cannot create equipment', 502);
         }
+
     },
 
     remove: async function (id) {
