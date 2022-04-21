@@ -12,7 +12,7 @@ module.exports = {
         try {
             return await UserModel.create(userData);
         } catch (error) {
-            throw exception('User already registered');
+            throw exception('User already registered', 400);
         }
     },
 
@@ -22,7 +22,7 @@ module.exports = {
             include: PermissionModel
         });
         if (user == null) {
-            throw exception('user not found');
+            throw exception('user not found', 401);
         }
         return user;
     },

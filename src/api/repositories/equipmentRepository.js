@@ -33,7 +33,7 @@ module.exports = {
             const equipmentFromDatabase = await EquipmentModel.create(equipment);
             return equipmentFromDatabase.id;
         } catch (error) {
-            throw exception('cannot create equipment', 502);
+            throw exception('cannot create equipment', 400);
         }
     },
 
@@ -42,7 +42,7 @@ module.exports = {
         const isEquipmentNull = !equipment;
 
         if (isEquipmentNull) {
-            throw exception('equipment does not exist');
+            throw exception('equipment does not exist', 400);
         }
         await equipment.destroy();
 
