@@ -1,6 +1,6 @@
 describe('Factory', () => {
-    
-    it('should generate a new user', () => {
+
+    it('should generate a new user with all him properties', () => {
         const factory = require('../factory');
         const newUser = factory.generateUser();
 
@@ -10,8 +10,8 @@ describe('Factory', () => {
         expect(newUser.password.length > 0).toBe(true);
         expect(newUser.cpf.length > 0).toBe(true);
     });
-    
-    it('should generate a new equipment', () => {
+
+    it('should generate a new equipment with all him properties', () => {
         const factory = require('../factory');
         const newEquipment = factory.generateEquipment();
 

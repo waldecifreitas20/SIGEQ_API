@@ -6,14 +6,9 @@ const formValidation = require(
     require('../utils/paths').middlewares.formValidation
 );
 
-const {
-    checkToken,
-    hasPermission
-} = require(
+const { checkToken, hasPermission } = require(
     require('../utils/paths').middlewares.authorization
 );
-
-
 
 
 module.exports = app => {
@@ -22,6 +17,7 @@ module.exports = app => {
     router.use(hasPermission);
 
     router.get('/all', equipmentController.getAll);
+    
     router.get('/search/:id', formValidation.checkParams, equipmentController.getById);
 
     router.post('/create', formValidation.equipment, equipmentController.create);

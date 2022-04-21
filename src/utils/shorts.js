@@ -1,6 +1,7 @@
 const fs = require('fs');
 
 module.exports = {
+    
     getFilesName: function (path = String) {
         return fs
             .readdirSync(path)
