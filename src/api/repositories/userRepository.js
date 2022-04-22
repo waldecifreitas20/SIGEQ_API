@@ -1,10 +1,10 @@
 const { resolve: getPath } = require('path');
+const paths = require('../../utils/paths');
 
-const { models } = require(getPath('src', 'utils', 'paths'));
-const { exception } = require(getPath('src', 'utils', 'shorts'));
+const { exception } = require(paths.utils.errors);
 
-const UserModel = require(`${models.user}`);
-const PermissionModel = require(`${models.permission}`);
+const UserModel = require(`${paths.models.user}`);
+const PermissionModel = require(`${paths.models.permission}`);
 
 module.exports = {
 
