@@ -6,7 +6,7 @@ module.exports = {
 
     models: {
         index: getPath('src', 'api', 'models'),
-        equipment: getPath('./src/api/models/equipment/Equipment.js'),
+        equipment: getPath('src', 'api', 'models', 'equipment', 'Equipment'),
         user: getPath('src', 'api', 'models', 'user', 'User'),
         permission: getPath('src', 'api', 'models', 'user', 'Permission')
     },
@@ -16,6 +16,8 @@ module.exports = {
         auth: getPath('src', 'api', 'services', 'authServices'),
         equipment: getPath('src', 'api', 'services', 'equipmentServices'),
     },
+
+
 
     middlewares: {
         index: getPath('src', 'api', 'middlewares'),
@@ -33,6 +35,17 @@ module.exports = {
         index: getPath('src', 'routes'),
         auth: getPath('src', 'routes', 'auth'),
         equipment: getPath('src', 'routes', 'equipment'),
+    },
+
+    utils: {
+        security: getPath('src', 'utils', 'security'),
+        errors: getPath('src', 'utils', 'errors'),
+        shorts: getPath('src', 'utils', 'shorts'),
+    },
+
+    repositories: {
+        user: getPath('src', 'api', 'repositories', 'userRepository'),
+        equipment: getPath('src', 'api', 'repositories', 'equipmentRepository'),
     },
 
 }
