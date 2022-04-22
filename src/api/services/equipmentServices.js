@@ -1,4 +1,8 @@
-const equipmentRepository = require('../repositories/equipmentRepository');
+const { utils, repositories } = require('../../utils/paths');
+
+const equipmentRepository = require(repositories.equipment);
+const { getErrorResponse } = require(utils.errors);
+
 
 const _callRepository = async (action, params, successStatus = 200) => {
     try {
@@ -7,10 +11,7 @@ const _callRepository = async (action, params, successStatus = 200) => {
             response: await action(params)
         };
     } catch (error) {
-        return {
-            status: error.errorCode,
-            error: error.message,
-        };
+        return getErrorResponse(error);
     }
 }
 
@@ -49,7 +50,6 @@ module.exports = {
         return {
             status: repositoryResponse.status || 200,
             error: repositoryResponse.error,
-            
         };
     },
 

@@ -1,7 +1,7 @@
 const paths = require('../../utils/paths');
 
 const userRepository = require(paths.repositories.user);
-const { generateToken, checkPassword } = require(paths.utils.security);
+const { generateToken, isPasswordEqualsHash } = require(paths.utils.security);
 const { exception, getErrorResponse } = require(paths.utils.errors);
 
 const _getUserPermissions = user => {
@@ -26,7 +26,7 @@ const _formatUserData = user => {
 
 
 const _checkPassword = (password, validPassword) => {
-    if (!checkPassword(password, validPassword)) {
+    if (!isPasswordEqualsHash(password, validPassword)) {
         throw exception('invalid password');
     }
 }
