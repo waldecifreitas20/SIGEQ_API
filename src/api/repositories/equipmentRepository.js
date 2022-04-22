@@ -1,9 +1,9 @@
-const paths = require('../../utils/paths');
+const { utils, models } = require('../../utils/paths');
 
-const EquipmentModel = require(paths.models.equipment);
+const EquipmentModel = require(models.equipment);
 
-const { isEmptyArray } = require(paths.utils.shorts);
-const { exception } = require(paths.utils.errors);
+const { isEmptyArray } = require(utils.shorts);
+const { exception } = require(utils.errors);
 
 
 const _saveChanges = async (model) => {

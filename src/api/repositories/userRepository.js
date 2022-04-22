@@ -1,9 +1,9 @@
-const paths = require('../../utils/paths');
+const { utils, models } = require('../../utils/paths');
 
-const { exception } = require(paths.utils.errors);
+const { exception } = require(utils.errors);
 
-const UserModel = require(`${paths.models.user}`);
-const PermissionModel = require(`${paths.models.permission}`);
+const UserModel = require(`${models.user}`);
+const PermissionModel = require(`${models.permission}`);
 
 module.exports = {
 
