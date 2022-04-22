@@ -1,25 +1,21 @@
 const _hasManyExpectedKeys = (keysExpected = [], object = {}) => {
-    let missingFields = keysExpected;
+    let requiredFields = 0;
 
     for (let i = 0; i < keysExpected.length; i++) {
         const key = keysExpected[i];
         if (object.hasOwnProperty(key)) {
-            missingFields.splice(i, 1);
+            requiredFields++;
         }
     }
-
-    return missingFields;
+    return requiredFields;
 };
 
-
-
-const _getMissingFieldsErrorResponse = (expected = [], received = [], missing = []) => {
+const _getrequiredFieldsErrorResponse = (expected = [], received = Number, required = []) => {
     return {
         status: 400,
-        error: true,
-        title: 'Missing required fields',
-        decription: `Were expected ${expected.length} required fields, but was given ${received.length}`,
-        missing_fields: missing,
+        error: 'Missing required fields',
+        description: `Were expected ${expected.length} required fields, but were given ${received}`,
+        required_fields: expected,
     };
 }
 
@@ -28,27 +24,25 @@ module.exports = {
     register: function (req, res, next) {
         const user = req.body;
         let keysExpected = [
-            'first_name',
-            'surname',
-            'email',
-            'password',
-            'cpf',
+            'first_name', 'surname',
+            'email', 'password', 'cpf',
         ];
 
-        let missingFields = _hasManyExpectedKeys(keysExpected, user);
-
-        if (missingFields.length != keysExpected.length)
-            return res.status(400).send(_getMissingFieldsErrorResponse(keysExpected, missingFields, missingFields));
+        let requiredFields = _hasManyExpectedKeys(keysExpected, user);
+        if (requiredFields.length != keysExpected.length) {
+            return res.status(400).send(_getrequiredFieldsErrorResponse(keysExpected, requiredFields, requiredFields));
+        }
         return next();
     },
 
     login: function (req, res, next) {
         const user = req.body;
         const keysExpected = ['email', 'password'];
-        const missingFields = _hasManyExpectedKeys(keysExpected, user);
+        const requiredFields = _hasManyExpectedKeys(keysExpected, user);
 
-        if (missingFields.length != keysExpected.length)
-            return res.status(400).send(_getMissingFieldsErrorResponse(keysExpected, missingFields, missingFields));
+        if (requiredFields.length != keysExpected.length) {
+            return res.status(400).send(_getrequiredFieldsErrorResponse(keysExpected, requiredFields, requiredFields));
+        }
 
         return next();
     },
@@ -60,10 +54,10 @@ module.exports = {
             "model", "current_location", "status",
         ];
 
-        const missingFields = _hasManyExpectedKeys(keysExpected, equipment);
+        const requiredFields = _hasManyExpectedKeys(keysExpected, equipment);
 
-        if (missingFields.length != keysExpected.length) {
-            return res.status(400).send(_getMissingFieldsErrorResponse(keysExpected, missingFields));
+        if (requiredFields.length != keysExpected.length) {
+            return res.status(400).send(_getrequiredFieldsErrorResponse(keysExpected, requiredFields));
         }
         return next();
     },
