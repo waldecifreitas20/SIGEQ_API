@@ -2,14 +2,13 @@ const equipmentRepository = require('../repositories/equipmentRepository');
 
 const _callRepository = async (action, params, successStatus = 200) => {
     try {
-
         return {
             status: successStatus,
             response: await action(params)
         };
     } catch (error) {
         return {
-            status: error.code,
+            status: error.errorCode,
             error: error.message,
         };
     }

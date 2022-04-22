@@ -1,6 +1,8 @@
-const userRepository = require('../repositories/userRepository');
-const { generateToken, checkPassword } = require('../../utils/security');
-const { exception } = require('../../utils/shorts');
+const paths = require('../../utils/paths');
+
+const userRepository = require(paths.repositories.user);
+const { generateToken, checkPassword } = require(paths.utils.security);
+const { exception, getErrorResponse } = require(paths.utils.errors);
 
 const _getUserPermissions = user => {
     if (!user.permissions)
@@ -14,6 +16,7 @@ const _formatUserData = user => {
         name: user.first_name,
         permissions: _getUserPermissions(user)
     }
+
     return {
         status: 200,
         user: userData,
@@ -21,12 +24,13 @@ const _formatUserData = user => {
     }
 }
 
-const _getErrorReturns = error => {
-    return {
-        status: error.errorCode,
-        error: error.message,
-    };
+
+const _checkPassword = (password, validPassword) => {
+    if (!checkPassword(password, validPassword)) {
+        throw exception('invalid password');
+    }
 }
+
 
 module.exports = {
     register: async function (userData) {
@@ -34,20 +38,17 @@ module.exports = {
             const user = await userRepository.createUser(userData);
             return _formatUserData(user);
         } catch (error) {
-            return _getErrorReturns(error);
+            return getErrorResponse(error);
         }
-    },
+    }, 
 
     login: async function (email, password) {
         try {
             const user = await userRepository.findUserByEmail(email);
-
-            if (!checkPassword(password, user.password)) {
-                throw exception('invalid password');
-            }
+            _checkPassword(password, user.password);
             return _formatUserData(user);
         } catch (error) {
-            return _getErrorReturns(error);
+            return getErrorResponse(error);
         }
     },
 }
