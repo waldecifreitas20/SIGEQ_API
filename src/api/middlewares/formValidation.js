@@ -1,17 +1,26 @@
-const _hasManyExpectedKeys = (keysExpected, object) => {
-    let matchs = 0;
+const _hasManyExpectedKeys = (keysExpected = [], object = {}) => {
+    let missingFields = keysExpected;
 
-    keysExpected.forEach(key => {
+    for (let i = 0; i < keysExpected.length; i++) {
+        const key = keysExpected[i];
         if (object.hasOwnProperty(key)) {
-            ++matchs;
+            missingFields.splice(i, 1);
         }
-    });
+    }
 
-    return matchs;
+    return missingFields;
 };
 
-const _invalidsParamsMessageError = (validParamsExpected, validParamsreceived) => {
-    return `expected to receive ${validParamsExpected} valid params. But, was given ${validParamsreceived}`;
+
+
+const _getMissingFieldsErrorResponse = (expected = [], received = [], missing = []) => {
+    return {
+        status: 400,
+        error: true,
+        title: 'Missing required fields',
+        decription: `Were expected ${expected.length} required fields, but was given ${received.length}`,
+        missing_fields: missing,
+    };
 }
 
 module.exports = {
@@ -26,57 +35,41 @@ module.exports = {
             'cpf',
         ];
 
-        let matchs = _hasManyExpectedKeys(keysExpected, user);
+        let missingFields = _hasManyExpectedKeys(keysExpected, user);
 
-        if (matchs != keysExpected.length)
-            return res.status(400).send({
-                status: 400,
-                error: _invalidsParamsMessageError(keysExpected.length, matchs)
-            });
+        if (missingFields.length != keysExpected.length)
+            return res.status(400).send(_getMissingFieldsErrorResponse(keysExpected, missingFields, missingFields));
         return next();
     },
 
     login: function (req, res, next) {
         const user = req.body;
         const keysExpected = ['email', 'password'];
-        const matchs = _hasManyExpectedKeys(keysExpected, user);
+        const missingFields = _hasManyExpectedKeys(keysExpected, user);
 
-        if (matchs != keysExpected.length)
-            return res.status(400).send({
-                status: 400,
-                error: _invalidsParamsMessageError(keysExpected.length, matchs)
-            });
+        if (missingFields.length != keysExpected.length)
+            return res.status(400).send(_getMissingFieldsErrorResponse(keysExpected, missingFields, missingFields));
+
         return next();
     },
 
     equipment: function (req, res, next) {
         const equipment = req.body;
         const keysExpected = [
-            "title",
-            "company",
-            "category",
-            "model",
-            "current_location",
-            "status",
+            "title", "company", "category",
+            "model", "current_location", "status",
         ];
-        const matchs = _hasManyExpectedKeys(keysExpected, equipment);
 
-        if (matchs != keysExpected.length) {
-            return res.status(400).send({
-                status: 400,
-                error: _invalidsParamsMessageError(keysExpected.length, matchs)
-            });
+        const missingFields = _hasManyExpectedKeys(keysExpected, equipment);
+
+        if (missingFields.length != keysExpected.length) {
+            return res.status(400).send(_getMissingFieldsErrorResponse(keysExpected, missingFields));
         }
         return next();
     },
 
-    checkParams: function (req, res, next) {
+    checkFields: function (req, res, next) {
         const equipmentId = req.params.id;
-        try {
-            const n = Number.parseInt(equipmentId);
-            return next();
-        } catch (error) {
-            return res.status(400).send({ error: 'TypeError: Id is not a number' });
-        }
+        return next();
     }
 };

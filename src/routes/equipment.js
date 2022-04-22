@@ -15,14 +15,14 @@ router.use(hasPermission);
 module.exports = app => {
 
     router.get('/all', equipmentController.getAll);
-    
-    router.get('/search/:id', formValidation.checkParams, equipmentController.getById);
+
+    router.get('/search/:id', formValidation.checkFields, equipmentController.getById);
 
     router.post('/create', formValidation.equipment, equipmentController.create);
 
     router.put('/update', formValidation.equipment, equipmentController.update);
 
-    router.delete('/delete/:id', formValidation.checkParams, equipmentController.delete);
+    router.delete('/delete/:id', formValidation.checkFields, equipmentController.delete);
 
     app.use('/equipment', router);
 }
