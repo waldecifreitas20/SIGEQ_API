@@ -1,6 +1,7 @@
 const paths = require('../../utils/paths');
 
 const EquipmentModel = require(paths.models.equipment);
+
 const { isEmptyArray } = require(paths.utils.shorts);
 const { exception } = require(paths.utils.errors);
 

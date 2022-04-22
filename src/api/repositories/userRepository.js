@@ -1,4 +1,3 @@
-const { resolve: getPath } = require('path');
 const paths = require('../../utils/paths');
 
 const { exception } = require(paths.utils.errors);
