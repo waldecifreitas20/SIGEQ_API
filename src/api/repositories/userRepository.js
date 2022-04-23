@@ -1,6 +1,6 @@
 const { utils, models } = require('../../utils/paths');
 
-const { exception } = require(utils.errors);
+const { getErrorResponse } = require('../../utils/errors');
 
 const UserModel = require(`${models.user}`);
 const PermissionModel = require(`${models.permission}`);
@@ -11,7 +11,11 @@ module.exports = {
         try {
             return await UserModel.create(userData);
         } catch (error) {
-            throw exception('User already registered', 400);
+            throw getErrorResponse({
+                status: 400,
+                error: 'Cannot created user',
+                description: 'User might already to be registered. Check fields.'
+            });
         }
     },
 
@@ -21,7 +25,10 @@ module.exports = {
             include: PermissionModel
         });
         if (user == null) {
-            throw exception('user not found', 401);
+            throw getErrorResponse({
+                status: 401,
+                error: 'Invalid credentials',
+            });
         }
         return user;
     },

@@ -1,3 +1,4 @@
+const { getErrorResponse } = require('../../utils/errors');
 const { checkToken } = require('../../utils/security');
 
 const _getPermissionRequiredByRoute = (route = String) => {
@@ -19,12 +20,18 @@ module.exports = {
     checkToken: function (req, res, next) {
         const authorization = req.headers.authorization;
         if (authorization === undefined)
-            return res.status(401).send({ error: 'token is null' });
+            return res.status(401).send(getErrorResponse({
+                status: 401,
+                error: 'token is null'
+            }));
 
         const [bearer, token] = authorization.split(' ');
 
         if (bearer !== 'Bearer')
-            return res.status(401).send({ error: "expected gives bearer" });
+            return res.status(401).send(getErrorResponse({
+                status: 401,
+                error: "expected gives bearer"
+            }));
 
         try {
             const userData = checkToken(token);
@@ -33,7 +40,10 @@ module.exports = {
             next();
 
         } catch (error) {
-            return res.status(401).send({ error: "invalid token" });
+            return res.status(401).send(getErrorResponse({
+                status: 401,
+                error: "invalid token"
+            }));
         }
     },
 
@@ -48,7 +58,11 @@ module.exports = {
                 return next();
             }
         }
-        return res.status(403).send({ error: 'user has no permission' })
+        return res.status(403).send(getErrorResponse({
+            status: 403,
+            error: 'user has no permissio',
+            description: 'needs to have permission to request it'
+        }))
     },
 
 }

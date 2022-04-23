@@ -1,3 +1,5 @@
+const { getErrorResponse } = require("../../utils/errors");
+
 const _hasManyExpectedKeys = (keysExpected = [], object = {}) => {
     let requiredFields = 0;
 
@@ -10,13 +12,15 @@ const _hasManyExpectedKeys = (keysExpected = [], object = {}) => {
     return requiredFields;
 };
 
-const _getrequiredFieldsErrorResponse = (expected = [], received = Number, required = []) => {
-    return {
+const _getrequiredFieldsErrorResponse = (expected = [], received = Number) => {
+    return getErrorResponse({
         status: 400,
         error: 'Missing required fields',
         description: `Were expected ${expected.length} required fields, but were given ${received}`,
-        required_fields: expected,
-    };
+        details: {
+            expected_fields: expected,
+        },
+    });
 }
 
 module.exports = {
@@ -29,8 +33,11 @@ module.exports = {
         ];
 
         let requiredFields = _hasManyExpectedKeys(keysExpected, user);
-        if (requiredFields.length != keysExpected.length) {
-            return res.status(400).send(_getrequiredFieldsErrorResponse(keysExpected, requiredFields, requiredFields));
+
+        if (requiredFields != keysExpected.length) {
+            return res.status(400).send(
+                _getrequiredFieldsErrorResponse(keysExpected, requiredFields)
+            );
         }
         return next();
     },
@@ -38,10 +45,13 @@ module.exports = {
     login: function (req, res, next) {
         const user = req.body;
         const keysExpected = ['email', 'password'];
+
         const requiredFields = _hasManyExpectedKeys(keysExpected, user);
 
-        if (requiredFields.length != keysExpected.length) {
-            return res.status(400).send(_getrequiredFieldsErrorResponse(keysExpected, requiredFields, requiredFields));
+        if (requiredFields != keysExpected.length) {
+            return res.status(400).send(
+                _getrequiredFieldsErrorResponse(keysExpected, requiredFields)
+            );
         }
 
         return next();
@@ -56,10 +66,12 @@ module.exports = {
 
         const requiredFields = _hasManyExpectedKeys(keysExpected, equipment);
 
-        if (requiredFields.length != keysExpected.length) {
-            return res.status(400).send(_getrequiredFieldsErrorResponse(keysExpected, requiredFields));
+        if (requiredFields != keysExpected.length) {
+            return res.status(400).send(
+                _getrequiredFieldsErrorResponse(keysExpected, requiredFields)
+            );
         }
+
         return next();
     },
-
-};
+}

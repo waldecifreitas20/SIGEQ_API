@@ -1,4 +1,4 @@
-const { routes } = require("../../utils/paths");
+const { getErrorResponse } = require("../../utils/errors");
 
 const _routesWithoutParams = [
     '/auth/register',
@@ -46,5 +46,8 @@ module.exports = (req, res, next) => {
     if (_isValidRoute(route)) {
         return next();
     }
-    return res.status(404).send({ error: "endpoint does not exist" })
+    return res.status(404).send(getErrorResponse({
+        status: 404,
+        error: 'Endpoint does not exist',
+    }));
 }

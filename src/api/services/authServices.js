@@ -27,7 +27,10 @@ const _formatUserData = user => {
 
 const _checkPassword = (password, validPassword) => {
     if (!isPasswordEqualsHash(password, validPassword)) {
-        throw exception('invalid password');
+        throw exception({
+            status: 401,
+            error: 'Invalid Credentials',
+        });
     }
 }
 
@@ -38,9 +41,9 @@ module.exports = {
             const user = await userRepository.createUser(userData);
             return _formatUserData(user);
         } catch (error) {
-            return getErrorResponse(error);
+            return error;
         }
-    }, 
+    },
 
     login: async function (email, password) {
         try {
@@ -48,7 +51,7 @@ module.exports = {
             _checkPassword(password, user.password);
             return _formatUserData(user);
         } catch (error) {
-            return getErrorResponse(error);
+            return error;
         }
     },
 }
