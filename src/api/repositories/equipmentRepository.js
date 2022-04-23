@@ -21,13 +21,14 @@ module.exports = {
 
     getEquipmentBy: async function (field) {
         const equipment = await EquipmentModel.findOne({ where: field });
-        if (isEmptyArray(equipment)) {
+        if (isEmptyArray(equipment) || !field) {
             throw getErrorResponse({
                 status: 400,
                 error: 'cannot find equipment',
-                description : 'equipment might not be registered yet. Check fields'
+                description: 'equipment might not be registered yet. Check fields'
             });
         }
+
         return equipment;
     },
 
@@ -37,7 +38,7 @@ module.exports = {
             throw getErrorResponse({
                 status: 400,
                 error: 'cannot find any equipment into the database',
-                description : 'database might be empty'
+                description: 'database might be empty'
             });
         }
         return allEquipments;
@@ -49,9 +50,9 @@ module.exports = {
             return equipmentFromDatabase.id;
         } catch (error) {
             throw getErrorResponse({
-                status : 400,
-                error : 'cannot create equipment', 
-                description : 'equipment might be already registered'
+                status: 400,
+                error: 'cannot create equipment',
+                description: 'equipment might be already registered'
             });
         }
     },
@@ -62,9 +63,9 @@ module.exports = {
 
         if (isEquipmentNull) {
             throw getErrorResponse({
-                status : 400,
-                error : 'equipment does not exist',
-                description : 'equipment might not be registered yet. Check params'
+                status: 400,
+                error: 'equipment does not exist',
+                description: 'equipment might not be registered yet. Check params'
             });
         }
         await equipment.destroy();
