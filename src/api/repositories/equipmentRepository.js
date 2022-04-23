@@ -1,12 +1,19 @@
-const paths = require('../../utils/paths');
-const EquipmentModel = require(paths.models.equipment);
-const { isEmptyArray, Exception, isEmptyObject } = require('../../utils/shorts');
+const { utils, models } = require('../../utils/paths');
+
+const EquipmentModel = require(models.equipment);
+
+const { isEmptyArray } = require(utils.shorts);
+const { getErrorResponse } = require(utils.errors);
 
 
 const _saveChanges = async (model) => {
     return await model.save()
         .catch(() => {
-            throw Exception('cannot save changes', 502);
+            throw getErrorResponse({
+                status: 502,
+                error: 'Unexpected error',
+                description: 'An error occurred on attempt to save changes'
+            });
         });
 }
 
@@ -15,7 +22,11 @@ module.exports = {
     getEquipmentBy: async function (field) {
         const equipment = await EquipmentModel.findOne({ where: field });
         if (isEmptyArray(equipment)) {
-            throw Exception('equipment not found', 400);
+            throw getErrorResponse({
+                status: 400,
+                error: 'cannot find equipment',
+                description : 'equipment might not be registered yet. Check fields'
+            });
         }
         return equipment;
     },
@@ -23,7 +34,11 @@ module.exports = {
     getAll: async function () {
         const allEquipments = await EquipmentModel.findAll();
         if (isEmptyArray(allEquipments)) {
-            throw Exception('cannot find any equipment into the database', 200);
+            throw getErrorResponse({
+                status: 400,
+                error: 'cannot find any equipment into the database',
+                description : 'database might be empty'
+            });
         }
         return allEquipments;
     },
@@ -33,22 +48,27 @@ module.exports = {
             const equipmentFromDatabase = await EquipmentModel.create(equipment);
             return equipmentFromDatabase.id;
         } catch (error) {
-
-            throw Exception('cannot create equipment', 502);
+            throw getErrorResponse({
+                status : 400,
+                error : 'cannot create equipment', 
+                description : 'equipment might be already registered'
+            });
         }
-
     },
 
     remove: async function (id) {
-        const equipment = await EquipmentModel.findOne({
-            where: { id: id }
-        });
+        const equipment = await EquipmentModel.findOne({ where: { id: id } });
         const isEquipmentNull = !equipment;
 
         if (isEquipmentNull) {
-            throw { message: 'equipment does not exist', code: 400 };
+            throw getErrorResponse({
+                status : 400,
+                error : 'equipment does not exist',
+                description : 'equipment might not be registered yet. Check params'
+            });
         }
         await equipment.destroy();
+
         return true;
     },
 
@@ -59,8 +79,7 @@ module.exports = {
             oldEquipment.image = equipment.image;
 
             return await _saveChanges(oldEquipment);
-
-        })
+        });
     },
 
     updateLocation: async function (equipment) {
@@ -78,6 +97,7 @@ module.exports = {
             where: { id: equipment.id }
         }).then(async oldEquipment => {
             oldEquipment.status = equipment.status;
+
             return await _saveChanges(oldEquipment);
         })
     }

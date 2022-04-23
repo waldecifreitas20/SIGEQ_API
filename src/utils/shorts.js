@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 module.exports = {
-    
+
     getFilesName: function (path = String) {
         return fs
             .readdirSync(path)
@@ -9,22 +9,5 @@ module.exports = {
     },
 
     isEmptyArray: (array = Array) => !array || array.length === 0,
-
-    hasKeys: function (keysExpected = Array, object = Object) {
-        let matchs = 0;
-
-        keysExpected.forEach(key => {
-            if (object.hasOwnProperty(key)) {
-                ++matchs;
-            }
-        });
-
-        return matchs === keysExpected.length;
-    },
-
-    Exception(message = String, code = 400) {
-        return { message, code };
-    }
-
 
 }

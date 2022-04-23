@@ -1,33 +1,36 @@
-const { resolve : getPath } = require('path');
-const { models } = require(getPath('src', 'utils', 'paths'));
+const { utils, models } = require('../../utils/paths');
+
+const { getErrorResponse } = require('../../utils/errors');
 
 const UserModel = require(`${models.user}`);
 const PermissionModel = require(`${models.permission}`);
 
 module.exports = {
 
-    createUser : async function(userData){
+    createUser: async function (userData) {
         try {
             return await UserModel.create(userData);
         } catch (error) {
-          
-            throw 'User already registered';   
+            throw getErrorResponse({
+                status: 400,
+                error: 'Cannot created user',
+                description: 'User might already to be registered. Check fields.'
+            });
         }
     },
 
-    findUserByEmail : async function(email) {
-        try {
-            const user = await UserModel.findOne({
-                where : {email : email}, 
-                include : PermissionModel
+    findUserByEmail: async function (email) {
+        const user = await UserModel.findOne({
+            where: { email: email },
+            include: PermissionModel
+        });
+        if (user == null) {
+            throw getErrorResponse({
+                status: 401,
+                error: 'Invalid credentials',
             });
-            if (user == null) {
-                throw 'user not found';
-            }
-            return user;
-        } catch (error) {
-            throw error;
         }
+        return user;
     },
 
 }

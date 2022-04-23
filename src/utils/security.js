@@ -15,7 +15,7 @@ module.exports = {
         return jwt.verify(token, process.env.API_SECRET);
     },
 
-    checkPassword: function (password, hash) {
+    isPasswordEqualsHash: function (password, hash) {
         return bcrypt.compareSync(password, hash);
     }
 }
