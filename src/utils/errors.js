@@ -3,12 +3,20 @@ module.exports = {
         return { message, errorCode };
     },
 
-    getErrorResponse: function (error) {
+    /* getErrorResponse: function (error) {
         return {
             status: error.errorCode,
             error: error.message,
         };
-    }
+    }, */
 
+    getErrorResponse: function (error) {
+        return {
+            status: error.errorCode,
+            error: error.message,
+            description: error.description,
+            details: error.details
+        }
+    }
 
 }
