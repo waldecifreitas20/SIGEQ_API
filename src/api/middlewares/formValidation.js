@@ -62,8 +62,4 @@ module.exports = {
         return next();
     },
 
-    checkFields: function (req, res, next) {
-        const equipmentId = req.params.id;
-        return next();
-    }
 };
