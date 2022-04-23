@@ -26,16 +26,14 @@ describe('Create test', () => {
 describe('Delete test', () => {
 
     it('should return status 200 when trying delete a equipment using their id', async () => {
-        const { equipment: equipment_id } = await services.createEquipment(factory.generateEquipment());
-        const response = await services.deleteEquipmentById(equipment_id);
-        expect(response.status).toBe(200);
+
     });
 });
 
 describe('Get by id test', () => {
 
     it('should give true when comparing sent id with equipment.id given', async () => {
-        const { equipment: equipment_id } = await services.createEquipment(factory.generateEquipment());
+        const { equipment_id } = await services.createEquipment(factory.generateEquipment());
         const response = await services.getEquipmentByField({ id: equipment_id });
 
         expect(response.equipment.id).toBe(equipment_id);
@@ -50,24 +48,4 @@ describe('Get all test', () => {
     });
 });
 
-describe('Update test', () => {
-
-    it('should return status 200 when updating a equipment status on database', async () => {
-        const {
-            equipment: equipment_id
-        } = await services.createEquipment(
-            factory.generateEquipment()
-        );
-
-        const updatedEquipment = {
-            id: equipment_id,
-            status: 'it is not available',
-            current_location: 'SIASS'
-        };
-
-        const response = await services.updateEquipment(updatedEquipment);
-
-        expect(response.status).toBe(200);
-    })
-});
 
