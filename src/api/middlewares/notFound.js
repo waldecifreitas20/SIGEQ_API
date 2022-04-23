@@ -40,12 +40,6 @@ const _getParamsFromRoute = route => {
 }
 
 
-
-
-
-
-
-
 module.exports = (req, res, next) => {
     const route = req.url;
 
