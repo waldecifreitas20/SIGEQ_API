@@ -2,7 +2,7 @@ const paths = require('../../utils/paths');
 
 const userRepository = require(paths.repositories.user);
 const { generateToken, isPasswordEqualsHash } = require(paths.utils.security);
-const { exception, getErrorResponse } = require(paths.utils.errors);
+const { getErrorResponse } = require(paths.utils.errors);
 
 const _getUserPermissions = user => {
     if (!user.permissions)
@@ -27,7 +27,7 @@ const _formatUserData = user => {
 
 const _checkPassword = (password, validPassword) => {
     if (!isPasswordEqualsHash(password, validPassword)) {
-        throw exception({
+        throw getErrorResponse({
             status: 401,
             error: 'Invalid Credentials',
         });

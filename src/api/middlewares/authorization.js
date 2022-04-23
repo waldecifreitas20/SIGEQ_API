@@ -60,8 +60,8 @@ module.exports = {
         }
         return res.status(403).send(getErrorResponse({
             status: 403,
-            error: 'user has no permissio',
-            description: 'needs to have permission to request it'
+            error: 'user has no permissions',
+            description: 'it must have permission to request it'
         }))
     },
 
