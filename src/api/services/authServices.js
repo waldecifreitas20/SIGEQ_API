@@ -14,11 +14,11 @@ const _formatUserPermissions = userPermissions => {
     let _permissions = [];
 
     for (const permission in userPermissions) {
-            _permissions.push({
-                id : permission.id,
-                name : 
-            });
-        }
+        _permissions.push({
+            id: permission.id,
+            name: permission.name,
+            description: permission.description
+        });
     }
     return userPermissions;
 };
@@ -31,7 +31,7 @@ const _formatUserData = user => {
     };
     const token = generateToken(userData);
     userData.permissions = _formatUserPermissions(user.permissions);
-    
+
     return {
         status: 200,
         user: userData,
