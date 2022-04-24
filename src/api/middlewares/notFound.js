@@ -20,7 +20,6 @@ const _isValidRoute = (route) => {
         return true;
     } else {
         let params = _getParamsFromRoute(route);
-        console.log(parseInt(params) == params);
         if (!params || parseInt(params) != params) {
             return false;
         }
