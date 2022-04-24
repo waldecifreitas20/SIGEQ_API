@@ -13,14 +13,14 @@ const _getUserPermissions = user => {
 const _formatUserPermissions = userPermissions => {
     let _permissions = [];
 
-    for (const permission in userPermissions) {
+    userPermissions.forEach(permission => {
         _permissions.push({
             id: permission.id,
             name: permission.name,
             description: permission.description
         });
-    }
-    return userPermissions;
+    });
+    return _permissions;
 };
 
 const _formatUserData = user => {
