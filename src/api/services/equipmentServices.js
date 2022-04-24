@@ -15,7 +15,10 @@ const _callRepository = async (action, params, successStatus = 200) => {
     }
 }
 
+
 const _toUpdate = async equipment => {
+  
+
     if (equipment.status !== undefined) {
         await equipmentRepository.updateStatus(equipment);
     }
@@ -37,11 +40,11 @@ module.exports = {
         const repositoryResponse = await _callRepository(
             equipmentRepository.getEquipmentBy, field, 200
         );
-
         return {
             status: repositoryResponse.status,
+            equipment: repositoryResponse.response,
             error: repositoryResponse.error,
-            equipment: repositoryResponse.response
+            description : repositoryResponse.description
         };
     },
 
@@ -51,6 +54,7 @@ module.exports = {
             status: repositoryResponse.status,
             equipments: repositoryResponse.response,
             error: repositoryResponse.error,
+            description : repositoryResponse.description
         };
     },
 
@@ -58,16 +62,18 @@ module.exports = {
         const repositoryResponse = await _callRepository(equipmentRepository.create, equipmentData);
         return {
             status: repositoryResponse.status,
-            error: repositoryResponse.error,
-            equipment_id: repositoryResponse.response
+            equipment_id: repositoryResponse.response,
+            error: repositoryResponse,
+            description : repositoryResponse.description
         };
     },
 
     updateEquipment: async function (equipment) {
-        const repositoryResponse = await _callRepository(_toUpdate, equipment, 204);
+        const repositoryResponse = await _callRepository(equipmentRepository.updateFields, equipment, 204);
         return {
             status: repositoryResponse.status,
-            error: repositoryResponse.error
+            error: repositoryResponse.error,
+            description : repositoryResponse.description
         };
     },
 
@@ -75,7 +81,8 @@ module.exports = {
         const repositoryResponse = await _callRepository(equipmentRepository.remove, id, 204);
         return {
             status: repositoryResponse.status,
-            error: repositoryResponse.error
+            error: repositoryResponse.error,
+            description : repositoryResponse.description
         };
     },
 }

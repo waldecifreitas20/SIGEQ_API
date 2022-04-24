@@ -10,7 +10,7 @@ const _getUserPermissions = user => {
     return user.permissions;
 };
 
-const _formatUserPermissions = userPermissions => {
+const _formatUserPermissions = (userPermissions = []) => {
     let _permissions = [];
 
     userPermissions.forEach(permission => {
