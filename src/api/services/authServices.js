@@ -8,21 +8,36 @@ const _getUserPermissions = user => {
     if (!user.permissions)
         return [];
     return user.permissions;
-}
+};
+
+const _formatUserPermissions = userPermissions => {
+    let _permissions = [];
+
+    for (const permission in userPermissions) {
+            _permissions.push({
+                id : permission.id,
+                name : 
+            });
+        }
+    }
+    return userPermissions;
+};
 
 const _formatUserData = user => {
     const userData = {
         id: user.id,
         name: user.first_name,
         permissions: _getUserPermissions(user)
-    }
-
+    };
+    const token = generateToken(userData);
+    userData.permissions = _formatUserPermissions(user.permissions);
+    
     return {
         status: 200,
         user: userData,
-        token: generateToken(userData)
-    }
-}
+        token,
+    };
+};
 
 
 const _checkPassword = (password, validPassword) => {
@@ -32,7 +47,7 @@ const _checkPassword = (password, validPassword) => {
             error: 'Invalid Credentials',
         });
     }
-}
+};
 
 
 module.exports = {
@@ -54,4 +69,4 @@ module.exports = {
             return error;
         }
     },
-}
+};
