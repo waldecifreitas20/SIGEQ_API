@@ -41,6 +41,7 @@ module.exports = {
                 description: 'database might be empty'
             });
         }
+      
         return allEquipments;
     },
 

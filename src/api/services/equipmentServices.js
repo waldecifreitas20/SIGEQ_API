@@ -49,6 +49,7 @@ module.exports = {
         const repositoryResponse = await _callRepository(equipmentRepository.getAll, 200);
         return {
             status: repositoryResponse.status,
+            equipments: repositoryResponse.response,
             error: repositoryResponse.error,
         };
     },
