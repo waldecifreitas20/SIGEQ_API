@@ -24,6 +24,7 @@ module.exports = {
             where: { email: email },
             include: PermissionModel
         });
+     
         if (user == null) {
             throw getErrorResponse({
                 status: 401,

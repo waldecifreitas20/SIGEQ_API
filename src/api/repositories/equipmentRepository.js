@@ -85,7 +85,6 @@ module.exports = {
             
             return await equipmentFromDatabase.save();
         } catch (error) {
-            console.log(error);
             throw _getNotFoundEquipmentError();
         }
 

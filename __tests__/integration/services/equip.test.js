@@ -46,7 +46,7 @@ describe('Delete test', () => {
 
         expect(response.status).toBe(400);
     });
-    
+
     it('should return status 400 when trying to delete a equipment without sending fake id', async () => {
         const FAKE_ID = -1;
         const response = await services.deleteEquipmentById(FAKE_ID);
@@ -64,14 +64,14 @@ describe('Search by id test', () => {
 
         expect(SENT_ID).toBe(RETURNED_ID);
     });
-    
-    it('should return status 400 when trying to update equipment that does not exist', async () => { 
+
+    it('should return status 400 when trying to update equipment that does not exist', async () => {
         const response = await services.getEquipmentByField({ id: -1 });
 
         expect(response.status).toBe(400);
     });
-    
-    it('should return status 400 when sending nothing', async () => { 
+
+    it('should return status 400 when sending nothing', async () => {
         const response = await services.getEquipmentByField();
 
         expect(response.status).toBe(400);
@@ -88,4 +88,28 @@ describe('Get all test', () => {
     });
 });
 
+describe('Update test', () => {
+
+    it('should return status 204 when updating a equipment using its id', async () => {
+        const equipmentId = await _generateValidEquipmentId();
+        const equipmentToUpdate = factory.generateEquipment();
+
+        equipmentToUpdate.id = equipmentId;
+
+        const response = await services.updateEquipment(equipmentToUpdate);
+
+        expect(response.status).toBe(204);
+    });
+
+    it('should return status 400 when updating a equipment sending nonexistent id', async () => {
+        const nonExistentId = -1;
+        const equipmentToUpdate = factory.generateEquipment();
+
+        equipmentToUpdate.id = nonExistentId;
+        const response = await services.updateEquipment(equipmentToUpdate);
+
+        expect(response.status).toBe(400);
+    });
+
+});
 
