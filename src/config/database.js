@@ -1,5 +1,6 @@
 require('./dotenv');
 
+
 module.exports = {
     host : process.env.HOST,
     database : process.env.DB_NAME,
