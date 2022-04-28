@@ -4,29 +4,29 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('users', {
       id: {
-        type: datatype.INTEGER,
+        type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true
       },
       first_name: {
-        type: datatype.STRING,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       surname: {
-        type: datatype.STRING,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       email: {
-        type: datatype.STRING,
+        type: Sequelize.STRING,
         allowNull: false,
         unique: true
       },
       password: {
-        type: datatype.STRING,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       cpf: {
-        type: datatype.STRING,
+        type: Sequelize.STRING,
         allowNull: false,
         unique: true
       },
@@ -34,11 +34,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    /**
-     * Add reverting commands here.
-     *
-     * Example:
-     * await queryInterface.dropTable('users');
-     */
+    await queryInterface.dropTable('users');
   }
 };
