@@ -1,18 +1,10 @@
-/* 
-
-User authentication: 
-    - Authenticate user with success
-    - Authenticate attempt user with false password
-    - Authenticate attempt user with false email
-
-*/
-
 const paths = require('../../../src/utils/paths');
+
+const { generateUser } = require('../../factory');
+const services = require(paths.services.auth);
 
 describe('Register test', () => {
 
-    const { generateUser } = require('../../factory');
-    const services = require(paths.services.auth);
     const newUser = generateUser();
 
     it('should register a new user in database', async () => {
@@ -26,15 +18,13 @@ describe('Register test', () => {
     });
 
 
-    it('should to get status 400 on trying to register null user', async () => {
+    it('should get status 400 when trying to register a user as null', async () => {
         const response = await services.register(null);
         expect(response.status).toBe(400);
     });
 });
 
+
 describe('Authenticate test', () => {
 
-    it('should authenticate a user with status 200', async () => {
-
-    });
 });

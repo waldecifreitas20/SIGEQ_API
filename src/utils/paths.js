@@ -17,8 +17,6 @@ module.exports = {
         equipment: getPath('src', 'api', 'services', 'equipmentServices'),
     },
 
-
-
     middlewares: {
         index: getPath('src', 'api', 'middlewares'),
         formValidation: getPath('src', 'api', 'middlewares', 'formValidation'),

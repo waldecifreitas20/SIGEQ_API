@@ -1,0 +1,7 @@
+const {resolve : getPath} = require('path');
+
+module.exports = {
+  'config' : getPath('src', 'config', 'database.js'),
+  'migrations-path' : getPath('src', 'database', 'migrations'),
+  'models-path' : getPath('src', 'api', 'models')
+}

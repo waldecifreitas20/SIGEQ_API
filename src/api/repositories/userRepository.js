@@ -13,7 +13,7 @@ module.exports = {
         } catch (error) {
             throw getErrorResponse({
                 status: 400,
-                error: 'Cannot created user',
+                error: 'Cannot create user',
                 description: 'User might already to be registered. Check fields.'
             });
         }
@@ -24,6 +24,7 @@ module.exports = {
             where: { email: email },
             include: PermissionModel
         });
+     
         if (user == null) {
             throw getErrorResponse({
                 status: 401,

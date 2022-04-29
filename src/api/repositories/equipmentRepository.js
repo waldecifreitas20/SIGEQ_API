@@ -6,27 +6,34 @@ const { isEmptyArray } = require(utils.shorts);
 const { getErrorResponse } = require(utils.errors);
 
 
-const _saveChanges = async (model) => {
-    return await model.save()
-        .catch(() => {
-            throw getErrorResponse({
-                status: 502,
-                error: 'Unexpected error',
-                description: 'An error occurred on attempt to save changes'
-            });
-        });
+const _getNotFoundEquipmentError = () => {
+    return getErrorResponse({
+        status: 400,
+        error: 'cannot find equipment',
+        description: 'equipment might be not registered yet'
+    });
+}
+
+const _updateFields = (model, equipment) => {
+
+    const fields = Object.keys(equipment);
+
+    for (let i = 0; i < fields.length; i++) {
+        let field = fields[i];
+        let isUniqueKey = (field == 'id') || (field == 'heritage');
+
+        if (!isUniqueKey) {
+            model[field] = equipment[field];
+        }
+    }
 }
 
 module.exports = {
 
     getEquipmentBy: async function (field) {
         const equipment = await EquipmentModel.findOne({ where: field });
-        if (isEmptyArray(equipment)) {
-            throw getErrorResponse({
-                status: 400,
-                error: 'cannot find equipment',
-                description : 'equipment might not be registered yet. Check fields'
-            });
+        if (isEmptyArray(equipment) || !field) {
+            throw _getNotFoundEquipmentError();
         }
         return equipment;
     },
@@ -37,9 +44,10 @@ module.exports = {
             throw getErrorResponse({
                 status: 400,
                 error: 'cannot find any equipment into the database',
-                description : 'database might be empty'
+                description: 'database might be empty'
             });
         }
+
         return allEquipments;
     },
 
@@ -48,10 +56,11 @@ module.exports = {
             const equipmentFromDatabase = await EquipmentModel.create(equipment);
             return equipmentFromDatabase.id;
         } catch (error) {
+            console.log(error);
             throw getErrorResponse({
-                status : 400,
-                error : 'cannot create equipment', 
-                description : 'equipment might be already registered'
+                status: 400,
+                error: 'cannot create equipment',
+                description: 'equipment might be already registered'
             });
         }
     },
@@ -61,44 +70,25 @@ module.exports = {
         const isEquipmentNull = !equipment;
 
         if (isEquipmentNull) {
-            throw getErrorResponse({
-                status : 400,
-                error : 'equipment does not exist',
-                description : 'equipment might not be registered yet. Check params'
-            });
+            throw _getNotFoundEquipmentError();
         }
         await equipment.destroy();
 
         return true;
     },
 
-    updateImage: async function (equipment) {
-        return await EquipmentModel.findOne({
-            where: { id: equipment.id }
-        }).then(async oldEquipment => {
-            oldEquipment.image = equipment.image;
+    updateFields: async function (equipment) {
+        try {
+            const equipmentFromDatabase = await EquipmentModel.findOne({
+                where: { id: equipment.id }
+            });
+            _updateFields(equipmentFromDatabase, equipment);
+            
+            return await equipmentFromDatabase.save();
+        } catch (error) {
+            throw _getNotFoundEquipmentError();
+        }
 
-            return await _saveChanges(oldEquipment);
-        });
-    },
 
-    updateLocation: async function (equipment) {
-        return await EquipmentModel.findOne({
-            where: { id: equipment.id }
-        }).then(async oldEquipment => {
-            oldEquipment.current_location = equipment.current_location;
-
-            return await _saveChanges(oldEquipment);
-        })
-    },
-
-    updateStatus: async function (equipment) {
-        return await EquipmentModel.findOne({
-            where: { id: equipment.id }
-        }).then(async oldEquipment => {
-            oldEquipment.status = equipment.status;
-
-            return await _saveChanges(oldEquipment);
-        })
     }
 }
