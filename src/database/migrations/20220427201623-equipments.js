@@ -3,6 +3,11 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('equipments', {
+      id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+      },
       title: {
         type: Sequelize.STRING,
         allowNull: false
@@ -32,7 +37,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      warrantyExpiresAt: {
+      warranty_expires_at: {
         type: Sequelize.DATE,
         allowNull: true
       },

@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
-    "test": "NODE_ENV=test jest"
+    "pretest": "sequelize db:migrate",
+    "test": "NODE_ENV=test jest",
+    "posttest": "sequelize db:migrate:undo:all"
   },
   "author": "Waldeci Santos de Freitas",
   "license": "ISC",
