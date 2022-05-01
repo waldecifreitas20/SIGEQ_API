@@ -31,7 +31,7 @@ const _updateFields = (model, equipment) => {
 module.exports = {
 
     getEquipmentBy: async function (field) {
-        const equipment = await EquipmentModel.findOne({ where: field });
+        const equipment = await EquipmentModel.findAll({ where: field });
         if (isEmptyArray(equipment) || !field) {
             throw _getNotFoundEquipmentError();
         }
@@ -56,7 +56,6 @@ module.exports = {
             const equipmentFromDatabase = await EquipmentModel.create(equipment);
             return equipmentFromDatabase.id;
         } catch (error) {
-            console.log(error);
             throw getErrorResponse({
                 status: 400,
                 error: 'cannot create equipment',
