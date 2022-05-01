@@ -31,7 +31,7 @@ const _updateFields = (model, equipment) => {
 module.exports = {
 
     getEquipmentBy: async function (field) {
-        const equipment = await EquipmentModel.findOne({ where: field });
+        const equipment = await EquipmentModel.findAll({ where: field });
         if (isEmptyArray(equipment) || !field) {
             throw _getNotFoundEquipmentError();
         }
