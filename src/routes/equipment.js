@@ -16,7 +16,7 @@ module.exports = app => {
 
     router.get('/all', equipmentController.getAll);
 
-    router.get('/search', equipmentController.getById);
+    router.get('/search', equipmentController.search);
 
     router.post('/create', formValidation.createEquipment, equipmentController.create);
 
