@@ -16,9 +16,9 @@ module.exports = {
         return res.status(response.status).send(response);
     },
 
-    getById: async function (req, res) {
-        const { id } = req.params;
-        const response = await services.getEquipmentByField({ id: id });
+    search: async function (req, res) {
+        const equipment = req.body;
+        const response = await services.getEquipmentByField(equipment);
         return res.status(response.status).send(response);
     },
 
