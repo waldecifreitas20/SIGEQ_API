@@ -40,6 +40,7 @@ module.exports = {
         const repositoryResponse = await _callRepository(
             equipmentRepository.getEquipmentBy, field, 200
         );
+        
         return {
             status: repositoryResponse.status,
             equipment: repositoryResponse.response,
@@ -63,7 +64,7 @@ module.exports = {
         return {
             status: repositoryResponse.status,
             equipment_id: repositoryResponse.response,
-            error: repositoryResponse,
+            error: repositoryResponse.error,
             description : repositoryResponse.description
         };
     },
