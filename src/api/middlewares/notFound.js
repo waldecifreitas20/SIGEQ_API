@@ -13,21 +13,21 @@ const _routesWithoutParams = [
 ]
 
 const _routes = {
-    get: [
+    GET: [
         '/equipment/search',
         '/equipment/all',
     ],
-    post: [
+    POST: [
         '/equipment/create',
         '/auth/register',
         '/auth/authenticate',
         '/auth/check_token',
         '/auth/recovery_password',
     ],
-    delete: [
+    DELETE: [
         '/equipment/delete/'
     ],
-    put: [
+    PUT: [
         '/equipment/update'
     ],
 }
@@ -56,9 +56,21 @@ const _getDeleteRouteParams = route => {
     return false;
 }
 
+const _isValidHttpMethod = (route, method) => {
+    const routesByMethod = _routes[method];
+
+    for (let i = 0; i < routesByMethod.length; i++) {
+        const _route = routesByMethod[i];
+        if (route.indexOf(_route) !== -1) {
+            return true;
+        }
+    }
+    return false;
+}
 
 module.exports = (req, res, next) => {
     const route = req.url;
+    const method = req.method;
 
     if (!_isValidRoute(route)) {
         return res.status(404).send(getErrorResponse({
@@ -67,11 +79,12 @@ module.exports = (req, res, next) => {
         }));
 
     }
-    if (!_isValidHttpMethod(route)) {
-        return res.status(404).send(getErrorResponse({
+    if (!_isValidHttpMethod(route, method)) {
+        return res.status(405).send(getErrorResponse({
             status: 405,
-            error: 'HTTP method is not allowed',
+            error: 'Invalid method to this request',
         }));
     }
+
     return next();
 }
