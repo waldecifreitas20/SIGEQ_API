@@ -2,7 +2,7 @@ const { utils, models } = require('../../utils/paths');
 
 const EquipmentModel = require(models.equipment);
 
-const { isEmptyArray } = require(utils.shorts);
+const { isEmptyArray, isEmptyObject } = require(utils.shorts);
 const { getErrorResponse } = require(utils.errors);
 
 
@@ -13,7 +13,6 @@ const _getNotFoundEquipmentError = () => {
         description: 'equipment might be not registered yet'
     });
 }
-
 const _updateFields = (model, equipment) => {
 
     const fields = Object.keys(equipment);
@@ -32,7 +31,7 @@ module.exports = {
 
     getEquipmentBy: async function (field) {
         const equipment = await EquipmentModel.findAll({ where: field });
-        if (isEmptyArray(equipment) || !field) {
+        if (isEmptyObject(field)) {
             throw _getNotFoundEquipmentError();
         }
         return equipment;
