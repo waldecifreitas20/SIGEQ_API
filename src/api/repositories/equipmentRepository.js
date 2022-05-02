@@ -31,7 +31,7 @@ module.exports = {
 
     getEquipmentBy: async function (field) {
         const equipment = await EquipmentModel.findAll({ where: field });
-        if (isEmptyObject(field)) {
+        if (isEmptyArray(allEquipments) || isEmptyObject(field)) {
             throw _getNotFoundEquipmentError();
         }
         return equipment;
@@ -81,7 +81,7 @@ module.exports = {
                 where: { id: equipment.id }
             });
             _updateFields(equipmentFromDatabase, equipment);
-            
+
             return await equipmentFromDatabase.save();
         } catch (error) {
             throw _getNotFoundEquipmentError();
