@@ -8,6 +8,7 @@ module.exports = {
             .filter(file => file.indexOf('index') == -1)
     },
 
-    isEmptyArray: (array = Array) => !array || array.length === 0,
+    isEmptyArray: array  => !array || array.length === 0,
 
+    isEmptyObject : object => Object.keys(object).length === 0,
 }
