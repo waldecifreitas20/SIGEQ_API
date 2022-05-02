@@ -18,10 +18,18 @@ const _routes = {
         '/equipment/all',
     ],
     post: [
-
+        '/equipment/create',
+        '/auth/register',
+        '/auth/authenticate',
+        '/auth/check_token',
+        '/auth/recovery_password',
     ],
-    delete: [],
-    put: [],
+    delete: [
+        '/equipment/delete/'
+    ],
+    put: [
+        '/equipment/update'
+    ],
 }
 
 const deleteRoute = '/equipment/delete/';
@@ -52,14 +60,14 @@ const _getDeleteRouteParams = route => {
 module.exports = (req, res, next) => {
     const route = req.url;
 
-    if (!_isValidRoute(route)){
+    if (!_isValidRoute(route)) {
         return res.status(404).send(getErrorResponse({
             status: 404,
             error: 'Endpoint does not exist',
         }));
-        
-    } 
-    if(!_isValidHttpMethod(route)) {
+
+    }
+    if (!_isValidHttpMethod(route)) {
         return res.status(404).send(getErrorResponse({
             status: 405,
             error: 'HTTP method is not allowed',
