@@ -29,12 +29,12 @@ const _updateFields = (model, equipment) => {
 
 module.exports = {
 
-    getEquipmentBy: async function (field) {
-        const equipment = await EquipmentModel.findAll({ where: field });
-        if (isEmptyArray(allEquipments) || isEmptyObject(field)) {
+    getEquipmentsBy: async function (field) {
+        const equipments = await EquipmentModel.findAll({ where: field });
+        if (isEmptyArray(equipments) || isEmptyObject(field)) {
             throw _getNotFoundEquipmentError();
         }
-        return equipment;
+        return equipments;
     },
 
     getAll: async function () {
@@ -53,6 +53,7 @@ module.exports = {
     create: async function (equipment) {
         try {
             const equipmentFromDatabase = await EquipmentModel.create(equipment);
+
             return equipmentFromDatabase.id;
         } catch (error) {
             throw getErrorResponse({

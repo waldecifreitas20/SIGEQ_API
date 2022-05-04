@@ -38,12 +38,12 @@ const _toUpdate = async equipment => {
 module.exports = {
     getEquipmentByField: async function (field) {
         const repositoryResponse = await _callRepository(
-            equipmentRepository.getEquipmentBy, field, 200
+            equipmentRepository.getEquipmentsBy, field, 200
         );
-        
+       
         return {
             status: repositoryResponse.status,
-            equipment: repositoryResponse.response,
+            equipments: repositoryResponse.response,
             error: repositoryResponse.error,
             description : repositoryResponse.description
         };

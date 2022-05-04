@@ -60,9 +60,10 @@ describe('Search by id test', () => {
     it('should be true when comparing sent id with id returned', async () => {
         const SENT_ID = await _generateValidEquipmentId();
         const response = await services.getEquipmentByField({ id: SENT_ID });
-        const RETURNED_ID = response.equipment.id;
+        const RETURNED_ID = response.equipments[0].id;
+        console.log(response);
 
-        expect(SENT_ID).toBe(RETURNED_ID);
+       expect(SENT_ID).toBe(RETURNED_ID);
     });
 
     it('should return status 400 when trying to update equipment that does not exist', async () => {
