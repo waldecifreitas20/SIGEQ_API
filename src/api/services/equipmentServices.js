@@ -16,25 +16,6 @@ const _callRepository = async (action, params, successStatus = 200) => {
 }
 
 
-const _toUpdate = async equipment => {
-  
-
-    if (equipment.status !== undefined) {
-        await equipmentRepository.updateStatus(equipment);
-    }
-
-    if (equipment.current_location !== undefined) {
-        await equipmentRepository.updateLocation(equipment);
-    }
-
-    if (equipment.image !== undefined) {
-        await equipmentRepository.updateImage(equipment);
-    }
-
-    return 'equipment updated with success';
-}
-
-
 module.exports = {
     getEquipmentByField: async function (field) {
         const repositoryResponse = await _callRepository(

@@ -16,6 +16,6 @@ module.exports = {
     },
 
     check_token: (req, res) => {
-        return res.status(200).send({ message: 'valid token' });
+        return res.status(200).send({ status: 200, message: 'valid token' });
     }
 }
