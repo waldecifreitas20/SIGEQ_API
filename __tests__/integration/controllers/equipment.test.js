@@ -81,9 +81,9 @@ describe('Get by id equipment test', () => {
     it('should return 200 ok when trying get a equipment sending a id', async () => {
 
     });
-    
+
     it('should return 400 when trying get a equipment without to send a id', async () => {
-    
+
     });
 });
 
@@ -103,11 +103,11 @@ describe('Get all equipment test', () => {
 describe('Delete equipment test', () => {
 
     it('should return 200 ok when trying delete a equipment', async () => {
-      
+
     });
 
     it('should return 401 when trying delete a equipment without permission', async () => {
-       
+
     });
 });
 
