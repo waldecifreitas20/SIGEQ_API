@@ -3,15 +3,15 @@ const { database, datatype } = require(paths.database);
 
 module.exports = database.define('equipments', {
     title: {
-        type: datatype.STRING,
+        type: datatype.STRING(30),
         allowNull: false
     },
     model: {
-        type: datatype.STRING,
+        type: datatype.STRING(15),
         allowNull: false
     },
     heritage: {
-        type: datatype.STRING,
+        type: datatype.STRING(10),
         unique: true,
         allowNull: true
     },

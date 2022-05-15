@@ -5,12 +5,12 @@ const Equipment = require('./Equipment');
 
 const Status = database.define('status', {
   name: {
-    type: datatype.STRING,
+    type: datatype.STRING(15),
     unique: true,
     allowNull: false
   },
   description: {
-    type: datatype.STRING,
+    type: datatype.STRING(30),
     unique: true,
     allowNull: false
   }

@@ -30,45 +30,45 @@ module.exports = {
         allowNull: true
       },
 
-      status_id: {
-        type: Sequelize.INTEGER,
-        references: {
-          model : {
-            tableName: 'status',
-            scheme : 'public'
-          },
-          key: 'id'
-        }
-      },
-      manufacturer_id: {
-        type: Sequelize.INTEGER,
-        references: {
-          model : {
-            tableName: 'manufacturers',
-            scheme : 'public'
-          },
-          key: 'id'
-        }
-      },
-      progep_sector_id: {
-        type: Sequelize.INTEGER,
-        references: {
-          model : {
-            tableName: 'progep_sectors',
-            scheme : 'public'
-          },
-          key: 'id'
-        }
-      },
       category_id: {
         type: Sequelize.INTEGER,
         references: {
-          model : {
+          model: {
             tableName: 'categories',
-            scheme : 'public'
+            scheme: 'public'
           },
           key: 'id'
-        }
+        },
+        manufacturer_id: {
+          type: Sequelize.INTEGER,
+          references: {
+            model: {
+              tableName: 'manufacturers',
+              scheme: 'public'
+            },
+            key: 'id'
+          }
+        },
+        progep_sector_id: {
+          type: Sequelize.INTEGER,
+          references: {
+            model: {
+              tableName: 'progep_sectors',
+              scheme: 'public'
+            },
+            key: 'id'
+          }
+        },
+        status_id: {
+          type: Sequelize.INTEGER,
+          references: {
+            model: {
+              tableName: 'status',
+              scheme: 'public'
+            },
+            key: 'id'
+          }
+        },
       },
     });
   },
