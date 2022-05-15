@@ -21,6 +21,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    return await queryInterface.dropTable('permissions');
+    await queryInterface.dropTable('permissions');
   }
 };
