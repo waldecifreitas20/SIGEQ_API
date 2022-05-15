@@ -6,14 +6,6 @@ module.exports = database.define('equipments', {
         type: datatype.STRING,
         allowNull: false
     },
-    company: {
-        type: datatype.STRING,
-        allowNull: false
-    },
-    category: {
-        type: datatype.STRING,
-        allowNull: false
-    },
     model: {
         type: datatype.STRING,
         allowNull: false
@@ -22,10 +14,6 @@ module.exports = database.define('equipments', {
         type: datatype.STRING,
         unique: true,
         allowNull: true
-    },
-    current_location: {
-        type: datatype.STRING,
-        allowNull: false,
     },
     warrantyExpiresAt: {
         type: datatype.DATE,
