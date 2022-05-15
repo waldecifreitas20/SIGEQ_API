@@ -4,11 +4,11 @@ const User = require('./User');
 
 const Permission = database.define('permission', {
     name : {
-        type : datatype.STRING,
+        type : datatype.STRING(7),
         allowNull : false
     },
     description : {
-        type : datatype.STRING,
+        type : datatype.STRING(20),
         allowNull : false
     }
    

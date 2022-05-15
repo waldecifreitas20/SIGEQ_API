@@ -2,25 +2,26 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('permissions', {
+    await queryInterface.createTable('progep_sectors', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true
       },
-      name: {
-        type: Sequelize.STRING,
+      full_name: {
+        type: Sequelize.STRING(80),
+        unique: true,
         allowNull: false
       },
-      description: {
-        type: Sequelize.STRING,
+      short_name: {
+        type: Sequelize.STRING(8),
+        unique: true,
         allowNull: false
       }
-
-    })
+    });
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('permissions');
+    await queryInterface.dropTable('progep_sectors');
   }
 };
