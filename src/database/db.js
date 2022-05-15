@@ -1,16 +1,19 @@
-const dbConfig = require('../config/database');
+const { database, username, password, host, dialect } = require('../config/database');
 
 const Sequelize = require('sequelize');
-const database = new Sequelize(
-    dbConfig.database, dbConfig.username, dbConfig.password, {
-    host: dbConfig.host,
-    dialect: dbConfig.dialect,
-    logging: false,
-    define: {
-        timestamps: false,
-        underscored: true,
-    }
-});
+const sequelize = new Sequelize(
+    database, username, password,
+    {
+        host: host,
+        dialect: dialect,
+        logging: false,
+        define: {
+            timestamps: false,
+            underscored: true,
+            freezeTableName: true
+        }
+    },
+);
 
 const initModels = () => {
     const { models } = require('../utils/paths');
@@ -25,12 +28,12 @@ const initModels = () => {
 }
 
 const syncDatabase = async () => {
-    await database.sync({force:true});
+    await sequelize.sync();
 }
 
 module.exports = {
     datatype: Sequelize,
-    database: database,
+    database: sequelize,
 
     initDatabase: async function () {
         initModels();
