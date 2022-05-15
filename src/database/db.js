@@ -25,7 +25,7 @@ const initModels = () => {
 }
 
 const syncDatabase = async () => {
-    await database.sync();
+    await database.sync({force:true});
 }
 
 module.exports = {
