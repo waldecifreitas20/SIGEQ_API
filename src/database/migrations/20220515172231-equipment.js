@@ -12,14 +12,6 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
-      company: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      category: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
       model: {
         type: Sequelize.STRING,
         allowNull: false
@@ -28,14 +20,6 @@ module.exports = {
         type: Sequelize.STRING,
         unique: true,
         allowNull: true
-      },
-      current_location: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      status: {
-        type: Sequelize.STRING,
-        allowNull: false,
       },
       warranty_expires_at: {
         type: Sequelize.DATE,

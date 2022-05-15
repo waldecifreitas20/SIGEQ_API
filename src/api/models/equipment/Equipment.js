@@ -1,7 +1,7 @@
 const paths = require('../../../utils/paths');
 const { database, datatype } = require(paths.database);
 
-const Equipment = database.define('equipments', {
+module.exports = database.define('equipments', {
     title: {
         type: datatype.STRING,
         allowNull: false
@@ -27,10 +27,6 @@ const Equipment = database.define('equipments', {
         type: datatype.STRING,
         allowNull: false,
     },
-    status: {
-        type: datatype.STRING,
-        allowNull: false,
-    },
     warrantyExpiresAt: {
         type: datatype.DATE,
         allowNull: true
@@ -42,4 +38,3 @@ const Equipment = database.define('equipments', {
 });
 
 
-module.exports = Equipment;
