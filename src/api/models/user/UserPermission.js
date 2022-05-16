@@ -4,7 +4,7 @@ const { database, datatype } = require(paths.database);
 const User = require('./User');
 const Permission = require('./Permission');
 
-const UserPermission = database.define('user_permission', {
+const UserPermission = database.define('user_permissions', {
     id: {
         type: datatype.INTEGER,
         allowNull: false,
