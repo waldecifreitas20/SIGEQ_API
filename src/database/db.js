@@ -28,7 +28,7 @@ const initModels = () => {
 }
 
 const syncDatabase = async () => {
-    await sequelize.sync({ force: true });
+    await sequelize.sync();
 }
 
 module.exports = {

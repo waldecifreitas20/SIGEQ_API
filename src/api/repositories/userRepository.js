@@ -11,6 +11,7 @@ module.exports = {
         try {
             return await UserModel.create(userData);
         } catch (error) {
+            console.log(error);
             throw getErrorResponse({
                 status: 400,
                 error: 'Cannot create user',
@@ -24,7 +25,7 @@ module.exports = {
             where: { email: email },
             include: PermissionModel
         });
-     
+        
         if (user == null) {
             throw getErrorResponse({
                 status: 401,

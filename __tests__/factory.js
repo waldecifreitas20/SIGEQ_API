@@ -13,7 +13,7 @@ const PROGEP_SECTORS = [
 
 const models = ['SF34-MJ', 'M78-GHJ', 'CP4J-Q'];
 
-const _getRandomIntegerUntil(number) => {
+const _getRandomIntegerUntil = (number) => {
     return Math.floor(Math.random() * number);
 }
 
