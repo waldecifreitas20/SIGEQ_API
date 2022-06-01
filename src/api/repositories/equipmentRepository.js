@@ -52,10 +52,13 @@ module.exports = {
 
     create: async function (equipment) {
         try {
+            console.log(equipment);
             const equipmentFromDatabase = await EquipmentModel.create(equipment);
+
 
             return equipmentFromDatabase.id;
         } catch (error) {
+            console.log(error);
             throw getErrorResponse({
                 status: 400,
                 error: 'cannot create equipment',
