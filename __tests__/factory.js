@@ -13,9 +13,12 @@ const PROGEP_SECTORS = [
 
 const models = ['SF34-MJ', 'M78-GHJ', 'CP4J-Q'];
 
+const _getRandomIntegerUntil = (number) => {
+    return Math.floor(Math.random() * number);
+}
 
 const _getRandomFrom = (array) => {
-    let i = Math.floor(Math.random() * array.length);
+    let i = _getRandomIntegerUntil(array.length - 1);
     return array[i];
 }
 
@@ -40,12 +43,12 @@ module.exports = {
     generateEquipment: () => {
         return {
             title: faker.commerce.product(),
-            company: faker.company.companyName(),
-            category: faker.commerce.product(),
+            manucfacturer_id: _getRandomIntegerUntil(2),
+            category_id: _getRandomIntegerUntil(4),
             model: _getRandomFrom(models),
             heritage: faker.br.cpf(),
             current_location: _getRandomFrom(PROGEP_SECTORS),
-            status: 'it is available',
+            status: _getRandomIntegerUntil(3),
             warrantyExpireAt: Date.now(),
             image: faker.random.image()
         }

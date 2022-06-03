@@ -3,13 +3,13 @@ const { database, datatype } = require(paths.database);
 
 const bcrypt = require('bcryptjs');
 
-const User = database.define('user', {
+const User = database.define('users', {
     first_name: {
-        type: datatype.STRING(10),
+        type: datatype.STRING(50),
         allowNull: false,
     },
     surname: {
-        type: datatype.STRING(10),
+        type: datatype.STRING(50),
         allowNull: false,
     },
     email: {
@@ -18,7 +18,7 @@ const User = database.define('user', {
         unique: true
     },
     password: {
-        type: datatype.STRING(50),
+        type: datatype.STRING,
         allowNull: false,
     },
     cpf: {

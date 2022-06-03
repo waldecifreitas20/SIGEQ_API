@@ -29,6 +29,7 @@ const _formatUserData = user => {
         name: user.first_name,
         permissions: _getUserPermissions(user)
     };
+
     const token = generateToken(userData);
     userData.permissions = _formatUserPermissions(user.permissions);
 
