@@ -60,11 +60,10 @@ module.exports = {
     createEquipment: function (req, res, next) {
         const equipment = req.body;
         const keysExpected = [
-            "title",
+            "title", "model", "categoryId",
+            "manufacturerId", "progepSectorId", "statusId"
         ];
         /* 
-            "model", "category_id",
-            "manufacturer_id", "progepSector_id", "status_id"
         */
 
         const requiredFields = _hasManyExpectedKeys(keysExpected, equipment);
