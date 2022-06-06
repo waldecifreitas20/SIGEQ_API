@@ -28,7 +28,7 @@ module.exports = {
     register: function (req, res, next) {
         const user = req.body;
         let keysExpected = [
-            'firstname', 'surname',
+            'firstName', 'surname',
             'email', 'password', 'cpf',
         ];
 

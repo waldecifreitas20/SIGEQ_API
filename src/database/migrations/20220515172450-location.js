@@ -2,18 +2,18 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('location', {
+    await queryInterface.createTable('locations', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true
       },
-      full_name: {
+      fullName: {
         type: Sequelize.STRING(80),
         unique: true,
         allowNull: false
       },
-      short_name: {
+      shortName: {
         type: Sequelize.STRING(8),
         unique: true,
         allowNull: false
@@ -22,6 +22,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('location');
+    await queryInterface.dropTable('locations');
   }
 };

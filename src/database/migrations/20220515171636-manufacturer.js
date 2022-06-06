@@ -8,12 +8,12 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true
       },
-      full_name: {
+      fullName: {
         type: Sequelize.STRING(40),
         unique: true,
         allowNull: false
       },
-      short_name: {
+      shortName: {
         type: Sequelize.STRING(10),
         unique: true,
         allowNull: false

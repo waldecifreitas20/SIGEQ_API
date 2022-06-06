@@ -3,12 +3,12 @@ const Equipment = require('./Equipment');
 const { database, datatype } = require(paths.database);
 
 const Location = database.define('locations', {
-  full_name: {
+  fullName: {
     type: datatype.STRING(80),
     unique: true,
     allowNull: false
   },
-  short_name: {
+  shortName: {
     type: datatype.STRING(8),
     unique: true,
     allowNull: false

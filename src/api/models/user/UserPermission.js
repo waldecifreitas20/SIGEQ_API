@@ -18,7 +18,7 @@ User.belongsToMany(Permission, {
         model: UserPermission
     },
     constraint: true,
-    foreignKey: 'user_id'
+    foreignKey: 'userId'
 });
 
 Permission.belongsToMany(User, {
@@ -26,7 +26,7 @@ Permission.belongsToMany(User, {
         model: UserPermission
     },
     constraint: true,
-    foreignKey: 'permission_id'
+    foreignKey: 'permissionId'
 });
 
 
