@@ -15,17 +15,6 @@ const _callRepository = async (action, params, successStatus = 200) => {
     }
 }
 
-const _getEquipmentResponse = equipments => {
-    
-    for (const equipment of equipments) {
-        equipment.categoryId = undefined;
-        equipment.progepSectorId = undefined;
-        equipment.manufacturerId = undefined;
-        equipment.statusId = undefined;
-    }
-
-    return equipments;
-}
 
 module.exports = {
     getEquipmentByField: async function (field) {
@@ -34,7 +23,7 @@ module.exports = {
         );
         return {
             status: repositoryResponse.status,
-            equipments: _getEquipmentResponse(repositoryResponse.response),
+            equipments: repositoryResponse.response,
             error: repositoryResponse.error,
             description : repositoryResponse.description
         };       
@@ -44,7 +33,7 @@ module.exports = {
         const repositoryResponse = await _callRepository(equipmentRepository.getAll, 200);
         return {
             status: repositoryResponse.status,
-            equipments: _getEquipmentResponse(repositoryResponse.response),
+            equipments: repositoryResponse.response,
             error: repositoryResponse.error,
             description : repositoryResponse.description
         };

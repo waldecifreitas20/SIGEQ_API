@@ -9,8 +9,8 @@ const sequelize = new Sequelize(
         logging: false,
         define: {
             timestamps: false,
-            underscored: true,
-            underscoredAll: true,
+            underscored: false,
+            underscoredAll: false,
             freezeTableName: true
         }
     },

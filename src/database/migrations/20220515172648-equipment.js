@@ -21,7 +21,7 @@ module.exports = {
         unique: true,
         allowNull: true
       },
-      warranty_expires_at: {
+      warrantyExpiresAt: {
         type: Sequelize.DATE,
         allowNull: true
       },
@@ -29,7 +29,7 @@ module.exports = {
         type: Sequelize.BLOB,
         allowNull: true
       },
-      category_id: {
+      categoryId: {
         type: Sequelize.INTEGER,
         references: {
           model: {
@@ -39,7 +39,7 @@ module.exports = {
           key: 'id'
         },
       },
-      manufacturer_id: {
+      manufacturerId: {
         type: Sequelize.INTEGER,
         references: {
           model: {
@@ -49,17 +49,17 @@ module.exports = {
           key: 'id'
         }
       },
-      progep_sector_id: {
+      LocationId: {
         type: Sequelize.INTEGER,
         references: {
           model: {
-            tableName: 'progep_sectors',
+            tableName: 'locations',
             scheme: 'public'
           },
           key: 'id'
         }
       },
-      status_id: {
+      statusId: {
         type: Sequelize.INTEGER,
         references: {
           model: {
