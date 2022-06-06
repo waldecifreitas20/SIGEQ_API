@@ -49,7 +49,7 @@ module.exports = {
           key: 'id'
         }
       },
-      LocationId: {
+      locationId: {
         type: Sequelize.INTEGER,
         references: {
           model: {

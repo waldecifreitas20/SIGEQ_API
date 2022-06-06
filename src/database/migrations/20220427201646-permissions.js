@@ -9,11 +9,11 @@ module.exports = {
         autoIncrement: true
       },
       name: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(10),
         allowNull: false
       },
       description: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(20),
         allowNull: false
       }
 
