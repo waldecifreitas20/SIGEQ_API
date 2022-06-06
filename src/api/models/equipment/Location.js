@@ -2,7 +2,7 @@ const paths = require('../../../utils/paths');
 const Equipment = require('./Equipment');
 const { database, datatype } = require(paths.database);
 
-const ProgepSector = database.define('progep_sectors', {
+const Location = database.define('locations', {
   full_name: {
     type: datatype.STRING(80),
     unique: true,
@@ -15,7 +15,7 @@ const ProgepSector = database.define('progep_sectors', {
   }
 });
 
-ProgepSector.hasMany(Equipment);
-Equipment.belongsTo(ProgepSector);
+Location.hasMany(Equipment);
+Equipment.belongsTo(Location);
 
-module.exports = ProgepSector;
+module.exports = Location;

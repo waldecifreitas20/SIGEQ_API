@@ -2,7 +2,7 @@ const { utils, models } = require('../../utils/paths');
 const Category = require('../models/equipment/Category');
 const Status = require('../models/equipment/Status');
 const Manufacturer = require('../models/equipment/Manufacturer');
-const ProgepSector = require('../models/equipment/ProgepSector');
+const Location = require('../models/equipment/Location');
 
 const Equipment = require('../models/equipment/Equipment');
 
@@ -44,7 +44,7 @@ module.exports = {
     },
 
     getAll: async function () {
-        const allEquipments = await EquipmentModel.findAll({ include: [Category, Status, Manufacturer, ProgepSector] });
+        const allEquipments = await EquipmentModel.findAll();
         if (isEmptyArray(allEquipments)) {
             throw getErrorResponse({
                 status: 400,
@@ -59,7 +59,7 @@ module.exports = {
     create: async function (equipment) {
         try {
             const equipmentFromDatabase = await EquipmentModel.create(equipment,
-                { include: [Category, Status, Manufacturer, ProgepSector] });
+                { include: [Category, Status, Manufacturer, Location] });
 
             console.log(equipmentFromDatabase);
             return equipmentFromDatabase.id;

@@ -28,7 +28,7 @@ module.exports = {
     register: function (req, res, next) {
         const user = req.body;
         let keysExpected = [
-            'first_name', 'surname',
+            'firstname', 'surname',
             'email', 'password', 'cpf',
         ];
 
@@ -63,8 +63,7 @@ module.exports = {
             "title", "model", "categoryId",
             "manufacturerId", "progepSectorId", "statusId"
         ];
-        /* 
-        */
+        
 
         const requiredFields = _hasManyExpectedKeys(keysExpected, equipment);
 
