@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  database:
+    image: postgres:alpine
+    ports: 
+      - 5433:5432 
+    environment:
+      - POSTGRES_PASSWORD=1234
+  api: 
+    build: .
+    ports: 
+      - 5000:5000
+    env_file:
+      - .env
