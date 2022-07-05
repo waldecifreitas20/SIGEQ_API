@@ -61,7 +61,7 @@ module.exports = {
         const equipment = req.body;
         const keysExpected = [
             "title", "model", "categoryId",
-            "manufacturerId", "progepSectorId", "statusId"
+            "manufacturerId", "locationId", "statusId"
         ];
         
 
