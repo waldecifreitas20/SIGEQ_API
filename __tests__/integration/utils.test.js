@@ -1,6 +1,6 @@
 
 describe('shorts.js test', () => {
-    const { getFilesName, isEmptyArray } = require('../../src/utils/shorts');
+    const { getFilesName } = require('../../src/utils/shorts');
     const { resolve: getPath } = require('path');
 
     it('should return an array of filenames by a specific folder without their index.js', () => {
@@ -17,18 +17,10 @@ describe('shorts.js test', () => {
         expect(filenames.indexOf('index.js')).toBe(-1);
     });
 
-    it('should return true when check if a array is empty', () => {
-        const emptyArray = [];
-        const IS_EMPTY = isEmptyArray(emptyArray);
+    it('should return an length 2 array of filenames from absolute path of controllers folder', () => {
+        const filenames = getFilesName(getPath('src', 'api', 'controllers'));
 
-        expect(IS_EMPTY).toBe(true);
-    });
-    
-    it('should return false when check if a array is empty', () => {
-        const notEmptyArray = ['1', '2', '3'];
-        const IS_EMPTY = isEmptyArray(notEmptyArray);
-
-        expect(IS_EMPTY).toBe(false);
+        expect(filenames.length).toBe(2)
     });
 });
 
