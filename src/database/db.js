@@ -1,4 +1,4 @@
-const { database, username, password, host, dialect } = require('../config/database');
+const { database, username, password, host, dialect, port } = require('../config/database');
 
 const Sequelize = require('sequelize');
 const sequelize = new Sequelize(
@@ -6,6 +6,7 @@ const sequelize = new Sequelize(
     {
         host: host,
         dialect: dialect,
+        port,
         logging: false,
         define: {
             timestamps: false,

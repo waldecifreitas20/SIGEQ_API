@@ -1,15 +1,42 @@
-version: '3'
+version: '4'
 
 services:
-  database:
-    image: postgres:alpine
-    ports: 
-      - 5433:5432 
+  db:
+    image: postgres:14-alpine
+    ports:
+      - 55432:5432
+    restart: always
     environment:
       - POSTGRES_PASSWORD=1234
-  api: 
+      - POSTGRES_USER=docker
+      - POSTGRES_DB=sigeq_docker
+    volumes:
+      - /etc/todos/data
+
+  api:
     build: .
-    ports: 
+    command: npm start
+    restart: always
+    ports:
       - 5000:5000
-    env_file:
-      - .env
+    environment:
+      - PORT=5000
+      - DB_HOST=172.19.0.2
+      - DB_USER=docker
+      - DB_PASS=1234
+      - DB_NAME=sigeq_docker
+      - DB_DIALECT=postgres
+      - DB_PORT=5432
+      - API_SECRET=2cf8fd943de2a46c8babceb7da2d4e8e
+    depends_on:
+      - db
+
+networks:
+  default:
+    name: sigeq_net
+    external: true
+
+volumes:
+  sigeq:
+    external: true
+

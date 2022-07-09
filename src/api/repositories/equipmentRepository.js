@@ -95,7 +95,5 @@ module.exports = {
         } catch (error) {
             throw _getNotFoundEquipmentError();
         }
-
-
     }
 }
