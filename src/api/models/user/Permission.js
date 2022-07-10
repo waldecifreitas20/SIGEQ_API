@@ -8,7 +8,7 @@ const Permission = database.define('permissions', {
         allowNull : false
     },
     description : {
-        type : datatype.STRING(20),
+        type : datatype.STRING(60),
         allowNull : false
     }
    
