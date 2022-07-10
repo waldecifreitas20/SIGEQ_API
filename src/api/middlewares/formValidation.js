@@ -1,16 +1,6 @@
 const { getRequiredFieldsErrorResponse } = require("../../utils/errors");
+const { howManyKeys } = require('../../utils/shorts');
 
-const _hasManyExpectedKeys = (keysExpected = [], object = {}) => {
-    let requiredFields = 0;
-
-    for (let i = 0; i < keysExpectedFor.login.length; i++) {
-        const key = keysExpected[i];
-        if (object.hasOwnProperty(key)) {
-            requiredFields++;
-        }
-    }
-    return requiredFields;
-};
 
 const keysExpectedFor = {
     user: ['firstName', 'surname',
@@ -29,7 +19,7 @@ module.exports = {
     register: function (req, res, next) {
         const keysReceived = req.body;
 
-        let requiredFields = _hasManyExpectedKeys(keysExpectedFor.user, keysReceived);
+        let requiredFields = howManyKeys(keysExpectedFor.user, keysReceived);
 
         if (requiredFields != keysExpectedFor.user.length) {
             return res.status(400).send(
@@ -42,7 +32,7 @@ module.exports = {
     login: function (req, res, next) {
         const user = req.body;
 
-        const requiredFields = _hasManyExpectedKeys(keysExpectedFor.login, user);
+        const requiredFields = howManyKeys(keysExpectedFor.login, user);
 
         if (requiredFields != keysExpectedFor.login.length) {
             return res.status(400).send(
@@ -57,7 +47,7 @@ module.exports = {
         const equipment = req.body;
 
 
-        const requiredFields = _hasManyExpectedKeys(keysExpectedFor.equipment, equipment);
+        const requiredFields = howManyKeys(keysExpectedFor.equipment, equipment);
 
         if (requiredFields != keysExpectedFor.equipment.length) {
             return res.status(400).send(
