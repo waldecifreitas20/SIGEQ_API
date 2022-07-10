@@ -19,7 +19,7 @@ module.exports = {
     register: function (req, res, next) {
         const keysReceived = req.body;
 
-        let requiredFields = howManyKeys(keysExpectedFor.user, keysReceived);
+        let requiredFields = howManyKeys(keysReceived, keysExpectedFor.user);
 
         if (requiredFields != keysExpectedFor.user.length) {
             return res.status(400).send(
@@ -30,10 +30,10 @@ module.exports = {
     },
 
     login: function (req, res, next) {
-        const user = req.body;
+        const keysReceived = req.body;
 
-        const requiredFields = howManyKeys(keysExpectedFor.login, user);
-
+        const requiredFields = howManyKeys(keysReceived, keysExpectedFor.login);
+        console.log(requiredFields);
         if (requiredFields != keysExpectedFor.login.length) {
             return res.status(400).send(
                 getRequiredFieldsErrorResponse(keysExpectedFor.login, requiredFields)
@@ -44,10 +44,9 @@ module.exports = {
     },
 
     createEquipment: function (req, res, next) {
-        const equipment = req.body;
+        const keysReceived = req.body;
 
-
-        const requiredFields = howManyKeys(keysExpectedFor.equipment, equipment);
+        const requiredFields = howManyKeys(keysReceived, keysExpectedFor.equipment);
 
         if (requiredFields != keysExpectedFor.equipment.length) {
             return res.status(400).send(
