@@ -1,8 +1,8 @@
-const { getRequiredFieldsErrorResponse } = require("../../utils/errors");
+const { getRequiredFieldsError } = require("../../utils/errors");
 const { howManyKeys } = require('../../utils/shorts');
 
 
-const keysExpectedFor = {
+const keysExpectedTo = {
     user: ['firstName', 'surname',
         'email', 'password', 'cpf',
     ],
@@ -19,11 +19,11 @@ module.exports = {
     register: function (req, res, next) {
         const keysReceived = req.body;
 
-        let requiredFields = howManyKeys(keysReceived, keysExpectedFor.user);
+        let requireKeysReceived = howManyKeys(keysReceived, keysExpectedTo.user);
 
-        if (requiredFields != keysExpectedFor.user.length) {
+        if (requireKeysReceived != keysExpectedTo.user.length) {
             return res.status(400).send(
-                getRequiredFieldsErrorResponse(keysExpectedFor.user, requiredFields)
+                getRequiredFieldsError(keysExpectedTo.user, requireKeysReceived)
             );
         }
         return next();
@@ -32,11 +32,11 @@ module.exports = {
     login: function (req, res, next) {
         const keysReceived = req.body;
 
-        const requiredFields = howManyKeys(keysReceived, keysExpectedFor.login);
-        console.log(requiredFields);
-        if (requiredFields != keysExpectedFor.login.length) {
+        const requireKeysReceived = howManyKeys(keysReceived, keysExpectedTo.login);
+
+        if (requireKeysReceived != keysExpectedTo.login.length) {
             return res.status(400).send(
-                getRequiredFieldsErrorResponse(keysExpectedFor.login, requiredFields)
+                getRequiredFieldsError(keysExpectedTo.login, requireKeysReceived)
             );
         }
 
@@ -46,11 +46,11 @@ module.exports = {
     createEquipment: function (req, res, next) {
         const keysReceived = req.body;
 
-        const requiredFields = howManyKeys(keysReceived, keysExpectedFor.equipment);
+        const requireKeysReceived = howManyKeys(keysReceived, keysExpectedTo.equipment);
 
-        if (requiredFields != keysExpectedFor.equipment.length) {
+        if (requireKeysReceived != keysExpectedTo.equipment.length) {
             return res.status(400).send(
-                getRequiredFieldsErrorResponse(keysExpectedFor.equipment, requiredFields)
+                getRequiredFieldsError(keysExpectedTo.equipment, requireKeysReceived)
             );
         }
 

@@ -9,7 +9,7 @@ module.exports = {
         return { status, error, description, details };
     },
 
-    getRequiredFieldsErrorResponse: function (expected = [], received = Number) {
+    getRequiredFieldsError: function (expected = [], received = Number) {
     return {
         status: 400,
         error: 'Missing required fields',
