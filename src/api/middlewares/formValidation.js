@@ -36,7 +36,7 @@ module.exports = {
 
         if (requiredFields != keysExpectedFor.login.length) {
             return res.status(400).send(
-                getRequiredFieldsErrorResponse(keysExpected, requiredFields)
+                getRequiredFieldsErrorResponse(keysExpectedFor.login, requiredFields)
             );
         }
 
