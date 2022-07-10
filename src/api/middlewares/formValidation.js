@@ -1,9 +1,9 @@
-const { getErrorResponse } = require("../../utils/errors");
+const { getRequiredFieldsErrorResponse } = require("../../utils/errors");
 
 const _hasManyExpectedKeys = (keysExpected = [], object = {}) => {
     let requiredFields = 0;
 
-    for (let i = 0; i < keysExpected.length; i++) {
+    for (let i = 0; i < keysExpectedFor.login.length; i++) {
         const key = keysExpected[i];
         if (object.hasOwnProperty(key)) {
             requiredFields++;
@@ -12,31 +12,28 @@ const _hasManyExpectedKeys = (keysExpected = [], object = {}) => {
     return requiredFields;
 };
 
-const _getrequiredFieldsErrorResponse = (expected = [], received = Number) => {
-    return getErrorResponse({
-        status: 400,
-        error: 'Missing required fields',
-        description: `Were expected ${expected.length} required fields, but were given ${received}`,
-        details: {
-            expected_fields: expected,
-        },
-    });
+const keysExpectedFor = {
+    user: ['firstName', 'surname',
+        'email', 'password', 'cpf',
+    ],
+    equipment: [
+        "title", "model", "categoryId",
+        "manufacturerId", "locationId", "statusId"
+    ],
+    login: ['email', 'password'],
+
 }
 
 module.exports = {
 
     register: function (req, res, next) {
-        const user = req.body;
-        let keysExpected = [
-            'firstName', 'surname',
-            'email', 'password', 'cpf',
-        ];
+        const keysReceived = req.body;
 
-        let requiredFields = _hasManyExpectedKeys(keysExpected, user);
+        let requiredFields = _hasManyExpectedKeys(keysExpectedFor.user, keysReceived);
 
-        if (requiredFields != keysExpected.length) {
+        if (requiredFields != keysExpectedFor.user.length) {
             return res.status(400).send(
-                _getrequiredFieldsErrorResponse(keysExpected, requiredFields)
+                getRequiredFieldsErrorResponse(keysExpectedFor.user, requiredFields)
             );
         }
         return next();
@@ -44,13 +41,12 @@ module.exports = {
 
     login: function (req, res, next) {
         const user = req.body;
-        const keysExpected = ['email', 'password'];
 
-        const requiredFields = _hasManyExpectedKeys(keysExpected, user);
+        const requiredFields = _hasManyExpectedKeys(keysExpectedFor.login, user);
 
-        if (requiredFields != keysExpected.length) {
+        if (requiredFields != keysExpectedFor.login.length) {
             return res.status(400).send(
-                _getrequiredFieldsErrorResponse(keysExpected, requiredFields)
+                getRequiredFieldsErrorResponse(keysExpected, requiredFields)
             );
         }
 
@@ -59,17 +55,13 @@ module.exports = {
 
     createEquipment: function (req, res, next) {
         const equipment = req.body;
-        const keysExpected = [
-            "title", "model", "categoryId",
-            "manufacturerId", "locationId", "statusId"
-        ];
-        
 
-        const requiredFields = _hasManyExpectedKeys(keysExpected, equipment);
 
-        if (requiredFields != keysExpected.length) {
+        const requiredFields = _hasManyExpectedKeys(keysExpectedFor.equipment, equipment);
+
+        if (requiredFields != keysExpectedFor.equipment.length) {
             return res.status(400).send(
-                _getrequiredFieldsErrorResponse(keysExpected, requiredFields)
+                getRequiredFieldsErrorResponse(keysExpectedFor.equipment, requiredFields)
             );
         }
 
