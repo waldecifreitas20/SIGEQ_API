@@ -1,0 +1,40 @@
+version: '3.7'
+
+services:
+  db:
+    image: postgres:alpine
+    container_name: sigeq_db
+    ports:
+      - 15432:5432
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_USER=docker
+      - POSTGRES_DB=sigeq_docker
+    volumes:
+      - "db:/var/lib/postgresql/data"
+    networks:
+      - sigeq_net
+
+  api:
+    build: .
+    container_name: sigeq_api
+    command: npm start
+    restart: always
+    ports:
+      - 5001:5001
+    env_file:
+      - ".env.docker"
+      
+    depends_on:
+      - db
+    networks:
+      - sigeq_net
+
+volumes:
+  db: {}
+
+networks:
+  sigeq_net:
+    driver: bridge
+
