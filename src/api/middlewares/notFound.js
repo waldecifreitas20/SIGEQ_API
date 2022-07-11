@@ -1,4 +1,5 @@
 const { getErrorResponse } = require("../../utils/errors");
+const { ROUTES } = require("../../utils/shorts");
 
 const _routesWithoutParams = [
     '/auth/register',
@@ -11,26 +12,6 @@ const _routesWithoutParams = [
     '/equipment/create',
     '/equipment/update',
 ]
-
-const _routes = {
-    GET: [
-        '/equipment/search',
-        '/equipment/all',
-    ],
-    POST: [
-        '/equipment/create',
-        '/auth/register',
-        '/auth/authenticate',
-        '/auth/check_token',
-        '/auth/recovery_password',
-    ],
-    DELETE: [
-        '/equipment/delete/'
-    ],
-    PUT: [
-        '/equipment/update'
-    ],
-}
 
 const deleteRoute = '/equipment/delete/';
 
@@ -57,7 +38,7 @@ const _getDeleteRouteParams = route => {
 }
 
 const _isValidHttpMethod = (route, method) => {
-    const routesByMethod = _routes[method];
+    const routesByMethod = ROUTES[method];
 
     for (let i = 0; i < routesByMethod.length; i++) {
         const _route = routesByMethod[i];

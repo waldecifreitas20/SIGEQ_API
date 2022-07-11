@@ -8,11 +8,11 @@ module.exports = {
             .filter(file => file.indexOf('index') == -1)
     },
 
-    isEmptyArray: array  => !array || array.length === 0,
+    isEmptyArray: array => !array || array.length === 0,
 
-    isEmptyObject : object => Object.keys(object).length === 0,
+    isEmptyObject: object => Object.keys(object).length === 0,
 
-    howManyKeys: function (object={}, keys=[]) {
+    howManyKeys: function (object = {}, keys = []) {
         let matchs = 0;
         for (let i = 0; i < keys.length; i++) {
             const key = keys[i];
@@ -21,5 +21,26 @@ module.exports = {
             }
         }
         return matchs;
+    },
+
+    ROUTES: {
+        GET: [
+            '/equipment/search',
+            '/equipment/all',
+        ],
+        POST: [
+            '/equipment/create',
+            '/auth/register',
+            '/auth/authenticate',
+            '/auth/check_token',
+            '/auth/recovery_password',
+        ],
+        DELETE: [
+            '/equipment/delete/'
+        ],
+        PUT: [
+            '/equipment/update'
+        ],
+
     }
 }

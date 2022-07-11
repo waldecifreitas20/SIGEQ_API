@@ -19,11 +19,11 @@ module.exports = {
     register: function (req, res, next) {
         const keysReceived = req.body;
 
-        let requireKeysReceived = howManyKeys(keysReceived, keysExpectedTo.user);
+        let requiredKeysReceived = howManyKeys(keysReceived, keysExpectedTo.user);
 
-        if (requireKeysReceived != keysExpectedTo.user.length) {
+        if (requiredKeysReceived != keysExpectedTo.user.length) {
             return res.status(400).send(
-                getRequiredFieldsError(keysExpectedTo.user, requireKeysReceived)
+                getRequiredFieldsError(keysExpectedTo.user, requiredKeysReceived)
             );
         }
         return next();
@@ -32,11 +32,11 @@ module.exports = {
     login: function (req, res, next) {
         const keysReceived = req.body;
 
-        const requireKeysReceived = howManyKeys(keysReceived, keysExpectedTo.login);
+        const requiredKeysReceived = howManyKeys(keysReceived, keysExpectedTo.login);
 
-        if (requireKeysReceived != keysExpectedTo.login.length) {
+        if (requiredKeysReceived != keysExpectedTo.login.length) {
             return res.status(400).send(
-                getRequiredFieldsError(keysExpectedTo.login, requireKeysReceived)
+                getRequiredFieldsError(keysExpectedTo.login, requiredKeysReceived)
             );
         }
 
@@ -46,11 +46,11 @@ module.exports = {
     createEquipment: function (req, res, next) {
         const keysReceived = req.body;
 
-        const requireKeysReceived = howManyKeys(keysReceived, keysExpectedTo.equipment);
+        const requiredKeysReceived = howManyKeys(keysReceived, keysExpectedTo.equipment);
 
-        if (requireKeysReceived != keysExpectedTo.equipment.length) {
+        if (requiredKeysReceived != keysExpectedTo.equipment.length) {
             return res.status(400).send(
-                getRequiredFieldsError(keysExpectedTo.equipment, requireKeysReceived)
+                getRequiredFieldsError(keysExpectedTo.equipment, requiredKeysReceived)
             );
         }
 
