@@ -10,10 +10,10 @@ const _getRequiredPermissionByRoute = (route = String) => {
     if (_isSubRouteOf(route, '/all') || _isSubRouteOf(route, '/search')) {
         return 'read';
     }
-    if (_isSubRouteOf(route,'/update') !== -1) {
+    if (_isSubRouteOf(route,'/update')) {
         return 'update';
     }
-    if (route.indexOf('/delete') !== -1) {
+    if (route.indexOf('/delete')) {
         return 'delete';
     }
 }
@@ -37,7 +37,6 @@ module.exports = {
 
         try {
             const userData = checkToken(token);
-            req.userData = userData;
             req.permissions = userData.permissions
             next();
 
