@@ -1,5 +1,5 @@
 const { getRequiredFieldsError } = require("../../utils/errors");
-const { howManyKeys } = require('../../utils/shorts');
+const { hasKeys } = require('../../utils/shorts');
 
 
 const keysExpectedTo = {
@@ -19,7 +19,7 @@ module.exports = {
     register: function (req, res, next) {
         const keysReceived = req.body;
 
-        let requiredKeysReceived = howManyKeys(keysReceived, keysExpectedTo.user);
+        let requiredKeysReceived = hasKeys(keysReceived, keysExpectedTo.user);
 
         if (requiredKeysReceived != keysExpectedTo.user.length) {
             return res.status(400).send(
@@ -32,7 +32,7 @@ module.exports = {
     login: function (req, res, next) {
         const keysReceived = req.body;
 
-        const requiredKeysReceived = howManyKeys(keysReceived, keysExpectedTo.login);
+        const requiredKeysReceived = hasKeys(keysReceived, keysExpectedTo.login);
 
         if (requiredKeysReceived != keysExpectedTo.login.length) {
             return res.status(400).send(
@@ -46,7 +46,7 @@ module.exports = {
     createEquipment: function (req, res, next) {
         const keysReceived = req.body;
 
-        const requiredKeysReceived = howManyKeys(keysReceived, keysExpectedTo.equipment);
+        const requiredKeysReceived = hasKeys(keysReceived, keysExpectedTo.equipment);
 
         if (requiredKeysReceived != keysExpectedTo.equipment.length) {
             return res.status(400).send(

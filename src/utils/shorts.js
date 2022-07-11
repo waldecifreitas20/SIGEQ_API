@@ -12,7 +12,7 @@ module.exports = {
 
     isEmptyObject: object => Object.keys(object).length === 0,
 
-    howManyKeys: function (object = {}, keys = []) {
+    hasKeys: function (object = {}, keys = []) {
         let matchs = 0;
         for (let i = 0; i < keys.length; i++) {
             const key = keys[i];
