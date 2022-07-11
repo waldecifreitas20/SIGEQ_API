@@ -4,17 +4,16 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-const toStablishConnection = require('./database/connection');
+const UNKNOWN_ROUTES_CHECKER = require('./api/middlewares/notFound.js');
+const initApiRoutes = require('./routes');
+
+const connectDatabase = require('./database/connection');
 const { initDatabase } = require('./database/db')
 
-require('./config/dotenv');
+app.use(UNKNOWN_ROUTES_CHECKER);
 
-app.use(require('./api/middlewares/notFound.js'));
-
-require('./routes')(app);
-
-
+initApiRoutes(app);
 initDatabase();
-toStablishConnection();
+connectDatabase();
 
 module.exports = app;
