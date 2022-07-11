@@ -1,7 +1,7 @@
 const { getErrorResponse } = require('../../utils/errors');
 const { checkToken } = require('../../utils/security');
 
-const _isSubRouteOf = (route, subRoute) => route.indexOf('/create') !== -1;
+const _isSubRouteOf = (route, subRoute) => route.indexOf(subRoute) !== -1;
 
 const _getRequiredPermissionByRoute = (route = String) => {
     if (_isSubRouteOf(route, '/create')) {
@@ -10,10 +10,10 @@ const _getRequiredPermissionByRoute = (route = String) => {
     if (_isSubRouteOf(route, '/all') || _isSubRouteOf(route, '/search')) {
         return 'read';
     }
-    if (_isSubRouteOf(route,'/update')) {
+    if (_isSubRouteOf(route, '/update')) {
         return 'update';
     }
-    if (route.indexOf('/delete')) {
+    if (_isSubRouteOf(route, '/delete')) {
         return 'delete';
     }
 }
