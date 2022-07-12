@@ -15,11 +15,14 @@ describe('Factory', () => {
         const factory = require('../factory');
         const newEquipment = factory.generateEquipment();
 
-        expect(newEquipment.company.length > 0).toBe(true);
-        expect(newEquipment.current_location.length > 0).toBe(true);
-        expect(newEquipment.heritage > 0).toBe(true);
-        expect(newEquipment.image != null).toBe(true);
-        expect(newEquipment.status.length > 0).toBe(true);
+        expect(newEquipment.title != null).toBe(true);
+        expect(newEquipment.manufacturerId != null).toBe(true);
+        expect(newEquipment.categoryId != null).toBe(true);
+        expect(newEquipment.model != null).toBe(true);
+        expect(newEquipment.locationId != null).toBe(true);
+        expect(newEquipment.statusId > 0).toBe(true);
+        expect(newEquipment.heritage != null).toBe(true);
         expect(newEquipment.warrantyExpireAt != null).toBe(true);
+        expect(newEquipment.image != null).toBe(true);
     });
 });

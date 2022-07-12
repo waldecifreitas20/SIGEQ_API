@@ -43,12 +43,12 @@ module.exports = {
     generateEquipment: () => {
         return {
             title: faker.commerce.product(),
-            manucfacturer_id: _getRandomIntegerUntil(2),
-            category_id: _getRandomIntegerUntil(4),
+            manufacturerId: _getRandomIntegerUntil(2),
+            categoryId: _getRandomIntegerUntil(4),
             model: _getRandomFrom(models),
             heritage: faker.br.cpf(),
-            current_location: _getRandomFrom(PROGEP_SECTORS),
-            status: _getRandomIntegerUntil(3),
+            locationId: _getRandomFrom(PROGEP_SECTORS),
+            statusId: _getRandomIntegerUntil(3),
             warrantyExpireAt: Date.now(),
             image: faker.random.image()
         }
