@@ -13,26 +13,29 @@ const _routesWithoutParams = [
     '/equipment/update',
 ]
 
-const deleteRoute = '/equipment/delete/';
-
+const _routesWithParams = ['/equipment/delete/'];
 
 const _isKnownRoute = route => _isRouteWithoutParams(route) || _hasValidParams(route);
-
 const _isRouteWithoutParams = route => _routesWithoutParams.indexOf(route) !== -1;
-
 const _hasValidParams = route => {
-    let params = _getDeleteRouteParams(route);
+    const params = _getParamsFromRoute(route);
+    const isNumber = parseInt(params) == params;
+    const isNull = params == undefined;
 
-    if (!params || parseInt(params) != params) {
-        return false;
+    if (!isNull && isNumber) {
+        return true;
     }
-    return true;
+    return false;
 }
 
-const _getDeleteRouteParams = route => {
-    const isDeleteRoute = route.indexOf(deleteRoute) !== -1;
-    if (isDeleteRoute) {
-        return route.replace(deleteRoute, '');
+
+const _getParamsFromRoute = route => {
+    for (let i = 0; i < _routesWithParams.length; i++) {
+        let routeWithParams = _routesWithParams[i];
+        let hasParams = route.indexOf(routeWithParams) !== -1;
+        if (hasParams) {
+            return route.replace(routeWithParams, '');
+        }
     }
     return false;
 }
