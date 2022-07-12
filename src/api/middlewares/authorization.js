@@ -1,17 +1,19 @@
 const { getErrorResponse } = require('../../utils/errors');
 const { checkToken } = require('../../utils/security');
 
-const _getPermissionRequiredByRoute = (route = String) => {
-    if (route.indexOf('/create') !== -1) {
+const _isSubRouteOf = (route, subRoute) => route.indexOf(subRoute) !== -1;
+
+const _getRequiredPermissionByRoute = (route = String) => {
+    if (_isSubRouteOf(route, '/create')) {
         return 'create';
     }
-    if (route.indexOf('/all') !== -1 || route.indexOf('/search') !== -1) {
+    if (_isSubRouteOf(route, '/all') || _isSubRouteOf(route, '/search')) {
         return 'read';
     }
-    if (route.indexOf('/update') !== -1) {
+    if (_isSubRouteOf(route, '/update')) {
         return 'update';
     }
-    if (route.indexOf('/delete') !== -1) {
+    if (_isSubRouteOf(route, '/delete')) {
         return 'delete';
     }
 }
@@ -35,7 +37,6 @@ module.exports = {
 
         try {
             const userData = checkToken(token);
-            req.userData = userData;
             req.permissions = userData.permissions
             next();
 
@@ -50,7 +51,7 @@ module.exports = {
     hasPermission: function (req, res, next) {
         const current_route = req.url;
 
-        const permissionRequired = _getPermissionRequiredByRoute(current_route);
+        const permissionRequired = _getRequiredPermissionByRoute(current_route);
         for (let i = 0; i < req.permissions.length; i++) {
             const permission = req.permissions[i];
 

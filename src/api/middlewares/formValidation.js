@@ -1,56 +1,42 @@
-const { getErrorResponse } = require("../../utils/errors");
+const { getRequiredFieldsError } = require("../../utils/errors");
+const { hasKeys } = require('../../utils/shorts');
 
-const _hasManyExpectedKeys = (keysExpected = [], object = {}) => {
-    let requiredFields = 0;
 
-    for (let i = 0; i < keysExpected.length; i++) {
-        const key = keysExpected[i];
-        if (object.hasOwnProperty(key)) {
-            requiredFields++;
-        }
-    }
-    return requiredFields;
-};
+const keysExpectedTo = {
+    user: ['firstName', 'surname',
+        'email', 'password', 'cpf',
+    ],
+    equipment: [
+        "title", "model", "categoryId",
+        "manufacturerId", "locationId", "statusId"
+    ],
+    login: ['email', 'password'],
 
-const _getrequiredFieldsErrorResponse = (expected = [], received = Number) => {
-    return getErrorResponse({
-        status: 400,
-        error: 'Missing required fields',
-        description: `Were expected ${expected.length} required fields, but were given ${received}`,
-        details: {
-            expected_fields: expected,
-        },
-    });
 }
 
 module.exports = {
 
     register: function (req, res, next) {
-        const user = req.body;
-        let keysExpected = [
-            'firstName', 'surname',
-            'email', 'password', 'cpf',
-        ];
+        const keysReceived = req.body;
 
-        let requiredFields = _hasManyExpectedKeys(keysExpected, user);
+        let requiredKeysReceived = hasKeys(keysReceived, keysExpectedTo.user);
 
-        if (requiredFields != keysExpected.length) {
+        if (requiredKeysReceived != keysExpectedTo.user.length) {
             return res.status(400).send(
-                _getrequiredFieldsErrorResponse(keysExpected, requiredFields)
+                getRequiredFieldsError(keysExpectedTo.user, requiredKeysReceived)
             );
         }
         return next();
     },
 
     login: function (req, res, next) {
-        const user = req.body;
-        const keysExpected = ['email', 'password'];
+        const keysReceived = req.body;
 
-        const requiredFields = _hasManyExpectedKeys(keysExpected, user);
+        const requiredKeysReceived = hasKeys(keysReceived, keysExpectedTo.login);
 
-        if (requiredFields != keysExpected.length) {
+        if (requiredKeysReceived != keysExpectedTo.login.length) {
             return res.status(400).send(
-                _getrequiredFieldsErrorResponse(keysExpected, requiredFields)
+                getRequiredFieldsError(keysExpectedTo.login, requiredKeysReceived)
             );
         }
 
@@ -58,18 +44,13 @@ module.exports = {
     },
 
     createEquipment: function (req, res, next) {
-        const equipment = req.body;
-        const keysExpected = [
-            "title", "model", "categoryId",
-            "manufacturerId", "locationId", "statusId"
-        ];
-        
+        const keysReceived = req.body;
 
-        const requiredFields = _hasManyExpectedKeys(keysExpected, equipment);
+        const requiredKeysReceived = hasKeys(keysReceived, keysExpectedTo.equipment);
 
-        if (requiredFields != keysExpected.length) {
+        if (requiredKeysReceived != keysExpectedTo.equipment.length) {
             return res.status(400).send(
-                _getrequiredFieldsErrorResponse(keysExpected, requiredFields)
+                getRequiredFieldsError(keysExpectedTo.equipment, requiredKeysReceived)
             );
         }
 
