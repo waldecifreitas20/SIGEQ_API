@@ -42,15 +42,15 @@ module.exports = {
 
     generateEquipment: () => {
         return {
-            title: faker.commerce.product(),
-            manufacturerId: _getRandomIntegerUntil(2),
-            categoryId: _getRandomIntegerUntil(4),
-            model: _getRandomFrom(models),
-            heritage: faker.br.cpf(),
-            locationId: _getRandomFrom(PROGEP_SECTORS),
-            statusId: _getRandomIntegerUntil(3),
-            warrantyExpireAt: Date.now(),
-            image: faker.random.image()
+            title: "Computador HP",
+            manufacturerId: "1",
+            categoryId: "1",
+            model: "15-cdf",
+            heritage : "456132456",
+            locationId: "1",
+            statusId: "1",
+            warrantyExpiresAt: null,
+            image: "454-6-564-654"
         }
     },
 

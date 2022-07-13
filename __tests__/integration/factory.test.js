@@ -15,7 +15,7 @@ describe('Factory test', () => {
             'title', 'manufacturerId',
             'categoryId', 'model', 'image',
             'locationId', 'statusId',
-            'heritage', 'warrantyExpireAt',
+            'heritage', 'warrantyExpiresAt',
         ];
 
         expect(hasKeys(newEquipment, keysExpected)).toBe(keysExpected.length);
