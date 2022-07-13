@@ -60,14 +60,14 @@ module.exports = {
         try {
             const equipmentFromDatabase = await EquipmentModel.create(equipment,
                 { include: [Category, Status, Manufacturer, Location] });
-                
+
             return equipmentFromDatabase.id;
         } catch (error) {
-            console.log(error.message);
+            console.log(error);
             throw getErrorResponse({
                 status: 400,
                 error: 'cannot create equipment',
-                description: error.message
+                description: 'equipment might be already registered'
             });
         }
     },

@@ -1,25 +1,7 @@
 const faker = require('faker-br');
 
-const PROGEP_SECTORS = [
-    'CSA',
-    'ATI',
-    'CAP',
-    'CRMP',
-    'CATEC',
-    'CRCAP',
-    'GESTAO',
-    'SECRETARIA',
-];
-
-const models = ['SF34-MJ', 'M78-GHJ', 'CP4J-Q'];
-
-const _getRandomIntegerUntil = (number) => {
-    return Math.floor(Math.random() * number);
-}
-
-const _getRandomFrom = (array) => {
-    let i = _getRandomIntegerUntil(array.length - 1);
-    return array[i];
+const _getRandomInt = (number) => {
+    return Math.floor(Math.random() * number) + 1;
 }
 
 const setPermission = (name) => {
@@ -43,13 +25,13 @@ module.exports = {
     generateEquipment: () => {
         return {
             title: "Computador HP",
-            manufacturerId: "1",
-            categoryId: "1",
+            manufacturerId: _getRandomInt(1),
+            categoryId: _getRandomInt(4),
             model: "15-cdf",
-            heritage : "456132456",
-            locationId: "1",
-            statusId: "1",
-            warrantyExpiresAt: null,
+            heritage : _getRandomInt(9999999999),
+            locationId: _getRandomInt(5),
+            statusId: _getRandomInt(1),
+            warrantyExpiresAt: Date.now(),
             image: "454-6-564-654"
         }
     },
