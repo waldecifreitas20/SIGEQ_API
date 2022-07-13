@@ -61,7 +61,7 @@ describe('Search by id test', () => {
         const SENT_ID = await _generateValidEquipmentId();
         const response = await services.getEquipmentByField({ id: SENT_ID });
         const RETURNED_ID = response.equipments[0].id;
-        console.log(response);
+
 
        expect(SENT_ID).toBe(RETURNED_ID);
     });
