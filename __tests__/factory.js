@@ -32,7 +32,7 @@ const setPermission = (name) => {
 module.exports = {
     generateUser: () => {
         return {
-            first_name: faker.name.firstName(),
+            firstName: faker.name.firstName(),
             surname: faker.name.lastName(),
             email: faker.internet.email(),
             password: faker.internet.password(),
