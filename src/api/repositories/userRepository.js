@@ -11,7 +11,7 @@ module.exports = {
         try {
             return await UserModel.create(userData);
         } catch (error) {
-    
+            
             throw getErrorResponse({
                 status: 400,
                 error: 'Cannot create user',
