@@ -61,9 +61,9 @@ module.exports = {
             const equipmentFromDatabase = await EquipmentModel.create(equipment,
                 { include: [Category, Status, Manufacturer, Location] });
 
-            console.log(equipmentFromDatabase);
             return equipmentFromDatabase.id;
         } catch (error) {
+            console.log(error);
             throw getErrorResponse({
                 status: 400,
                 error: 'cannot create equipment',
