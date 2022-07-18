@@ -1,20 +1,22 @@
 const CategoryModel = require('../api/models/equipment/Category');
 const StatusModel = require('../api/models/equipment/Status');
+const LocationModel = require('../api/models/equipment/Location');
+const ManufacturerModel = require('../api/models/equipment/Manufacturer');
 
-const initCategories = async () => {
+const initCategories = () => {
     const categories = ['Computadores', 'HDD', 'Periféricos', 'SSD', 'Monitores', 'Cabos'];
 
-    categories.forEach(category => {
+    categories.forEach(async (category) => {
         await CategoryModel.create({
             name: category,
         });
     });
 };
 
-const initStatuses = async () => {
+const initStatuses = () => {
     const statuses = ['Disponível', 'Em manutenção', 'Defeituoso'];
 
-    statuses.forEach(status => {
+    statuses.forEach(async (status) => {
         await StatusModel.create({
             name: status,
             description: '---'
@@ -22,23 +24,23 @@ const initStatuses = async () => {
     });
 };
 
-const initLocation = async () => {
+const initLocation = () => {
     const locations = ['CSA', 'CDES', 'CRMP'];
 
-    locations.forEach(location => {
-        await StatusModel.create({
+    locations.forEach(async (location) => {
+        await LocationModel.create({
             fullName: location,
             shortName: location,
         });
     });
 };
-const initManufacturers = async () => {
+const initManufacturers = () => {
     const manufacturers = ['Hewllett Packard', 'Samsung', 'Nvidia'];
 
-    manufacturers.forEach(manufacturer => {
-        await StatusModel.create({
-            ullName: location,
-            shortName: location,
+    manufacturers.forEach(async (manufacturer) => {
+        await ManufacturerModel.create({
+            fullName: manufacturer,
+            shortName: manufacturer,
         });
     });
 };
