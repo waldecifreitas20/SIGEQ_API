@@ -2,6 +2,9 @@ const { resolve: getPath } = require('path');
 const services = require(getPath('src', 'api', 'services', 'equipmentServices'));
 
 const factory = require('../../factory');
+const initDBModels = require('../../../src/utils/db_test_init');
+
+initDBModels();
 
 describe('Create test', () => {
 
@@ -62,8 +65,7 @@ describe('Search by id test', () => {
         const response = await services.getEquipmentByField({ id: SENT_ID });
         const RETURNED_ID = response.equipments[0].id;
 
-
-       expect(SENT_ID).toBe(RETURNED_ID);
+        expect(SENT_ID).toBe(RETURNED_ID);
     });
 
     it('should return status 400 when trying to update equipment that does not exist', async () => {
