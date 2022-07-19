@@ -4,7 +4,7 @@ const equipmentRepository = require(repositories.equipment);
 const { getErrorResponse } = require(utils.errors);
 
 
-const _callRepository = async (action, params, successStatus = 200) => {
+const _callRepository = async (action = Function(), params = Object(), successStatus = 200) => {
     try {
         return {
             status: successStatus,
@@ -17,16 +17,16 @@ const _callRepository = async (action, params, successStatus = 200) => {
 
 
 module.exports = {
-    getEquipmentByField: async function (field) {
+    getEquipmentsByFields: async function (fields) {
         const repositoryResponse = await _callRepository(
-            equipmentRepository.getEquipmentsBy, field, 200
+            equipmentRepository.getEquipmentsBy, fields, 200
         );
         return {
             status: repositoryResponse.status,
             equipments: repositoryResponse.response,
             error: repositoryResponse.error,
-            description : repositoryResponse.description
-        };       
+            description: repositoryResponse.description
+        };
     },
 
     getAllEquipment: async function () {
@@ -35,7 +35,7 @@ module.exports = {
             status: repositoryResponse.status,
             equipments: repositoryResponse.response,
             error: repositoryResponse.error,
-            description : repositoryResponse.description
+            description: repositoryResponse.description
         };
     },
 
@@ -45,7 +45,7 @@ module.exports = {
             status: repositoryResponse.status,
             equipment_id: repositoryResponse.response,
             error: repositoryResponse.error,
-            description : repositoryResponse.description
+            description: repositoryResponse.description
         };
     },
 
@@ -54,7 +54,7 @@ module.exports = {
         return {
             status: repositoryResponse.status,
             error: repositoryResponse.error,
-            description : repositoryResponse.description
+            description: repositoryResponse.description
         };
     },
 
@@ -63,7 +63,7 @@ module.exports = {
         return {
             status: repositoryResponse.status,
             error: repositoryResponse.error,
-            description : repositoryResponse.description
+            description: repositoryResponse.description
         };
     },
 }
