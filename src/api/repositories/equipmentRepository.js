@@ -1,12 +1,10 @@
 const { utils, models } = require('../../utils/paths');
-const Category = require('../models/equipment/Category');
-const Status = require('../models/equipment/Status');
-const Manufacturer = require('../models/equipment/Manufacturer');
-const Location = require('../models/equipment/Location');
 
-const Equipment = require('../models/equipment/Equipment');
-
-const EquipmentModel = require(models.equipment);
+const Category = require(models.category);
+const Status = require(models.status);
+const Manufacturer = require(models.manufacturer);
+const Location = require(models.location);
+const Equipment = require(models.equipment);
 
 const { isEmptyArray, isEmptyObject } = require(utils.shorts);
 const { getErrorResponse } = require(utils.errors);
@@ -36,7 +34,7 @@ const _updateFields = (model, equipment) => {
 module.exports = {
 
     getEquipmentsBy: async function (field) {
-        const equipments = await EquipmentModel.findAll({ where: field });
+        const equipments = await Equipment.findAll({ where: field });
         if (isEmptyArray(equipments) || isEmptyObject(field)) {
             throw _getNotFoundEquipmentError();
         }
@@ -44,7 +42,7 @@ module.exports = {
     },
 
     getAll: async function () {
-        const allEquipments = await EquipmentModel.findAll();
+        const allEquipments = await Equipment.findAll();
         if (isEmptyArray(allEquipments)) {
             throw getErrorResponse({
                 status: 400,
@@ -58,12 +56,12 @@ module.exports = {
 
     create: async function (equipment) {
         try {
-            const equipmentFromDatabase = await EquipmentModel.create(equipment,
+            const equipmentFromDatabase = await Equipment.create(equipment,
                 { include: [Category, Status, Manufacturer, Location] });
 
             return equipmentFromDatabase.id;
         } catch (error) {
-        
+
             throw getErrorResponse({
                 status: 400,
                 error: 'cannot create equipment',
@@ -73,7 +71,7 @@ module.exports = {
     },
 
     remove: async function (id) {
-        const equipment = await EquipmentModel.findOne({ where: { id: id } });
+        const equipment = await Equipment.findOne({ where: { id: id } });
         const isEquipmentNull = !equipment;
 
         if (isEquipmentNull) {
@@ -86,7 +84,7 @@ module.exports = {
 
     updateFields: async function (equipment) {
         try {
-            const equipmentFromDatabase = await EquipmentModel.findOne({
+            const equipmentFromDatabase = await Equipment.findOne({
                 where: { id: equipment.id }
             });
             _updateFields(equipmentFromDatabase, equipment);

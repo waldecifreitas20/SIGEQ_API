@@ -7,6 +7,10 @@ module.exports = {
     models: {
         index: getPath('src', 'api', 'models'),
         equipment: getPath('src', 'api', 'models', 'equipment', 'Equipment'),
+        location: getPath('src', 'api', 'models', 'equipment', 'Location'),
+        status: getPath('src', 'api', 'models', 'equipment', 'Status'),
+        category: getPath('src', 'api', 'models', 'equipment', 'Category'),
+        manufacturer: getPath('src', 'api', 'models', 'equipment', 'Manufacturer'),
         user: getPath('src', 'api', 'models', 'user', 'User'),
         permission: getPath('src', 'api', 'models', 'user', 'Permission')
     },
