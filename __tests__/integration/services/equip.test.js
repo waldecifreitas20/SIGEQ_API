@@ -2,9 +2,7 @@ const { resolve: getPath } = require('path');
 const services = require(getPath('src', 'api', 'services', 'equipmentServices'));
 
 const factory = require('../../factory');
-const initDBModels = require('../../../src/utils/db_test_init');
 
-initDBModels();
 
 describe('Create test', () => {
 
