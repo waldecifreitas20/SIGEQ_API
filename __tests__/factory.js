@@ -26,10 +26,10 @@ module.exports = {
         return {
             title: "Computador HP",
             manufacturerId: _getRandomInt(1),
-            categoryId: _getRandomInt(4),
+            categoryId: _getRandomInt(1),
             model: "15-cdf",
             heritage : _getRandomInt(9999999999),
-            locationId: _getRandomInt(5),
+            locationId: _getRandomInt(1),
             statusId: _getRandomInt(1),
             warrantyExpiresAt: Date.now(),
             image: "454-6-564-654"

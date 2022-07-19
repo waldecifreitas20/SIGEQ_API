@@ -61,11 +61,12 @@ module.exports = {
 
             return equipmentFromDatabase.id;
         } catch (error) {
-
+            console.log(error);
             throw getErrorResponse({
                 status: 400,
                 error: 'cannot create equipment',
-                description: 'equipment might be already registered'
+                description: 'equipment might be already registered',
+                sequelize: error
             });
         }
     },
