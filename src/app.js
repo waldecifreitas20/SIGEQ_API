@@ -4,7 +4,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-const UNKNOWN_ROUTES_CHECKER = require('./api/middlewares/notFound.js');
+const UNKNOWN_ROUTES_CHECKER = require('./api/middlewares/unknown.js');
 const initApiRoutes = require('./routes');
 
 const connectDatabase = require('./database/connection');

@@ -7,7 +7,7 @@ const Location = require(models.location);
 const Equipment = require(models.equipment);
 
 const { isEmptyArray, isEmptyObject } = require(utils.shorts);
-const { getErrorResponse } = require(utils.errors);
+const { getErrorResponse, getErrorDescription } = require(utils.errors);
 
 
 const _getNotFoundEquipmentError = () => {
@@ -61,12 +61,11 @@ module.exports = {
 
             return equipmentFromDatabase.id;
         } catch (error) {
-            console.log(error);
+            console.log(error.parent.code);
             throw getErrorResponse({
                 status: 400,
                 error: 'cannot create equipment',
-                description: 'equipment might be already registered',
-                sequelize: error
+                description: getErrorDescription(error),
             });
         }
     },
