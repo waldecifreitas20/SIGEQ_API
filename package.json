@@ -6,9 +6,15 @@
   "scripts": {
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
-    "pretest": "NODE_ENV=test sequelize db:migrate",
     "test": "NODE_ENV=test jest",
-    "posttest": "NODE_ENV=test sequelize db:migrate:undo:all"
+    
+    "pretest": "NODE_ENV=test npm run seeders-init",
+    "preseeders-init": "NODE_ENV=test sequelize-cli db:migrate",
+    "seeders-init": "NODE_ENV=test sequelize-cli db:seed:all",
+    "posttest": "npm run seeders-undo",
+    "preseeders-undo": "NODE_ENV=test sequelize-cli db:migrate:undo:all --to 20220515172648-equipment",
+    "seeders-undo": "NODE_ENV=test sequelize-cli db:seed:undo:all",
+    "postseeders-undo": "NODE_ENV=test sequelize-cli db:migrate:undo:all"
   },
   "author": "Waldeci Santos de Freitas",
   "license": "ISC",
