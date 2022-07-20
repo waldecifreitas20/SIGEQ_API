@@ -61,7 +61,6 @@ module.exports = {
 
             return equipmentFromDatabase.id;
         } catch (error) {
-            console.log(error.parent.code);
             throw getErrorResponse({
                 status: 400,
                 error: 'cannot create equipment',

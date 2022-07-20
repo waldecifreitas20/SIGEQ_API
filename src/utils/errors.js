@@ -25,11 +25,11 @@ module.exports = {
         
         switch (errorCode) {
             case '22P02':
-                return 'invalid value of field sent. Check params';
+                return 'request body has one or more fields with invalid value';
             case '23503':
-                return 'id sent does not exist. Check params';
+                return 'id sent does not exist. Check statusId, manufacturerId, categoryId, locationId and try again';
             case '23505':
-               return 'object have been existing into database';
+               return 'it has been existing into the database';
             default:
                 break;
         }
