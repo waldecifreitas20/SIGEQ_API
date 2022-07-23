@@ -1,4 +1,4 @@
-const { getErrorCode } = require('../../utils/errors');
+const { getErrorCode, ERROR_CODE } = require('../../utils/errors');
 const { utils, models } = require('../../utils/paths');
 
 const Category = require(models.category);
@@ -93,7 +93,7 @@ module.exports = {
             const isEquipmentNull = !equipmentFromDatabase;
 
             if (isEquipmentNull) {
-                throw '21000';
+                throw '10001';
             }
             _updateFields(equipmentFromDatabase, equipment);
 
