@@ -1,3 +1,4 @@
+const { getErrorCode } = require('../../utils/errors');
 const { utils, models } = require('../../utils/paths');
 
 const Category = require(models.category);
@@ -19,11 +20,11 @@ const _getNotFoundEquipmentError = (description = 'equipment might be not regist
 }
 const _updateFields = (model, equipment) => {
 
-    const newFieldValues = Object.keys(equipment);
+    const fieldsToUpdate = Object.keys(equipment);
 
-    for (let i = 0; i < newFieldValues.length; i++) {
-        let field = newFieldValues[i];
-        let isUniqueKey = (field == 'id') || (field == 'heritage');
+    for (let i = 0; i < fieldsToUpdate.length; i++) {
+        let field = fieldsToUpdate[i];
+        const isUniqueKey = (field == 'id') || (field == 'heritage');
 
         if (!isUniqueKey) {
             model[field] = equipment[field];
@@ -41,9 +42,11 @@ module.exports = {
             const errorDescription = getErrorDescription(error);
             throw _getNotFoundEquipmentError(errorDescription);
         }
+
         if (isEmptyArray(equipments) || isEmptyObject(field)) {
             throw _getNotFoundEquipmentError();
         }
+
         return equipments;
     },
 
@@ -87,11 +90,23 @@ module.exports = {
             const equipmentFromDatabase = await Equipment.findOne({
                 where: { id: equipment.id }
             });
+            const isEquipmentNull = !equipmentFromDatabase;
+
+            if (isEquipmentNull) {
+                throw '21000';
+            }
             _updateFields(equipmentFromDatabase, equipment);
 
             return await equipmentFromDatabase.save();
         } catch (error) {
-            throw _getNotFoundEquipmentError();
+            const errorCode = getErrorCode(error);
+
+            throw getErrorResponse({
+                error: 'cannot update equipment',
+                description: getErrorDescription(errorCode)
+            });
+
         }
+
     }
 }

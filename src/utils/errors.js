@@ -20,16 +20,20 @@ module.exports = {
         };
     },
 
+    getErrorCode: function (error) {
+        return typeof error == 'string'? error: error.parent.code;
+    },
+
     getErrorDescription: function (error) {
-        const errorCode = error.parent.code;
-        
-        switch (errorCode) {
+        switch (error) {
+            case '10001':
+                return 'equipment might be not registered yet';
             case '22P02':
                 return 'request body has one or more fields with invalid values';
             case '23503':
                 return 'id sent does not exist. Check statusId, manufacturerId, categoryId, locationId and try again';
             case '23505':
-               return 'it has been existing into the database';
+                return 'it has been existing into the database';
             default:
                 break;
         }
