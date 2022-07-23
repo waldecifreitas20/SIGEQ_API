@@ -39,7 +39,7 @@ module.exports = {
             equipments = await Equipment.findAll({ where: field });
         } catch (error) {
             const errorDescription = getErrorDescription(error);
-            throw _getNotFoundEquipmentError(error);
+            throw _getNotFoundEquipmentError(errorDescription);
         }
         if (isEmptyArray(equipments) || isEmptyObject(field)) {
             throw _getNotFoundEquipmentError();
