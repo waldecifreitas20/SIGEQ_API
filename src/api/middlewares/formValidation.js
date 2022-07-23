@@ -1,4 +1,4 @@
-const { getRequiredFieldsError, getErrorResponse } = require("../../utils/errors");
+const { getRequiredFieldsError, getErrorResponse, ERROR_CODE } = require("../../utils/errors");
 const { hasKeys, isEmptyObject } = require('../../utils/shorts');
 
 
@@ -63,7 +63,7 @@ module.exports = {
         if (isEmptyObject(equipment)) {
             return res.status(400).send(getErrorResponse({
                 status: 400,
-                
+                code : ERROR_CODE.REQUEST.EMPTY_BODY,
                 error: 'none parameter sent',
                 description: 'request body is empty'
             }));
