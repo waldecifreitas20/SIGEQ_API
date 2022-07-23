@@ -15,6 +15,9 @@ const ERROR_CODE = {
             READ: '12202',
             UPDATE: '12203',
             DELETE: '12204'
+        },
+        AUTH : {
+            INVALID_CREDENTIALS: '12301',
         }
     },
     REQUEST: {
@@ -45,7 +48,7 @@ module.exports = {
     getRequiredFieldsError: function (expected = [], received = Number) {
         return {
             status: 400,
-            code : ERROR_CODE.EQUIPMENT.MISSING_FIELDS,
+            code: ERROR_CODE.EQUIPMENT.MISSING_FIELDS,
             error: 'Missing required fields',
             description: `Were expected ${expected.length} required fields, but were given ${received}`,
             details: {
@@ -62,11 +65,11 @@ module.exports = {
         switch (error) {
             case ERROR_CODE.EQUIPMENT.NOT_REGISTERED:
                 return 'equipment might be not registered yet';
-            case '22P02':
+            case ERROR_CODE.SEQUELIZE.INVALID_VALUE_SENT:
                 return 'request body has one or more fields with invalid values';
-            case '23503':
+            case ERROR_CODE.SEQUELIZE.INVALID_ID_SENT:
                 return 'id sent does not exist. Check statusId, manufacturerId, categoryId, locationId and try again';
-            case '23505':
+            case ERROR_CODE.SEQUELIZE.ALREADY_EXISTS:
                 return 'it has been existing into the database';
             default:
                 break;
