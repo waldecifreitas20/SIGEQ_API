@@ -10,19 +10,19 @@ const { isEmptyArray, isEmptyObject } = require(utils.shorts);
 const { getErrorResponse, getErrorDescription } = require(utils.errors);
 
 
-const _getNotFoundEquipmentError = () => {
+const _getNotFoundEquipmentError = (description = 'equipment might be not registered yet') => {
     return getErrorResponse({
         status: 400,
         error: 'cannot find equipment',
-        description: 'equipment might be not registered yet'
+        description
     });
 }
 const _updateFields = (model, equipment) => {
 
-    const fields = Object.keys(equipment);
+    const newFieldValues = Object.keys(equipment);
 
-    for (let i = 0; i < fields.length; i++) {
-        let field = fields[i];
+    for (let i = 0; i < newFieldValues.length; i++) {
+        let field = newFieldValues[i];
         let isUniqueKey = (field == 'id') || (field == 'heritage');
 
         if (!isUniqueKey) {
@@ -34,7 +34,13 @@ const _updateFields = (model, equipment) => {
 module.exports = {
 
     getEquipmentsBy: async function (field) {
-        const equipments = await Equipment.findAll({ where: field });
+        let equipments = null;
+        try {
+            equipments = await Equipment.findAll({ where: field });
+        } catch (error) {
+            const errorDescription = getErrorDescription(error);
+            throw _getNotFoundEquipmentError(error);
+        }
         if (isEmptyArray(equipments) || isEmptyObject(field)) {
             throw _getNotFoundEquipmentError();
         }
@@ -44,21 +50,16 @@ module.exports = {
     getAll: async function () {
         const allEquipments = await Equipment.findAll();
         if (isEmptyArray(allEquipments)) {
-            throw getErrorResponse({
-                status: 400,
-                error: 'cannot find any equipment into the database',
-                description: 'database might be empty'
-            });
+            throw _getNotFoundEquipmentError('database might be empty or unable to reach it');
         }
-
         return allEquipments;
     },
 
     create: async function (equipment) {
         try {
-            const equipmentFromDatabase = await Equipment.create(equipment,
-                { include: [Category, Status, Manufacturer, Location] });
-
+            const equipmentFromDatabase = await Equipment.create(equipment, {
+                include: [Category, Status, Manufacturer, Location]
+            });
             return equipmentFromDatabase.id;
         } catch (error) {
             throw getErrorResponse({

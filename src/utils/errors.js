@@ -25,7 +25,7 @@ module.exports = {
         
         switch (errorCode) {
             case '22P02':
-                return 'request body has one or more fields with invalid value';
+                return 'request body has one or more fields with invalid values';
             case '23503':
                 return 'id sent does not exist. Check statusId, manufacturerId, categoryId, locationId and try again';
             case '23505':
