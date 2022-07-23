@@ -59,10 +59,11 @@ module.exports = {
 
     isRequestBodyNull: function (req, res, next) {
         const equipment = req.body;
-
+ 
         if (isEmptyObject(equipment)) {
             return res.status(400).send(getErrorResponse({
                 status: 400,
+                
                 error: 'none parameter sent',
                 description: 'request body is empty'
             }));

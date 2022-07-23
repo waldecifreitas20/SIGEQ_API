@@ -45,6 +45,7 @@ module.exports = {
     getRequiredFieldsError: function (expected = [], received = Number) {
         return {
             status: 400,
+            code : ERROR_CODE.EQUIPMENT.MISSING_FIELDS,
             error: 'Missing required fields',
             description: `Were expected ${expected.length} required fields, but were given ${received}`,
             details: {
