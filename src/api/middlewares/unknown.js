@@ -1,4 +1,4 @@
-const { getErrorResponse } = require("../../utils/errors");
+const { getErrorResponse, ERROR_CODE } = require("../../utils/errors");
 const { ROUTES } = require("../../utils/shorts");
 
 const _routesWithoutParams = [
@@ -17,6 +17,7 @@ const _routesWithParams = ['/equipment/delete/'];
 
 const _isKnownRoute = route => _isRouteWithoutParams(route) || _hasValidParams(route);
 const _isRouteWithoutParams = route => _routesWithoutParams.indexOf(route) !== -1;
+
 const _hasValidParams = route => {
     const params = _getParamsFromRoute(route);
     const isNumber = parseInt(params) == params;
@@ -59,6 +60,7 @@ module.exports = (req, res, next) => {
     if (!_isKnownRoute(CURRENT_ROUTE)) {
         return res.status(404).send(getErrorResponse({
             status: 404,
+            code: ERROR_CODE.REQUEST.INVALID_ENDPOINT,
             error: 'Endpoint does not exist',
         }));
 
@@ -66,6 +68,7 @@ module.exports = (req, res, next) => {
     if (!_isValidHttpMethod(CURRENT_ROUTE, HTTP_METHOD)) {
         return res.status(405).send(getErrorResponse({
             status: 405,
+            code: ERROR_CODE.REQUEST.INVALID_HTTP_METHOD,
             error: 'Invalid method to this request',
         }));
     }

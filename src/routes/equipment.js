@@ -16,11 +16,11 @@ module.exports = app => {
 
     router.get('/all', equipmentController.getAll);
 
-    router.get('/search', equipmentController.search);
+    router.get('/search', formValidation.isRequestBodyNull, equipmentController.search);
 
     router.post('/create', formValidation.createEquipment, equipmentController.create);
 
-    router.put('/update', equipmentController.update);
+    router.put('/update', formValidation.isRequestBodyNull, equipmentController.update);
 
     router.delete('/delete/:id', equipmentController.delete);
 

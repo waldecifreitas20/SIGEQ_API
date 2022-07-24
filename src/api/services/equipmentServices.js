@@ -24,6 +24,7 @@ module.exports = {
         return {
             status: repositoryResponse.status,
             equipments: repositoryResponse.response,
+            code: repositoryResponse.code,
             error: repositoryResponse.error,
             description: repositoryResponse.description
         };
@@ -34,6 +35,7 @@ module.exports = {
         return {
             status: repositoryResponse.status,
             equipments: repositoryResponse.response,
+            code: repositoryResponse.code,
             error: repositoryResponse.error,
             description: repositoryResponse.description
         };
@@ -44,6 +46,7 @@ module.exports = {
         return {
             status: repositoryResponse.status,
             equipment_id: repositoryResponse.response,
+            code: repositoryResponse.code,
             error: repositoryResponse.error,
             description: repositoryResponse.description
         };
@@ -53,6 +56,7 @@ module.exports = {
         const repositoryResponse = await _callRepository(equipmentRepository.updateFields, equipment, 204);
         return {
             status: repositoryResponse.status,
+            code: repositoryResponse.code,
             error: repositoryResponse.error,
             description: repositoryResponse.description
         };
@@ -62,6 +66,7 @@ module.exports = {
         const repositoryResponse = await _callRepository(equipmentRepository.remove, id, 204);
         return {
             status: repositoryResponse.status,
+            code: repositoryResponse.code,
             error: repositoryResponse.error,
             description: repositoryResponse.description
         };
