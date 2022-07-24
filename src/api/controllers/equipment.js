@@ -17,8 +17,8 @@ module.exports = {
     },
 
     search: async function (req, res) {
-        const equipment = req.body;
-        const response = await services.getEquipmentByField(equipment);
+        const equipmentFields = req.body;
+        const response = await services.getEquipmentsByFields(equipmentFields);
         return res.status(response.status).send(response);
     },
 

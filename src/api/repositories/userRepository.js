@@ -1,6 +1,6 @@
 const { utils, models } = require('../../utils/paths');
 
-const { getErrorResponse } = require('../../utils/errors');
+const { getErrorResponse, ERROR_CODE } = require('../../utils/errors');
 
 const UserModel = require(`${models.user}`);
 const PermissionModel = require(`${models.permission}`);
@@ -10,10 +10,10 @@ module.exports = {
     createUser: async function (userData) {
         try {
             return await UserModel.create(userData);
-        } catch (error) {
-    
+        } catch (error) {          
             throw getErrorResponse({
                 status: 400,
+                code : error.parent.code,
                 error: 'Cannot create user',
                 description: 'User might already to be registered. Check fields.'
             });
@@ -28,6 +28,7 @@ module.exports = {
         if (user == null) {
             throw getErrorResponse({
                 status: 401,
+                code : ERROR_CODE.USER.AUTH.INVALID_CREDENTIALS,
                 error: 'Invalid credentials',
             });
         }

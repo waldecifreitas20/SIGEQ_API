@@ -3,13 +3,14 @@ const services = require(getPath('src', 'api', 'services', 'equipmentServices'))
 
 const factory = require('../../factory');
 
+
 describe('Create test', () => {
 
     const equipment = factory.generateEquipment();
 
     it('should register a new equipment in database with success', async () => {
         const response = await services.createEquipment(equipment);
-
+        console.log(response);
         expect(response.status).toBe(200);
     });
 
@@ -37,7 +38,7 @@ describe('Delete test', () => {
     it('should return status 204 when trying to delete a equipment using its own id', async () => {
         const equipmentId = await _generateValidEquipmentId();
         const response = await services.deleteEquipmentById(equipmentId);
-
+        
         expect(response.status).toBe(204);
     });
 
@@ -59,21 +60,20 @@ describe('Search by id test', () => {
 
     it('should be true when comparing sent id with id returned', async () => {
         const SENT_ID = await _generateValidEquipmentId();
-        const response = await services.getEquipmentByField({ id: SENT_ID });
+        const response = await services.getEquipmentsByFields({ id: SENT_ID });
         const RETURNED_ID = response.equipments[0].id;
-        console.log(response);
 
-       expect(SENT_ID).toBe(RETURNED_ID);
+        expect(SENT_ID).toBe(RETURNED_ID);
     });
 
     it('should return status 400 when trying to update equipment that does not exist', async () => {
-        const response = await services.getEquipmentByField({ id: -1 });
+        const response = await services.getEquipmentsByFields({ id: -1 });
 
         expect(response.status).toBe(400);
     });
 
     it('should return status 400 when sending nothing', async () => {
-        const response = await services.getEquipmentByField();
+        const response = await services.getEquipmentsByFields();
 
         expect(response.status).toBe(400);
     });

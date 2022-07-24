@@ -17,7 +17,6 @@ describe('Register test', () => {
         expect(response.status).toBe(400);
     });
 
-
     it('should get status 400 when trying to register a user as null', async () => {
         const response = await services.register(null);
         expect(response.status).toBe(400);

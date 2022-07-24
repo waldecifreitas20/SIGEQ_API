@@ -7,7 +7,7 @@ const { generateToken } = require(getPath('src', 'utils', 'security.js'));
 const routes = {
     create: '/equipment/create',
     getAll: '/equipment/all',
-    getById: (id) => `/equipment/search/${id}`,
+    search: `/equipment/search`,
     update: '/equipment/update',
     delete: (id) => `/equipment/delete/${id}`
 }
@@ -76,7 +76,7 @@ describe('Create equipment test', () => {
     });
 });
 
-describe('Get by id equipment test', () => {
+describe('Search equipment test', () => {
 
     it('should return 200 ok when trying get a equipment sending a id', async () => {
 

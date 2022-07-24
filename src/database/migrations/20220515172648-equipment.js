@@ -9,15 +9,15 @@ module.exports = {
         autoIncrement: true
       },
       title: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(30),
         allowNull: false
       },
       model: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(15),
         allowNull: false
       },
       heritage: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(10),
         unique: true,
         allowNull: true
       },

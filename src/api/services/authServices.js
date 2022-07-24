@@ -1,8 +1,27 @@
+const { ERROR_CODE } = require('../../utils/errors');
 const paths = require('../../utils/paths');
 
 const userRepository = require(paths.repositories.user);
 const { generateToken, isPasswordEqualsHash } = require(paths.utils.security);
 const { getErrorResponse } = require(paths.utils.errors);
+
+const _formatUserData = user => {
+    const userData = {
+        id: user.id,
+        name: user.firstName,
+        permissions: _getUserPermissions(user)
+    };
+
+    const token = generateToken(userData);
+    userData.permissions = _formatUserPermissions(user.permissions);
+
+    return {
+        id: userData.id,
+        name: userData.name,
+        permissions: userData.permissions,
+        token,
+    };
+};
 
 const _getUserPermissions = user => {
     if (!user.permissions)
@@ -23,24 +42,6 @@ const _formatUserPermissions = (userPermissions = []) => {
     return _permissions;
 };
 
-const _formatUserData = user => {
-    const userData = {
-        id: user.id,
-        name: user.first_name,
-        permissions: _getUserPermissions(user)
-    };
-
-    const token = generateToken(userData);
-    userData.permissions = _formatUserPermissions(user.permissions);
-
-    return {
-        status: 200,
-        user: userData,
-        token,
-    };
-};
-
-
 const _checkPassword = (password, validPassword) => {
     if (!isPasswordEqualsHash(password, validPassword)) {
         throw getErrorResponse({
@@ -55,9 +56,12 @@ module.exports = {
     register: async function (userData) {
         try {
             const user = await userRepository.createUser(userData);
-            return _formatUserData(user);
+            return {
+                status: 200,
+                user: _formatUserData(user),
+            };
         } catch (error) {
-            return error;
+            return getErrorResponse(error);
         }
     },
 
@@ -65,9 +69,12 @@ module.exports = {
         try {
             const user = await userRepository.findUserByEmail(email);
             _checkPassword(password, user.password);
-            return _formatUserData(user);
+            return {
+                status: 200,
+                user: _formatUserData(user),
+            };
         } catch (error) {
-            return error;
+            return getErrorResponse(error);
         }
     },
 };

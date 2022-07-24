@@ -7,4 +7,9 @@ module.exports = {
     dialect: process.env.DB_DIALECT,
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
+    
+    seederStorage: "sequelize",
+    seederStorageTableName: "__SeederHistory__",
+    migrationStorage: "sequelize",
+    migrationStorageTableName: "__MigrationsHistory__",
 };

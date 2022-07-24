@@ -1,4 +1,4 @@
-const { getErrorResponse } = require('../../utils/errors');
+const { getErrorResponse, ERROR_CODE } = require('../../utils/errors');
 const { checkToken } = require('../../utils/security');
 
 const _isSubRouteOf = (route, subRoute) => route.indexOf(subRoute) !== -1;
@@ -24,6 +24,7 @@ module.exports = {
         if (authorization === undefined)
             return res.status(401).send(getErrorResponse({
                 status: 401,
+                code: ERROR_CODE.USER.TOKEN.IS_NULL,
                 error: 'token is null'
             }));
 
@@ -32,6 +33,7 @@ module.exports = {
         if (bearer !== 'Bearer')
             return res.status(401).send(getErrorResponse({
                 status: 401,
+                code: ERROR_CODE.USER.TOKEN.MISSING_BEARER,
                 error: "expected gives bearer"
             }));
 
@@ -43,6 +45,7 @@ module.exports = {
         } catch (error) {
             return res.status(401).send(getErrorResponse({
                 status: 401,
+                code: ERROR_CODE.USER.TOKEN.INVALID_TOKEN,
                 error: "invalid token"
             }));
         }
@@ -61,7 +64,8 @@ module.exports = {
         }
         return res.status(403).send(getErrorResponse({
             status: 403,
-            error: 'user has no permissions',
+            code: ERROR_CODE.USER.PERMISSION[permissionRequired.toLocaleUpperCase()],
+            error: 'user has no permission',
             description: 'it must have permission to request it'
         }))
     },
