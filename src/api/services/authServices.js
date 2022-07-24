@@ -56,13 +56,12 @@ module.exports = {
     register: async function (userData) {
         try {
             const user = await userRepository.createUser(userData);
-            return _formatUserData(user);
-        } catch (error) {
             return {
-                status: error.status,
-                code: error.code,
-                error: error.error
+                status: 200,
+                user: _formatUserData(user),
             };
+        } catch (error) {
+            return getErrorResponse(error);
         }
     },
 
@@ -75,11 +74,7 @@ module.exports = {
                 user: _formatUserData(user),
             };
         } catch (error) {
-            return {
-                status: error.status,
-                code: error.code,
-                error: error.error
-            };
+            return getErrorResponse(error);
         }
     },
 };
