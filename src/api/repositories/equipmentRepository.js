@@ -11,9 +11,10 @@ const { isEmptyArray, isEmptyObject } = require(utils.shorts);
 const { getErrorResponse, getErrorDescription } = require(utils.errors);
 
 
-const _getNotFoundEquipmentError = (description = 'equipment might be not registered yet') => {
+const _getNotFoundEquipmentError = ({ code, description = 'equipment might be not registered yet' }) => {
     return getErrorResponse({
         status: 400,
+        code,
         error: 'cannot find equipment',
         description
     });
@@ -39,12 +40,16 @@ module.exports = {
         try {
             equipments = await Equipment.findAll({ where: field });
         } catch (error) {
-            const errorDescription = getErrorDescription(error);
-            throw _getNotFoundEquipmentError(errorDescription);
+            throw _getNotFoundEquipmentError({
+                code: getErrorCode(error),
+                description: getErrorDescription(error)
+            });
         }
 
         if (isEmptyArray(equipments) || isEmptyObject(field)) {
-            throw _getNotFoundEquipmentError();
+            throw _getNotFoundEquipmentError({
+                code: ERROR_CODE.EQUIPMENT.NOT_REGISTERED
+            });
         }
 
         return equipments;
@@ -53,7 +58,10 @@ module.exports = {
     getAll: async function () {
         const allEquipments = await Equipment.findAll();
         if (isEmptyArray(allEquipments)) {
-            throw _getNotFoundEquipmentError('database might be empty or unable to reach it');
+            throw _getNotFoundEquipmentError({
+                code: ERROR_CODE.EQUIPMENT.EMPTY_DATABASE,
+                description: 'database might be empty or unable to reach it'
+            });
         }
         return allEquipments;
     },
@@ -65,10 +73,11 @@ module.exports = {
             });
             return equipmentFromDatabase.id;
         } catch (error) {
+            const errorCode = getErrorCode(error)
             throw getErrorResponse({
-                status: 400,
+                code: getErrorCode(error),
                 error: 'cannot create equipment',
-                description: getErrorDescription(error),
+                description: getErrorDescription(errorCode),
             });
         }
     },
@@ -78,7 +87,9 @@ module.exports = {
         const isEquipmentNull = !equipment;
 
         if (isEquipmentNull) {
-            throw _getNotFoundEquipmentError();
+            throw _getNotFoundEquipmentError({
+                code: ERROR_CODE.EQUIPMENT.NOT_REGISTERED
+            });
         }
         await equipment.destroy();
 
@@ -93,7 +104,7 @@ module.exports = {
             const isEquipmentNull = !equipmentFromDatabase;
 
             if (isEquipmentNull) {
-                throw '10001';
+                throw ERROR_CODE.EQUIPMENT.NOT_REGISTERED;
             }
             _updateFields(equipmentFromDatabase, equipment);
 
@@ -102,6 +113,7 @@ module.exports = {
             const errorCode = getErrorCode(error);
 
             throw getErrorResponse({
+                code: errorCode,
                 error: 'cannot update equipment',
                 description: getErrorDescription(errorCode)
             });

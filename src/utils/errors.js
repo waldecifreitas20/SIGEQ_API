@@ -2,7 +2,7 @@ const ERROR_CODE = {
     EQUIPMENT: {
         NOT_REGISTERED: '11001',
         MISSING_FIELDS: '11002',
-
+        EMPTY_DATABASE: '11003',
     },
     USER: {
         TOKEN: {
@@ -62,6 +62,7 @@ module.exports = {
     },
 
     getErrorDescription: function (error) {
+        
         switch (error) {
             case ERROR_CODE.EQUIPMENT.NOT_REGISTERED:
                 return 'equipment might be not registered yet';
