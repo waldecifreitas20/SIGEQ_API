@@ -10,21 +10,36 @@ describe('Create test', () => {
 
     it('should register a new equipment in database with success', async () => {
         const response = await services.createEquipment(equipment);
-        console.log(response);
+
         expect(response.status).toBe(200);
     });
 
-    it('should return status 400 when trying create already exists equipment', async () => {
+    it('should return status 400 when trying to create an existent equipment', async () => {
         const response = await services.createEquipment(equipment);
 
         expect(response.status).toBe(400);
     });
 
-    it('should return status 400 when trying create a null in database', async () => {
+    it('should return status 400 when trying to create a null equipment into the database', async () => {
         const response = await services.createEquipment(undefined);
 
         expect(response.status).toBe(400);
     });
+   
+    it('should return status when trying to create an equipment with invalid values of foreign keys', async () => {
+        let invalidEquipment = factory.generateEquipment();
+
+        invalidEquipment.categoryId = 'a';
+        invalidEquipment.locationId = 'b';
+        invalidEquipment.statusId = 'c';
+        invalidEquipment.manufacturerId = 'b';
+
+        const response = await services.createEquipment(invalidEquipment);
+
+        expect(response.status).toBe(400);
+    });
+
+
 });
 
 

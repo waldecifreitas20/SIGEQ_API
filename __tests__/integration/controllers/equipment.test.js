@@ -74,6 +74,24 @@ describe('Create equipment test', () => {
         });
         expect(response.status).toBe(400);
     });
+
+    it('should return error code 22P02 when trying to create an equipment with invalid values of foreign keys', async () => {
+        let invalidEquipment = factory.generateEquipment();
+
+        invalidEquipment.categoryId = 'a';
+        invalidEquipment.locationId = 'b';
+        invalidEquipment.statusId = 'c';
+        invalidEquipment.manufacturerId = 'd';
+
+        const response = await request.post({
+            route: routes.create,
+            body: invalidEquipment,
+            headers: { authorization: validToken }
+        });
+        expect(response.body.code).toBe('22P02');
+
+        
+    });
 });
 
 describe('Search equipment test', () => {
