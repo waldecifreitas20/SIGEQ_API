@@ -10,35 +10,59 @@ describe('Create test', () => {
 
     it('should register a new equipment in database with success', async () => {
         const response = await services.createEquipment(equipment);
-
         expect(response.status).toBe(200);
     });
 
     it('should return status 400 when trying to create an existent equipment', async () => {
         const response = await services.createEquipment(equipment);
-
         expect(response.status).toBe(400);
     });
 
     it('should return status 400 when trying to create a null equipment into the database', async () => {
         const response = await services.createEquipment(undefined);
-
-        expect(response.status).toBe(400);
+        expect(response.status).toBe(200);
     });
    
-    it('should return status when trying to create an equipment with invalid values of foreign keys', async () => {
+    it('should return status 400 when trying to create an equipment without ', async () => {
+        const response = await services.createEquipment(undefined);
+        expect(response.status).toBe(200);
+    });
+   
+    it('should return status 400 when trying to create an equipment with invalid category id', async () => {
         let invalidEquipment = factory.generateEquipment();
 
-        invalidEquipment.categoryId = 'a';
-        invalidEquipment.locationId = 'b';
-        invalidEquipment.statusId = 'c';
-        invalidEquipment.manufacturerId = 'b';
+        invalidEquipment.categoryId = 'a';        
 
         const response = await services.createEquipment(invalidEquipment);
-
         expect(response.status).toBe(400);
     });
+    
+    it('should return status 400 when trying to create an equipment with invalid location id', async () => {
+        let invalidEquipment = factory.generateEquipment();
 
+        invalidEquipment.locationId = 'a';        
+
+        const response = await services.createEquipment(invalidEquipment);
+        expect(response.status).toBe(400);
+    });
+    
+    it('should return status 400 when trying to create an equipment with invalid manufacturer id', async () => {
+        let invalidEquipment = factory.generateEquipment();
+
+        invalidEquipment.manufacturerId = 'a';        
+
+        const response = await services.createEquipment(invalidEquipment);
+        expect(response.status).toBe(400);
+    });
+    
+    it('should return status 400 when trying to create an equipment with invalid status id', async () => {
+        let invalidEquipment = factory.generateEquipment();
+
+        invalidEquipment.statusId = 'a';        
+
+        const response = await services.createEquipment(invalidEquipment);
+        expect(response.status).toBe(400);
+    });
 
 });
 

@@ -75,12 +75,9 @@ describe('Create equipment test', () => {
         expect(response.status).toBe(400);
     });
 
-    it('should return error code 22P02 when trying to create an equipment with invalid values of foreign keys', async () => {
+    it('should return error code 22P02 when trying to create an equipment with invalid manufacturer id', async () => {
         let invalidEquipment = factory.generateEquipment();
 
-        invalidEquipment.categoryId = 'a';
-        invalidEquipment.locationId = 'b';
-        invalidEquipment.statusId = 'c';
         invalidEquipment.manufacturerId = 'd';
 
         const response = await request.post({
@@ -89,12 +86,49 @@ describe('Create equipment test', () => {
             headers: { authorization: validToken }
         });
         expect(response.body.code).toBe('22P02');
+    });
 
-        
+    it('should return error code 22P02 when trying to create an equipment with invalid category id', async () => {
+        let invalidEquipment = factory.generateEquipment();
+
+        invalidEquipment.categoryId = 'a';
+
+        const response = await request.post({
+            route: routes.create,
+            body: invalidEquipment,
+            headers: { authorization: validToken }
+        });
+        expect(response.body.code).toBe('22P02');
+    });
+
+    it('should return error code 22P02 when trying to create an equipment with invalid location id', async () => {
+        let invalidEquipment = factory.generateEquipment();
+
+        invalidEquipment.locationId = 'b';
+       
+        const response = await request.post({
+            route: routes.create,
+            body: invalidEquipment,
+            headers: { authorization: validToken }
+        });
+        expect(response.body.code).toBe('22P02');
+    });
+
+    it('should return error code 22P02 when trying to create an equipment with invalid status id', async () => {
+        let invalidEquipment = factory.generateEquipment();
+
+        invalidEquipment.statusId = 'c';
+
+        const response = await request.post({
+            route: routes.create,
+            body: invalidEquipment,
+            headers: { authorization: validToken }
+        });
+        expect(response.body.code).toBe('22P02');
     });
 });
 
-describe('Search equipment test', () => {
+/* describe('Search equipment test', () => {
 
     it('should return 200 ok when trying get a equipment sending a id', async () => {
 
@@ -103,7 +137,7 @@ describe('Search equipment test', () => {
     it('should return 400 when trying get a equipment without to send a id', async () => {
 
     });
-});
+}); */
 
 
 describe('Get all equipment test', () => {
@@ -118,7 +152,7 @@ describe('Get all equipment test', () => {
 });
 
 
-describe('Delete equipment test', () => {
+/* describe('Delete equipment test', () => {
 
     it('should return 200 ok when trying delete a equipment', async () => {
 
@@ -130,4 +164,4 @@ describe('Delete equipment test', () => {
 });
 
 
-describe('Update equipment test', () => { });
+describe('Update equipment test', () => { }); */
