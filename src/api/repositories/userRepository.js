@@ -10,7 +10,7 @@ module.exports = {
     createUser: async function (userData) {
         try {
             return await UserModel.create(userData);
-        } catch (error) {      
+        } catch (error) {       
             throw getErrorResponse({
                 status: 400,
                 code : error.parent.code,

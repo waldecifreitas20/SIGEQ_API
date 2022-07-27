@@ -75,7 +75,6 @@ module.exports = {
                 user: _formatUserData(user),
             };
         } catch (error) {
-       
             return getErrorResponse(error);
         }
     },
