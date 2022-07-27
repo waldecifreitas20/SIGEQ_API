@@ -46,6 +46,7 @@ const _checkPassword = (password, validPassword) => {
     if (!isPasswordEqualsHash(password, validPassword)) {
         throw getErrorResponse({
             status: 401,
+            code: ERROR_CODE.USER.AUTH.INVALID_CREDENTIALS,
             error: 'Invalid Credentials',
         });
     }
@@ -65,7 +66,7 @@ module.exports = {
         }
     },
 
-    login: async function (email, password) {
+    login: async function (email, password = String) {
         try {
             const user = await userRepository.findUserByEmail(email);
             _checkPassword(password, user.password);
@@ -74,6 +75,7 @@ module.exports = {
                 user: _formatUserData(user),
             };
         } catch (error) {
+            console.log(error);
             return getErrorResponse(error);
         }
     },

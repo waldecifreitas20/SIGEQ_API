@@ -16,7 +16,7 @@ const ERROR_CODE = {
             UPDATE: '12203',
             DELETE: '12204'
         },
-        AUTH : {
+        AUTH: {
             INVALID_CREDENTIALS: '12301',
         }
     },
@@ -29,6 +29,7 @@ const ERROR_CODE = {
         INVALID_VALUE_SENT: '22P02',
         INVALID_ID_SENT: '23503',
         ALREADY_EXISTS: '23505',
+        NOT_JSON: '42883'
     }
 
 }
@@ -62,7 +63,7 @@ module.exports = {
     },
 
     getErrorDescription: function (error) {
-        
+
         switch (error) {
             case ERROR_CODE.EQUIPMENT.NOT_REGISTERED:
                 return 'equipment might be not registered yet';
@@ -72,6 +73,8 @@ module.exports = {
                 return 'id sent does not exist. Check statusId, manufacturerId, categoryId, locationId and try again';
             case ERROR_CODE.SEQUELIZE.ALREADY_EXISTS:
                 return 'it has been existing into the database';
+            case ERROR_CODE.SEQUELIZE.NOT_JSON:
+                return 'request body should be a JSON';
             default:
                 break;
         }
