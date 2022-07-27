@@ -66,13 +66,13 @@ describe('Create equipment test', () => {
         expect(response.status).toBe(401);
     });
 
-    it('should return status 400 when trying create a equipment already exists', async () => {
+    it('should return error code 23505 when trying create a equipment already exists', async () => {
         const response = await request.post({
             route: routes.create,
             body: equipment,
             headers: { authorization: validToken }
         });
-        expect(response.status).toBe(400);
+        expect(response.body.code).toBe('23505');
     });
 
     it('should return error code 22P02 when trying to create an equipment with invalid manufacturer id', async () => {
