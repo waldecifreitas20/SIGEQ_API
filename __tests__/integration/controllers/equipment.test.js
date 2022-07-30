@@ -4,13 +4,8 @@ const factory = require('../../factory');
 const request = require('./requestTester');
 const { generateToken } = require(getPath('src', 'utils', 'security.js'));
 
-const routes = {
-    create: '/equipment/create',
-    getAll: '/equipment/all',
-    search: `/equipment/search`,
-    update: '/equipment/update',
-    delete: (id) => `/equipment/delete/${id}`
-}
+const routes = require('../../routes');
+
 const validToken = 'Bearer ' + generateToken({
     user: factory.generateUser(),
     permissions: factory.generatePermissions({}),
