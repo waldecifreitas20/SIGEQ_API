@@ -55,19 +55,23 @@ module.exports = {
         const current_route = req.url;
 
         const permissionRequired = _getRequiredPermissionByRoute(current_route);
-        for (let i = 0; i < req.permissions.length; i++) {
-            const permission = req.permissions[i];
-
-            if (permission.name == permissionRequired) {
-                return next();
+        try {
+            for (let i = 0; i < req.permissions.length; i++) {
+                
+                const permission = req.permissions[i];
+    
+                if (permission.name == permissionRequired) {
+                    return next();
+                }
             }
+        } catch (error) {
+            return res.status(403).send(getErrorResponse({
+                status: 403,
+                code: ERROR_CODE.USER.PERMISSION[permissionRequired.toLocaleUpperCase()],
+                error: 'user has no permission',
+                description: 'it must have permission to request it'
+            }));
         }
-        return res.status(403).send(getErrorResponse({
-            status: 403,
-            code: ERROR_CODE.USER.PERMISSION[permissionRequired.toLocaleUpperCase()],
-            error: 'user has no permission',
-            description: 'it must have permission to request it'
-        }))
     },
 
 }

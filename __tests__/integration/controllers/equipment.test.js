@@ -17,25 +17,6 @@ const validToken = 'Bearer ' + generateToken({
 });
 
 
-describe('Equipment form validation test', () => {
-
-    it('should return 400 when trying send a null body on create equipment request', async () => {
-        const response = await request.post({
-            route: routes.create,
-            headers: { authorization: validToken }
-        });
-        expect(response.status == 400).toBe(true);
-    });
-
-    it('should return 400 when trying send a null body on update equipment request', async () => {
-        const response = await request.put({
-            route: routes.update,
-            headers: { authorization: validToken }
-        });
-        expect(response.status).toBe(400);
-    });
-});
-
 describe('Create equipment test', () => {
     const equipment = factory.generateEquipment();
 
@@ -48,22 +29,31 @@ describe('Create equipment test', () => {
         expect(response.status).toBe(200);
     });
 
-    it('should return status 401 when trying create new equipment without token', async () => {
+    it('should return error code 11002 when trying send a null body on create equipment request', async () => {
         const response = await request.post({
             route: routes.create,
-            body: equipment,
+            headers: { authorization: validToken }
         });
-        expect(response.status).toBe(401);
+        expect(response.body.code).toBe('11002');
     });
 
-    it('should return status 401 when trying create new equipment without permission', async () => {
-        const tokenHasNoPermission = generateToken(factory.generateUser());
+    it('should return error code 12101 when trying create new equipment without token', async () => {
         const response = await request.post({
             route: routes.create,
             body: equipment,
-            headers: { authorization: tokenHasNoPermission }
         });
-        expect(response.status).toBe(401);
+        expect(response.body.code).toBe('12101');
+    });
+
+    it('should return error code 12201 when trying create new equipment without permission', async () => {
+        const tokenHasNoPermission = generateToken({ user: factory.generateUser() });
+        const response = await request.post({
+            route: routes.create,
+            body: factory.generateEquipment(),
+            headers: { authorization: 'Bearer ' + tokenHasNoPermission }
+        });
+        console.log(response.body);
+        expect(response.body.code).toBe('12201');
     });
 
     it('should return error code 23505 when trying create a equipment already exists', async () => {
@@ -105,7 +95,7 @@ describe('Create equipment test', () => {
         let invalidEquipment = factory.generateEquipment();
 
         invalidEquipment.locationId = 'b';
-       
+
         const response = await request.post({
             route: routes.create,
             body: invalidEquipment,
