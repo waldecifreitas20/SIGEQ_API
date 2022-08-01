@@ -2,11 +2,7 @@ const { resolve: getPath } = require('path');
 const { generateUser } = require('../../factory');
 const requester = require('./requestTester');
 
-const routes = {
-    register: '/auth/register',
-    authenticate: '/auth/authenticate',
-    checkToken: '/auth/check_token'
-}
+const routes = require('../../routes').authentication
 
 const user = generateUser();
 
