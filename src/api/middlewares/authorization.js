@@ -57,13 +57,14 @@ module.exports = {
         const permissionRequired = _getRequiredPermissionByRoute(current_route);
         try {
             for (let i = 0; i < req.permissions.length; i++) {
-                
+
                 const permission = req.permissions[i];
-    
+
                 if (permission.name == permissionRequired) {
                     return next();
                 }
             }
+            throw 'cannot find any permission';
         } catch (error) {
             return res.status(403).send(getErrorResponse({
                 status: 403,
