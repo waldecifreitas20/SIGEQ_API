@@ -72,6 +72,19 @@ describe('Create equipment test', () => {
         });
         expect(response.body.code).toBe('22P02');
     });
+    
+    it('should return error code 23503 when trying to create an equipment with invalid manufacturer id', async () => {
+        let invalidEquipment = factory.generateEquipment();
+
+        invalidEquipment.manufacturerId = -1;
+
+        const response = await request.post({
+            route: routes.create,
+            body: invalidEquipment,
+            headers: { authorization: validToken }
+        });
+        expect(response.body.code).toBe('23503');
+    });
 
     it('should return error code 22P02 when trying to create an equipment with invalid category id sent', async () => {
         let invalidEquipment = factory.generateEquipment();
@@ -112,7 +125,7 @@ describe('Create equipment test', () => {
         expect(response.body.code).toBe('22P02');
     });
 
-    it('should return error code 22P02 when trying to create an equipment with nonexisting location id', async () => {
+    it('should return error code 23503 when trying to create an equipment with nonexisting location id', async () => {
         let invalidEquipment = factory.generateEquipment();
 
         invalidEquipment.locationId = -1;

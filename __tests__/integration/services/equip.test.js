@@ -13,7 +13,7 @@ describe('Create test', () => {
         expect(response.status).toBe(200);
     });
 
-    it('should return status 400 when trying to create an existent equipment', async () => {
+    it('should return status 400 when trying to create an existing equipment', async () => {
         const response = await services.createEquipment(equipment);
         expect(response.status).toBe(400);
     });
@@ -29,7 +29,7 @@ describe('Create test', () => {
             "warrantyExpiresAt": null,
             "image": "454-6-564-654"
         });
-        
+
         expect(response.status).toBe(400);
     });
 
@@ -63,7 +63,43 @@ describe('Create test', () => {
     it('should return status 400 when trying to create an equipment with invalid status id', async () => {
         let invalidEquipment = factory.generateEquipment();
 
-        invalidEquipment.statusId = 'a';
+        invalidEquipment.statusId = 's';
+
+        const response = await services.createEquipment(invalidEquipment);
+        expect(response.status).toBe(400);
+    });
+
+    it('should return status 400 when trying to create an equipment with nonexisting category id', async () => {
+        let invalidEquipment = factory.generateEquipment();
+
+        invalidEquipment.categoryId = -1;
+
+        const response = await services.createEquipment(invalidEquipment);
+        expect(response.status).toBe(400);
+    });
+
+    it('should return status 400 when trying to create an equipment with nonexisting location id', async () => {
+        let invalidEquipment = factory.generateEquipment();
+
+        invalidEquipment.locationId = -1;
+
+        const response = await services.createEquipment(invalidEquipment);
+        expect(response.status).toBe(400);
+    });
+
+    it('should return status 400 when trying to create an equipment with nonexisting manufacturer id', async () => {
+        let invalidEquipment = factory.generateEquipment();
+
+        invalidEquipment.manufacturerId = -1;
+
+        const response = await services.createEquipment(invalidEquipment);
+        expect(response.status).toBe(400);
+    });
+
+    it('should return status 400 when trying to create an equipment with nonexisting status id', async () => {
+        let invalidEquipment = factory.generateEquipment();
+
+        invalidEquipment.statusId = -1;
 
         const response = await services.createEquipment(invalidEquipment);
         expect(response.status).toBe(400);
