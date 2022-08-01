@@ -4,7 +4,7 @@ const factory = require('../../factory');
 const request = require('./requestTester');
 const { generateToken } = require(getPath('src', 'utils', 'security.js'));
 
-const routes = require('../../routes');
+const routes = require('../../routes').equipment;
 
 const validToken = 'Bearer ' + generateToken({
     user: factory.generateUser(),
@@ -47,7 +47,7 @@ describe('Create equipment test', () => {
             body: factory.generateEquipment(),
             headers: { authorization: 'Bearer ' + tokenHasNoPermission }
         });
-        console.log(response.body);
+
         expect(response.body.code).toBe('12201');
     });
 
@@ -73,7 +73,7 @@ describe('Create equipment test', () => {
         expect(response.body.code).toBe('22P02');
     });
 
-    it('should return error code 22P02 when trying to create an equipment with invalid category id', async () => {
+    it('should return error code 22P02 when trying to create an equipment with invalid category id sent', async () => {
         let invalidEquipment = factory.generateEquipment();
 
         invalidEquipment.categoryId = 'a';
@@ -84,6 +84,19 @@ describe('Create equipment test', () => {
             headers: { authorization: validToken }
         });
         expect(response.body.code).toBe('22P02');
+    });
+
+    it('should return error code 23503 when trying to create an equipment with nonexisting category id value', async () => {
+        let invalidEquipment = factory.generateEquipment();
+
+        invalidEquipment.categoryId = -1;
+
+        const response = await request.post({
+            route: routes.create,
+            body: invalidEquipment,
+            headers: { authorization: validToken }
+        });
+        expect(response.body.code).toBe('23503');
     });
 
     it('should return error code 22P02 when trying to create an equipment with invalid location id', async () => {
@@ -99,6 +112,19 @@ describe('Create equipment test', () => {
         expect(response.body.code).toBe('22P02');
     });
 
+    it('should return error code 22P02 when trying to create an equipment with nonexisting location id', async () => {
+        let invalidEquipment = factory.generateEquipment();
+
+        invalidEquipment.locationId = -1;
+
+        const response = await request.post({
+            route: routes.create,
+            body: invalidEquipment,
+            headers: { authorization: validToken }
+        });
+        expect(response.body.code).toBe('23503');
+    });
+
     it('should return error code 22P02 when trying to create an equipment with invalid status id', async () => {
         let invalidEquipment = factory.generateEquipment();
 
@@ -110,6 +136,19 @@ describe('Create equipment test', () => {
             headers: { authorization: validToken }
         });
         expect(response.body.code).toBe('22P02');
+    });
+
+    it('should return error code 23503 when trying to create an equipment with nonexisting status id', async () => {
+        let invalidEquipment = factory.generateEquipment();
+
+        invalidEquipment.statusId = -1;
+
+        const response = await request.post({
+            route: routes.create,
+            body: invalidEquipment,
+            headers: { authorization: validToken }
+        });
+        expect(response.body.code).toBe('23503');
     });
 });
 

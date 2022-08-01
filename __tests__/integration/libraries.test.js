@@ -27,6 +27,17 @@ describe('bcrypt test', () => {
         const isEquals = await bcrypt.compare(wrongPassword, hash);
         expect(isEquals).toBe(false);
     });
+    
+    it('should catch a exception when comparing a not string value with the hash', async () => {
+        const notString = 5987;
+        let isEquals;
+        try {
+            isEquals = await bcrypt.compare(notString, hash);
+        } catch (error) {
+            isEquals = false;
+        }
+        expect(isEquals).toBe(false);
+    });
 });
 
 describe('JWT test', () => {
@@ -35,19 +46,32 @@ describe('JWT test', () => {
         user : factory.generateUser()
     }
 
-    it('should generate a JWT without troubles', () => {
+    it('should generate a JWT', () => {
         const token = jwt.sign(payload, process.env.API_SECRET);
         
         expect(token.length > 0).toBe(true);
     });
     
-    it('should verify if token sent it is valid', () => {
+    it('should generate a valid token', () => {
         const token = security.generateToken(factory.generateUser());
         const result = security.checkToken(token);
 
          expect(result != null).toBe(true);
     });
 
+    it('should catch an exception when sending a integer value as a token', () => {
+        const falseToken = 123;
+        let isValidtoken;
+        
+        try {
+            isValidtoken = security.checkToken(falseToken);
+        } catch (error) {
+            isValidtoken = false;
+        }
+
+        expect(isValidtoken).toBe(false);
+    });
+    
     it('should return false as response when sending invalid token', () => {
         const falseToken = '15a21dsSaWRY4hsR';
         let isValidtoken;
