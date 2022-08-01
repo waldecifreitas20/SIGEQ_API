@@ -1,13 +1,6 @@
-
-const [
-    permissionsMiddleware,
-    formValidation,
-    services
-] = [
-        require(require('../../utils/paths.js').middlewares.authorization),
-        require(require('../../utils/paths.js').middlewares.formValidation),
-        require(require('../../utils/paths').services.equipment)
-    ];
+const services = require(
+    require('../../utils/paths').services.equipment
+);
 
 
 module.exports = {
