@@ -1,6 +1,6 @@
 const { resolve: getPath } = require('path');
 const { generateUser } = require('../../factory');
-const requester = require('./requestTester');
+const requester = require('../../requestTester');
 
 const routes = require('../../routes').authentication
 
