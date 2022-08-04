@@ -21,7 +21,9 @@ const _getRequiredPermissionByRoute = (route = String) => {
 module.exports = {
     checkToken: function (req, res, next) {
         const authorization = req.headers.authorization;
-        if (authorization === undefined)
+        
+        if (!authorization)
+        
             return res.status(401).send(getErrorResponse({
                 status: 401,
                 code: ERROR_CODE.USER.TOKEN.IS_NULL,
@@ -53,8 +55,8 @@ module.exports = {
 
     hasPermission: function (req, res, next) {
         const current_route = req.url;
-
         const permissionRequired = _getRequiredPermissionByRoute(current_route);
+
         try {
             for (let i = 0; i < req.permissions.length; i++) {
 
@@ -64,11 +66,14 @@ module.exports = {
                     return next();
                 }
             }
-            throw 'cannot find any permission';
-        } catch (error) {
+
+            throw PERMISSION_NOT_FOUND;
+
+        } catch (errorCode) {
+            const permissionName = permissionRequired.toLocaleUpperCase();
             return res.status(403).send(getErrorResponse({
                 status: 403,
-                code: ERROR_CODE.USER.PERMISSION[permissionRequired.toLocaleUpperCase()],
+                code: ERROR_CODE.USER.PERMISSION[permissionName],
                 error: 'user has no permission',
                 description: 'it must have permission to request it'
             }));
