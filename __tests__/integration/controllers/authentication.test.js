@@ -61,14 +61,14 @@ describe('Authenticate test', () => {
         expect(response.status).toBe(200);
     });
 
-    it('should return status 400 when trying to authenticate an user without body', async () => {
+    it('should return error code 11002 when trying to authenticate an user without body', async () => {
         const response = await requester.post({
             route: routes.authenticate,
         });
-        expect(response.status).toBe(400);
+        expect(response.body.code).toBe('11002');
     });
 
-    it('should return status 401 when trying to authenticate an user with invalid email', async () => {
+    it('should return error code 12301 when trying to authenticate an user with invalid email', async () => {
         const response = await requester.post({
             route: routes.authenticate,
             body: {
@@ -76,10 +76,10 @@ describe('Authenticate test', () => {
                 password: user.password
             }
         });
-        expect(response.status).toBe(401);
+        expect(response.body.code).toBe('12301');
     });
 
-    it('should return status 401 when trying to authenticate an user with invalid password', async () => {
+    it('should return error code 12301 when trying to authenticate an user with invalid password', async () => {
         const response = await requester.post({
             route: routes.authenticate,
             body: {
@@ -87,7 +87,7 @@ describe('Authenticate test', () => {
                 password: '1'
             }
         });
-        expect(response.status).toBe(401);
+        expect(response.body.code).toBe('12301');
     });
 
 });
@@ -119,7 +119,7 @@ describe('Check token test', () => {
         const response = await requester.post({ route: routes.checkToken });
         expect(response.status).toBe(401);
     });
-    
+
     it('should return an status code 401 when the token sent have not bearer', async () => {
         const withoutBearerToken = generateToken(generateUser());
         const response = await requester.post({
