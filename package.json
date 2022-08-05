@@ -7,6 +7,8 @@
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
     "test": "NODE_ENV=test jest",
+    "stress": "npm test",
+    "poststress": "npm run stress",
     
     "pretest": "NODE_ENV=test npm run seeders-init",
     "preseeders-init": "NODE_ENV=test sequelize-cli db:migrate",
