@@ -11,11 +11,12 @@ module.exports = {
         try {
             return await UserModel.create(userData);
         } catch (error) {       
+            const errorCode = getErrorCode(error);
             throw getErrorResponse({
                 status: 400,
-                code : error.parent.code,
+                code : errorCode,
                 error: 'Cannot create user',
-                description: 'User might already to be registered. Check fields.'
+                description: getErrorDescription(errorCode)
             });
         }
     },
