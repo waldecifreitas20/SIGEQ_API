@@ -4,15 +4,19 @@ const requester = require('../../requestTester');
 
 const routes = require('../../routes').authentication
 
-const user = generateUser();
 
 describe('Register test', () => {
+
+    const user = generateUser();
 
     it('should register a new user and it returns status 200 OK', async () => {
         const response = await requester.post({
             route: routes.register,
             body: user
         });
+        if (response.status !== 200) {
+            console.log(response.body);
+        }
      
         expect(response.status).toBe(200);
     });
@@ -34,11 +38,18 @@ describe('Register test', () => {
 
 describe('Authenticate test', () => {
 
+    const user = generateUser();
+
     it('should authenticate an user with success', async () => {
+        await requester.post({
+            route: routes.register,
+            body: user
+        });
         const response = await requester.post({
             route: routes.authenticate,
             body: user
         });
+
         expect(response.status).toBe(200);
     });
 

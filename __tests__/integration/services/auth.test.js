@@ -9,7 +9,9 @@ describe('Register test', () => {
 
     it('should register a new user in database', async () => {
         const response = await services.register(newUser);
-        
+        if (response.status !== 200) {
+            console.log(response);
+        }
         expect(response.status).toBe(200);
     });
 

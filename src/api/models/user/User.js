@@ -5,15 +5,15 @@ const bcrypt = require('bcryptjs');
 
 const User = database.define('users', {
     firstName: {
-        type: datatype.STRING(50),
+        type: datatype.STRING(20),
         allowNull: false,
     },
     surname: {
-        type: datatype.STRING(50),
+        type: datatype.STRING(20),
         allowNull: false,
     },
     email: {
-        type: datatype.STRING(40),
+        type: datatype.STRING(50),
         allowNull: false,
         unique: true
     },
