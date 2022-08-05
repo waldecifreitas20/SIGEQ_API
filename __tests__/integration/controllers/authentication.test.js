@@ -14,27 +14,35 @@ describe('Register test', () => {
             route: routes.register,
             body: user
         });
-        if (response.status !== 200) {
-            console.log(response.body);
-        }
-     
         expect(response.status).toBe(200);
     });
 
     it('should return status 400 when trying to register an user without body', async () => {
         const response = await requester.post({ route: routes.register });
-        expect(response.status).toBe(400);
+        
+        expect(response.body.code).toBe('11002');
     });
 
-    it('should return an error when trying to register an user without required params', async () => {
+    it('should return error code 11002 when trying to register an user without required params', async () => {
         const response = await requester.post({
             route: routes.register,
-            body: { full_name: 'junior' }
+            body: { full_name: 'aaaaaaaaaaaa' }
         });
-        expect(response.status).toBe(400);
+        expect(response.body.code).toBe('11002');
+    });
+   
+    it('should return error code 22001 when trying to register an user with fields too long', async () => {
+        const user = generateUser();
+        user.firstName = '555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555';
+        const response = await requester.post({
+            route: routes.register,
+            body: user
+        });
+        expect(response.body.code).toBe('22001');
     });
 
 });
+
 
 describe('Authenticate test', () => {
 
@@ -111,6 +119,7 @@ describe('Check token test', () => {
         const response = await requester.post({ route: routes.checkToken });
         expect(response.status).toBe(401);
     });
+    
     it('should return an status code 401 when the token sent have not bearer', async () => {
         const withoutBearerToken = generateToken(generateUser());
         const response = await requester.post({
