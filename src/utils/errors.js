@@ -29,7 +29,7 @@ const ERROR_CODE = {
         INVALID_VALUE_SENT: '22P02',
         NONEXISTING_ID: '23503',
         ALREADY_EXISTS: '23505',
-        NOT_JSON: '42883',
+        NON_JSON: '42883',
         LENGTH_TOO_LONG : '22001'
     }
 
@@ -74,7 +74,7 @@ module.exports = {
                 return 'id sent does not exist. Check statusId, manufacturerId, categoryId, locationId and try again';
             case ERROR_CODE.SEQUELIZE.ALREADY_EXISTS:
                 return 'it has been existing into the database';
-            case ERROR_CODE.SEQUELIZE.NOT_JSON:
+            case ERROR_CODE.SEQUELIZE.NON_JSON:
                 return 'request body should be a JSON';
             case ERROR_CODE.SEQUELIZE.LENGTH_TOO_LONG:
                 return 'at least one field has been too long';

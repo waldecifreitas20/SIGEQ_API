@@ -89,6 +89,17 @@ describe('Authenticate test', () => {
         });
         expect(response.body.code).toBe('12301');
     });
+    
+    it('should return error code 42883 when trying to authenticate an user with invalid password', async () => {
+        const response = await requester.post({
+            route: routes.authenticate,
+            body: {
+                email: 1,
+                password: 1
+            }
+        });
+        expect(response.body.code).toBe('42883');
+    });
 
 });
 
@@ -107,17 +118,31 @@ describe('Check token test', () => {
 
 
     it('should return an status code 401 when the token sent to be invalid', async () => {
-        const falseToken = 'Bearer 566a5s4dsdasdasd';
+        const invalidToken = 'Bearer 566a5s4dsdasdasd';
         const response = await requester.post({
             route: routes.checkToken,
-            headers: { authorization: falseToken }
+            headers: { authorization: invalidToken }
         });
         expect(response.status).toBe(401);
+    });
+    
+    it('should return error code 12103 when the token sent to be invalid', async () => {
+        const invalidToken = 'Bearer 566a5s4dsdasdasd';
+        const response = await requester.post({
+            route: routes.checkToken,
+            headers: { authorization: invalidToken }
+        });
+        expect(response.body.code).toBe('12103');
     });
 
     it('should return an status code 401 when the no token to be sent', async () => {
         const response = await requester.post({ route: routes.checkToken });
         expect(response.status).toBe(401);
+    });
+    
+    it('should return error code 12101 when the no token to be sent', async () => {
+        const response = await requester.post({ route: routes.checkToken });
+        expect(response.body.code).toBe('12101');
     });
 
     it('should return an status code 401 when the token sent have not bearer', async () => {
@@ -127,6 +152,15 @@ describe('Check token test', () => {
             headers: { authorization: withoutBearerToken }
         });
         expect(response.status).toBe(401);
+    });
+   
+    it('should return error code 12102 when the token sent have not bearer', async () => {
+        const withoutBearerToken = generateToken(generateUser());
+        const response = await requester.post({
+            route: routes.checkToken,
+            headers: { authorization: withoutBearerToken }
+        });
+        expect(response.body.code).toBe('12102');
     });
 
 });
