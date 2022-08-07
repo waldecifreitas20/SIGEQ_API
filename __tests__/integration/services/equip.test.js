@@ -3,6 +3,7 @@ const services = require(getPath('src', 'api', 'services', 'equipmentServices'))
 
 const factory = require('../../factory');
 
+require('./syncDB');
 
 describe('Create test', () => {
 
@@ -134,6 +135,7 @@ describe('Delete test', () => {
 
         expect(response.status).toBe(400);
     });
+
 });
 
 describe('Search by id test', () => {
@@ -187,6 +189,16 @@ describe('Update test', () => {
         const equipmentToUpdate = factory.generateEquipment();
 
         equipmentToUpdate.id = nonExistentId;
+        const response = await services.updateEquipment(equipmentToUpdate);
+
+        expect(response.status).toBe(400);
+    });
+    
+    it('should return status 400 when updating a equipment sending noninteger id', async () => {
+        const nonIntegerId = 'a';
+        const equipmentToUpdate = factory.generateEquipment();
+
+        equipmentToUpdate.id = nonIntegerId;
         const response = await services.updateEquipment(equipmentToUpdate);
 
         expect(response.status).toBe(400);

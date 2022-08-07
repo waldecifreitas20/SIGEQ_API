@@ -10,6 +10,7 @@ const validToken = 'Bearer ' + generateToken({
     user: factory.generateUser(),
     permissions: factory.generatePermissions({}),
 });
+const tokenWithoutPermission = generateToken({ user: factory.generateUser() });
 
 
 describe('Create equipment test', () => {
@@ -41,11 +42,10 @@ describe('Create equipment test', () => {
     });
 
     it('should return error code 12201 when trying create new equipment without permission', async () => {
-        const tokenHasNoPermission = generateToken({ user: factory.generateUser() });
         const response = await request.post({
             route: routes.create,
             body: factory.generateEquipment(),
-            headers: { authorization: 'Bearer ' + tokenHasNoPermission }
+            headers: { authorization: 'Bearer ' + tokenWithoutPermission }
         });
 
         expect(response.body.code).toBe('12201');
@@ -72,7 +72,7 @@ describe('Create equipment test', () => {
         });
         expect(response.body.code).toBe('22P02');
     });
-    
+
     it('should return error code 23503 when trying to create an equipment with invalid manufacturer id', async () => {
         let invalidEquipment = factory.generateEquipment();
 
@@ -165,18 +165,6 @@ describe('Create equipment test', () => {
     });
 });
 
-/* describe('Search equipment test', () => {
-
-    it('should return 200 ok when trying get a equipment sending a id', async () => {
-
-    });
-
-    it('should return 400 when trying get a equipment without to send a id', async () => {
-
-    });
-}); */
-
-
 describe('Get all equipment test', () => {
 
     it('should return status 200 ok when trying get all equipments', async () => {
@@ -186,8 +174,57 @@ describe('Get all equipment test', () => {
         });
         expect(response.status).toBe(200);
     });
+
+    it('should return error code 12202 ok when trying get all equipments without permission', async () => {
+        const response = await request.get({
+            route: routes.getAll,
+            headers: { authorization: 'Bearer ' + tokenWithoutPermission }
+        });
+        expect(response.body.code).toBe('12202');
+    });
 });
 
+describe('Search equipment test', () => {
+
+    const equipment = factory.generateEquipment();
+
+    /* it('should return 200 ok when trying get a equipment sending a id', async () => {
+        const equip = await request.post({
+            route: routes.create,
+            headers: { authorization: validToken },
+            body: equipment
+        });
+        console.log(equip.body);
+        const response = await request.get({
+            route: routes.search,
+            headers: { authorization: validToken },
+            body: {id : equip.body.equipment_id},
+        });
+        console.log(response.body);
+        expect(response.status).toBe(200);
+    }); */
+
+    it('should return 400 when trying get a equipment without to send a id', async () => {
+
+    });
+
+    it('should return error code 12202 ok when trying get all equipments without permission', async () => {
+        const response = await request.get({
+            route: routes.getAll,
+            headers: { authorization: 'Bearer ' + tokenWithoutPermission }
+        });
+        expect(response.body.code).toBe('12202');
+    });
+});
+
+const _generateValidEquipmentId = async () => {
+    const { body: response } = await request.post({
+        route: routes.create,
+        headers: { authorization: validToken },
+        body: factory.generateEquipment()
+    });
+    return response.equipment_id;
+}
 
 /* describe('Delete equipment test', () => {
 
