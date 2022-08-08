@@ -16,7 +16,7 @@ module.exports = app => {
 
     router.get('/all', equipmentController.getAll);
 
-    router.get('/search', formValidation.isRequestBodyNull, equipmentController.search);
+    router.post('/search', formValidation.isRequestBodyNull, equipmentController.search);
 
     router.post('/create', formValidation.createEquipment, equipmentController.create);
 

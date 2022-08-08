@@ -4,6 +4,7 @@ const factory = require('../../factory');
 const request = require('../../requestTester');
 const { generateToken } = require(getPath('src', 'utils', 'security.js'));
 
+
 const routes = require('../../routes').equipment;
 
 const validToken = 'Bearer ' + generateToken({
@@ -188,29 +189,29 @@ describe('Search equipment test', () => {
 
     const equipment = factory.generateEquipment();
 
-    /* it('should return 200 ok when trying get a equipment sending a id', async () => {
+    it('should return 200 ok when trying get a equipment sending a id', async () => {
         const equip = await request.post({
             route: routes.create,
             headers: { authorization: validToken },
             body: equipment
         });
         console.log(equip.body);
-        const response = await request.get({
+        const response = await request.post({
             route: routes.search,
             headers: { authorization: validToken },
             body: {id : equip.body.equipment_id},
         });
         console.log(response.body);
         expect(response.status).toBe(200);
-    }); */
+    });
 
     it('should return 400 when trying get a equipment without to send a id', async () => {
 
     });
 
     it('should return error code 12202 ok when trying get all equipments without permission', async () => {
-        const response = await request.get({
-            route: routes.getAll,
+        const response = await request.post({
+            route: routes.search,
             headers: { authorization: 'Bearer ' + tokenWithoutPermission }
         });
         expect(response.body.code).toBe('12202');

@@ -25,10 +25,10 @@ module.exports = {
 
     ROUTES: {
         GET: [
-            '/equipment/search',
             '/equipment/all',
         ],
         POST: [
+            '/equipment/search',
             '/equipment/create',
             '/auth/register',
             '/auth/authenticate',
