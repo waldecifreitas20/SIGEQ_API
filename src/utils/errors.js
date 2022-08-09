@@ -79,7 +79,7 @@ module.exports = {
             case ERROR_CODE.SEQUELIZE.LENGTH_TOO_LONG:
                 return 'at least one field has been too long';
             default:
-                break;
+                return 'object sent is not allowed';
         }
     },
 
