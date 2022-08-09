@@ -187,27 +187,34 @@ describe('Get all equipment test', () => {
 
 describe('Search equipment test', () => {
 
-    const equipment = factory.generateEquipment();
-
-    it('should return 200 ok when trying get a equipment sending a id', async () => {
-        const equip = await request.post({
-            route: routes.create,
-            headers: { authorization: validToken },
-            body: equipment
-        });
-        console.log(equip.body);
+    it('should return 200 ok when trying to get a equipment sending a id', async () => {
+        const id = await _generateValidEquipmentId();
         const response = await request.post({
             route: routes.search,
             headers: { authorization: validToken },
-            body: {id : equip.body.equipment_id},
+            body: { id, },
         });
-        console.log(response.body);
         expect(response.status).toBe(200);
     });
 
-    it('should return 400 when trying get a equipment without to send a id', async () => {
+    it('should return 200 ok when trying to get a equipment sending all fields', async () => {
+        const equipment = factory.generateEquipment();
+        await _registerEquipment(equipment);
 
+        const response = await request.post({
+            route: routes.search,
+            headers: { authorization: validToken },
+            body: equipment,
+        });
+        
+        expect(response.status).toBe(200);
     });
+
+
+    /*  it('should return 400 when trying when trying ', async () => {
+        const equipment = factory.generateEquipment();
+ 
+     }); */
 
     it('should return error code 12202 ok when trying get all equipments without permission', async () => {
         const response = await request.post({
@@ -226,6 +233,16 @@ const _generateValidEquipmentId = async () => {
     });
     return response.equipment_id;
 }
+
+const _registerEquipment = async equipment => {
+    const { body: response } = await request.post({
+        route: routes.create,
+        headers: { authorization: validToken },
+        body: equipment,
+    });
+    return response.equipment_id;
+}
+
 
 /* describe('Delete equipment test', () => {
 

@@ -25,12 +25,12 @@ module.exports = {
     generateEquipment: () => {
         return {
             title: "Computador HP",
-            manufacturerId: _getRandomInt(1),
-            categoryId: _getRandomInt(1),
+            manufacturerId: _getRandomInt(1).toString(),
+            categoryId: _getRandomInt(1).toString(),
             model: "15-cdf",
-            heritage : _getRandomInt(9999999999),
-            locationId: _getRandomInt(1),
-            statusId: _getRandomInt(1),
+            heritage : _getRandomInt(9999999999).toString(),
+            locationId: _getRandomInt(1).toString(),
+            statusId: _getRandomInt(1).toString(),
             warrantyExpiresAt: Date.now(),
             image: "454-6-564-654"
         }

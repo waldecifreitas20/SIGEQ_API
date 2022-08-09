@@ -40,9 +40,10 @@ module.exports = {
         try {
             equipments = await Equipment.findAll({ where: field });
         } catch (error) {
+            const errorCode = getErrorCode(error);
             throw _getNotFoundEquipmentError({
-                code: getErrorCode(error),
-                description: getErrorDescription(error)
+                code: errorCode,
+                description: getErrorDescription(errorCode)
             });
         }
 
