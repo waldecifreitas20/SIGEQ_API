@@ -112,7 +112,6 @@ module.exports = {
             return await equipmentFromDatabase.save();
         } catch (error) {
             const errorCode = getErrorCode(error);
-
             throw getErrorResponse({
                 code: errorCode,
                 error: 'cannot update equipment',

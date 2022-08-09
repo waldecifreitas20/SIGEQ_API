@@ -27,7 +27,7 @@ const ERROR_CODE = {
     },
     SEQUELIZE: {
         INVALID_VALUE_SENT: '22P02',
-        NONEXISTING_ID: '23503',
+        NONEXISTING_FOREING_KEY: '23503',
         ALREADY_EXISTS: '23505',
         NON_JSON: '42883',
         LENGTH_TOO_LONG : '22001'
@@ -70,7 +70,7 @@ module.exports = {
                 return 'equipment might be not registered yet';
             case ERROR_CODE.SEQUELIZE.INVALID_VALUE_SENT:
                 return 'request body has one or more fields with invalid values';
-            case ERROR_CODE.SEQUELIZE.NONEXISTING_ID:
+            case ERROR_CODE.SEQUELIZE.NONEXISTING_FOREING_KEY:
                 return 'id sent does not exist. Check statusId, manufacturerId, categoryId, locationId and try again';
             case ERROR_CODE.SEQUELIZE.ALREADY_EXISTS:
                 return 'it has been existing into the database';
