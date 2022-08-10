@@ -20,7 +20,7 @@ module.exports = app => {
 
     router.post('/create', formValidation.createEquipment, equipmentController.create);
 
-    router.put('/update', formValidation.isRequestBodyNull, equipmentController.update);
+    router.put('/update', [formValidation.isRequestBodyNull, formValidation.hasEquipmentId], equipmentController.update);
 
     router.delete('/delete/:id', equipmentController.delete);
 

@@ -3,6 +3,7 @@ const ERROR_CODE = {
         NOT_REGISTERED: '11001',
         MISSING_FIELDS: '11002',
         EMPTY_DATABASE: '11003',
+        ID_NOT_SENT: '11004',
     },
     USER: {
         TOKEN: {
@@ -30,7 +31,7 @@ const ERROR_CODE = {
         NONEXISTING_FOREING_KEY: '23503',
         ALREADY_EXISTS: '23505',
         NON_JSON: '42883',
-        LENGTH_TOO_LONG : '22001'
+        LENGTH_TOO_LONG: '22001'
     }
 
 }
