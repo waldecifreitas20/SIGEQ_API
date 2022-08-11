@@ -217,11 +217,13 @@ describe('Update test', () => {
     
     it('should return status 400 when trying to send no required fields', async () => {
         const equipment = factory.generateEquipment();
-        await _registerEquipmentId(equipment);
-        //equipment.categoryId = undefined;
-        //equipment.title = undefined;
+        const id = await _registerEquipmentId(equipment);
+        
+        equipment.id = id;
+        equipment.categoryId = undefined;
+        equipment.title = undefined;
+
         const response = await services.updateEquipment(equipment);
-        console.log(response);
         expect(response.status).toBe(400);
     });
 
