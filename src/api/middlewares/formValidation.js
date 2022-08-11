@@ -59,16 +59,30 @@ module.exports = {
 
     isRequestBodyNull: function (req, res, next) {
         const equipment = req.body;
- 
+
         if (isEmptyObject(equipment)) {
             return res.status(400).send(getErrorResponse({
                 status: 400,
-                code : ERROR_CODE.REQUEST.EMPTY_BODY,
+                code: ERROR_CODE.REQUEST.EMPTY_BODY,
                 error: 'none parameter sent',
                 description: 'request body is empty'
             }));
         }
 
+        next();
+    },
+
+    hasEquipmentId: function (req, res, next) {
+        const id = req.body.id;
+
+        if (!id) {
+            return res.status(400).send(getErrorResponse({
+                status: 400,
+                code: ERROR_CODE.EQUIPMENT.ID_NOT_SENT,
+                error: 'equipment id not found',
+                description: 'there is not equipment id on request body'
+            }));
+        }
         next();
     }
 }

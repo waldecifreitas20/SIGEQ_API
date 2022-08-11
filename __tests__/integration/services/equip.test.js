@@ -114,6 +114,11 @@ const _generateValidEquipmentId = async () => {
     return id;
 }
 
+const _registerEquipmentId = async equipment => {
+    const { equipment_id: id } = await services.createEquipment(equipment);
+    return id;
+}
+
 describe('Delete test', () => {
 
     it('should return status 204 when trying to delete a equipment using its own id', async () => {
@@ -201,6 +206,24 @@ describe('Update test', () => {
         equipmentToUpdate.id = nonIntegerId;
         const response = await services.updateEquipment(equipmentToUpdate);
 
+        expect(response.status).toBe(400);
+    });
+   
+    it('should return status 400 when trying to send no equipment', async () => {
+        const response = await services.updateEquipment();
+
+        expect(response.status).toBe(400);
+    });
+    
+    it('should return status 400 when trying to send no required fields', async () => {
+        const equipment = factory.generateEquipment();
+        const id = await _registerEquipmentId(equipment);
+        
+        equipment.id = id;
+        equipment.categoryId = undefined;
+        equipment.title = undefined;
+
+        const response = await services.updateEquipment(equipment);
         expect(response.status).toBe(400);
     });
 
