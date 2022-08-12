@@ -253,26 +253,76 @@ const _registerEquipment = async equipment => {
 
 describe('Get all equipments test', () => {
 
-    it('should return error code 12202 ok when trying get all equipments without permission', async () => {
-        const response = await request.post({
-            route: routes.search,
+    it('should return status 200 when trying to get all equipments with valid token', async () => {
+        const response = await request.get({
+            route: routes.getAll,
+            headers: { authorization: validToken }
+        });
+        expect(response.status).toBe(200);
+    });
+    
+    it('should return error code 12202 when trying to get all equipments without permission', async () => {
+        const response = await request.get({
+            route: routes.getAll,
             headers: { authorization: 'Bearer ' + tokenWithoutPermission }
         });
         expect(response.body.code).toBe('12202');
     });
+    
+    it('should return error code 13102 when trying to reach the route with a invalid http method', async () => {
+        const response = await request.post({
+            route: routes.getAll,
+            headers: { authorization: validToken }
+        });
+        expect(response.body.code).toBe('13102');
+    });
 
 });
 
-/* describe('Delete equipment test', () => {
+describe('Delete equipment test', () => {
 
-    it('should return 200 ok when trying delete a equipment', async () => {
-
+    it('should return 204 when trying delete a equipment', async () => {
+        const id = await _generateValidEquipmentId();        
+        const response = await request.delete({
+            route : routes.delete(id),
+            headers : {authorization : validToken}
+        });
+        expect(response.status).toBe(204);
     });
-
-    it('should return 401 when trying delete a equipment without permission', async () => {
-
+    
+    it('should return error code 13101 when trying to delete a equipment with a noninteger id value', async () => {      
+        const response = await request.delete({
+            route : routes.delete('a'),
+            headers : {authorization : validToken}
+        });
+        expect(response.body.code).toBe('13101');
+        
+    });
+    
+    it('should return erro code 11001 when trying to delete a nonexisting equipment', async () => {
+        const response = await request.delete({
+            route : routes.delete(-1),
+            headers : {authorization : validToken}
+        });
+        expect(response.body.code).toBe('11001');
+    });
+    
+    it('should return erro code 12204 when trying to delete a equipment without permission', async () => {
+        const response = await request.delete({
+            route : routes.delete(-1),
+            headers : {authorization : 'Bearer ' + tokenWithoutPermission}
+        });
+        expect(response.body.code).toBe('12204');
+    });
+    
+    it('should return erro code 13102 when trying to reach the route with a invalid http method', async () => {
+        const response = await request.post({
+            route : routes.delete(-1),
+            headers : {authorization : 'Bearer ' + tokenWithoutPermission}
+        });
+        expect(response.body.code).toBe('13102');
     });
 });
 
 
-describe('Update equipment test', () => { }); */
+describe('Update equipment test', () => { });
