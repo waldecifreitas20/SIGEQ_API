@@ -44,6 +44,7 @@ module.exports = {
         }
         next();
     },
+    
     hasRequiredFields: function (req, res, next) {
         const keysReceived = req.body;
         const URL = req.originalUrl;
