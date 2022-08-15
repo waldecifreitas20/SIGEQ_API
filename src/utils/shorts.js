@@ -23,6 +23,17 @@ module.exports = {
         return matchs;
     },
 
+    hasEmptyField : function (object, requiredKeys) {
+        for (const key of requiredKeys) {
+            const value = `${object[key]}`.trim();
+
+            if (!object[key] || value.length === 0) {
+                return true;
+            }
+        }
+        return false;    
+    },
+
     ROUTES: {
         GET: [
             '/equipment/all',
