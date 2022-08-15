@@ -18,7 +18,7 @@ module.exports = app => {
 
     router.post('/search', formValidation.isRequestBodyNull, equipmentController.search);
 
-    router.post('/create', formValidation.createEquipment, equipmentController.create);
+    router.post('/create', formValidation.hasRequiredFields, equipmentController.create);
 
     router.put('/update', [formValidation.isRequestBodyNull, formValidation.hasEquipmentId], equipmentController.update);
 

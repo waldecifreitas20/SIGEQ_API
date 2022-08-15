@@ -10,9 +10,9 @@ const [formValidation, authorization] = [
 
 module.exports = app => {
 
-    router.post('/register', formValidation.register, authController.register);
+    router.post('/register', formValidation.hasRequiredFields, authController.register);
 
-    router.post('/authenticate', formValidation.login, authController.authenticate);
+    router.post('/authenticate', formValidation.hasRequiredFields, authController.authenticate);
 
     router.post('/check_token', authorization.checkToken, authController.check_token);
 

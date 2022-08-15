@@ -1,5 +1,5 @@
 const { getRequiredFieldsError, getErrorResponse, ERROR_CODE } = require("../../utils/errors");
-const { hasKeys, isEmptyObject } = require('../../utils/shorts');
+const { howManyKeys, isEmptyObject, ROUTES } = require('../../utils/shorts');
 
 
 const keysExpectedTo = {
@@ -15,47 +15,6 @@ const keysExpectedTo = {
 }
 
 module.exports = {
-
-    register: function (req, res, next) {
-        const keysReceived = req.body;
-
-        let requiredKeysReceived = hasKeys(keysReceived, keysExpectedTo.user);
-
-        if (requiredKeysReceived != keysExpectedTo.user.length) {
-            return res.status(400).send(
-                getRequiredFieldsError(keysExpectedTo.user, requiredKeysReceived)
-            );
-        }
-        return next();
-    },
-
-    login: function (req, res, next) {
-        const keysReceived = req.body;
-
-        const requiredKeysReceived = hasKeys(keysReceived, keysExpectedTo.login);
-
-        if (requiredKeysReceived != keysExpectedTo.login.length) {
-            return res.status(400).send(
-                getRequiredFieldsError(keysExpectedTo.login, requiredKeysReceived)
-            );
-        }
-
-        return next();
-    },
-
-    createEquipment: function (req, res, next) {
-        const keysReceived = req.body;
-
-        const requiredKeysReceived = hasKeys(keysReceived, keysExpectedTo.equipment);
-
-        if (requiredKeysReceived != keysExpectedTo.equipment.length) {
-            return res.status(400).send(
-                getRequiredFieldsError(keysExpectedTo.equipment, requiredKeysReceived)
-            );
-        }
-
-        return next();
-    },
 
     isRequestBodyNull: function (req, res, next) {
         const equipment = req.body;
@@ -83,6 +42,31 @@ module.exports = {
                 description: 'there is not equipment id on request body'
             }));
         }
+        next();
+    },
+    hasRequiredFields: function (req, res, next) {
+        const keysReceived = req.body;
+        const URL = req.originalUrl;
+
+        let keysExpected;
+
+        if (URL.indexOf('equipment') !== -1) {
+            keysExpected = keysExpectedTo.equipment;
+        } else if (URL.indexOf('register') !== -1) {
+            keysExpected = keysExpectedTo.user;
+        
+        } else if (URL.indexOf('authenticate') !== -1) {
+            keysExpected = keysExpectedTo.login;
+        }
+
+        const numberKeysReceived = howManyKeys(keysReceived, keysExpected);
+
+        if (numberKeysReceived != keysExpected.length) {
+            return res.status(400).send(
+                getRequiredFieldsError(keysExpected, numberKeysReceived)
+            );
+        }
+    
         next();
     }
 }

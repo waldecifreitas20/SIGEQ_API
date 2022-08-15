@@ -12,7 +12,7 @@ module.exports = {
 
     isEmptyObject: object => Object.keys(object).length === 0,
 
-    hasKeys: function (object = {}, keys = []) {
+    howManyKeys: function (object = {}, keys = []) {
         let matchs = 0;
         for (let i = 0; i < keys.length; i++) {
             const key = keys[i];
@@ -23,7 +23,7 @@ module.exports = {
         return matchs;
     },
 
-    hasEmptyField : function (object, requiredKeys) {
+    hasEmptyFields : function (object, requiredKeys) {
         for (const key of requiredKeys) {
             const value = `${object[key]}`.trim();
 
