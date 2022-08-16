@@ -3,7 +3,8 @@ const { howManyKeys, isEmptyObject, ROUTES, hasEmptyFields } = require('../../ut
 
 
 const keysExpectedTo = {
-    user: ['firstName', 'surname',
+    user: [
+        'firstName', 'surname',
         'email', 'password', 'cpf',
     ],
     equipment: [
