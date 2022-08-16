@@ -1,5 +1,5 @@
 const { getRequiredFieldsError, getErrorResponse, ERROR_CODE } = require("../../utils/errors");
-const { howManyKeys, isEmptyObject, ROUTES } = require('../../utils/shorts');
+const { howManyKeys, isEmptyObject, ROUTES, hasEmptyFields } = require('../../utils/shorts');
 
 
 const keysExpectedTo = {
@@ -62,7 +62,10 @@ module.exports = {
 
         const numberKeysReceived = howManyKeys(keysReceived, keysExpected);
 
-        if (numberKeysReceived != keysExpected.length) {
+        const cond1 = numberKeysReceived != keysExpected.length;
+        const cond2 = hasEmptyFields(keysReceived, keysExpected);
+        
+        if (cond1 || cond2) {
             return res.status(400).send(
                 getRequiredFieldsError(keysExpected, numberKeysReceived)
             );
