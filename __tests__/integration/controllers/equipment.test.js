@@ -391,7 +391,7 @@ describe('Update equipment test', () => {
             headers: { authorization: validToken },
             body: {id : '564664656664664646464646464646465654646556165116546546451651654654516565465451654654616545646416546'},
         });
-        console.log(response.body);
+        
         expect(response.body.code).toBe('22003');
     });
 });

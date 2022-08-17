@@ -1,12 +1,12 @@
 describe('Factory test', () => {
-    const { howManyKeys } = require('../../src/utils/shorts');
+    const { hasManyKeys } = require('../../src/utils/shorts');
     const factory = require('../factory');
 
     it('should generate a new user with all him properties', () => {
         const newUser = factory.generateUser();
         const keysExpected = ['firstName', 'surname', 'email', 'cpf', 'password'];
 
-        expect(howManyKeys(newUser, keysExpected)).toBe(keysExpected.length);
+        expect(hasManyKeys(newUser, keysExpected)).toBe(keysExpected.length);
     });
 
     it('should generate a new equipment with all its properties', () => {
@@ -18,7 +18,7 @@ describe('Factory test', () => {
             'warrantyExpiresAt',
         ];
 
-        expect(howManyKeys(newEquipment, keysExpected)).toBe(keysExpected.length);
+        expect(hasManyKeys(newEquipment, keysExpected)).toBe(keysExpected.length);
 
     });
 
