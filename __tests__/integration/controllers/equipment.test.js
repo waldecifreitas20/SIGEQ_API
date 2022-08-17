@@ -233,8 +233,6 @@ describe('Search equipment test', () => {
 
 });
 
-
-
 const _registerEquipment = async equipment => {
     const { body: response } = await request.post({
         route: routes.create,
@@ -292,7 +290,7 @@ describe('Delete equipment test', () => {
 
     });
 
-    it('should return erro code 11001 when trying to delete a nonexisting equipment', async () => {
+    it('should return error code 11001 when trying to delete a nonexisting equipment', async () => {
         const response = await request.delete({
             route: routes.delete(-1),
             headers: { authorization: validToken }
@@ -300,7 +298,7 @@ describe('Delete equipment test', () => {
         expect(response.body.code).toBe('11001');
     });
 
-    it('should return erro code 12204 when trying to delete a equipment without permission', async () => {
+    it('should return error code 12204 when trying to delete a equipment without permission', async () => {
         const response = await request.delete({
             route: routes.delete(1),
             headers: { authorization: 'Bearer ' + tokenWithoutPermission }
@@ -308,7 +306,7 @@ describe('Delete equipment test', () => {
         expect(response.body.code).toBe('12204');
     });
 
-    it('should return erro code 13102 when trying to reach the route with a invalid http method', async () => {
+    it('should return error code 13102 when trying to reach the route with a invalid http method', async () => {
         const response = await request.post({
             route: routes.delete(-1),
             headers: { authorization: 'Bearer ' + tokenWithoutPermission }
@@ -316,7 +314,7 @@ describe('Delete equipment test', () => {
         expect(response.body.code).toBe('13102');
     });
 
-    it('should return erro code 13101 when trying to reach the route sending no id', async () => {
+    it('should return error code 13101 when trying to reach the route sending no id', async () => {
         const response = await request.post({
             route: routes.delete(),
             headers: { authorization: 'Bearer ' + validToken }
