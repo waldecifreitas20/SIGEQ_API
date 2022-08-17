@@ -14,6 +14,7 @@ describe('Register test', () => {
             route: routes.register,
             body: user
         });
+        console.log(response.body);
         expect(response.status).toBe(200);
     });
 
@@ -57,7 +58,7 @@ describe('Authenticate test', () => {
             route: routes.authenticate,
             body: user
         });
-
+        
         expect(response.status).toBe(200);
     });
 
