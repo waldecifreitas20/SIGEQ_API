@@ -188,7 +188,7 @@ describe('Get all equipment test', () => {
 describe('Search equipment test', () => {
 
     it('should return 200 ok when trying to get a equipment sending a id', async () => {
-        const id = await _generateEquipmentId();
+        const id = await factory.generateEquipmentId();
         const response = await request.post({
             route: routes.search,
             headers: { authorization: validToken },
@@ -233,14 +233,7 @@ describe('Search equipment test', () => {
 
 });
 
-const _generateEquipmentId = async () => {
-    const { body: response } = await request.post({
-        route: routes.create,
-        headers: { authorization: validToken },
-        body: factory.generateEquipment()
-    });
-    return response.equipment_id;
-}
+
 
 const _registerEquipment = async equipment => {
     const { body: response } = await request.post({
@@ -282,7 +275,7 @@ describe('Get all equipments test', () => {
 describe('Delete equipment test', () => {
 
     it('should return 204 when trying delete a equipment', async () => {
-        const id = await _generateEquipmentId();
+        const id = await factory.generateEquipmentId();
         const response = await request.delete({
             route: routes.delete(id),
             headers: { authorization: validToken }

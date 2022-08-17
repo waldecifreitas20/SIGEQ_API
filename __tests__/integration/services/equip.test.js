@@ -108,12 +108,6 @@ describe('Create test', () => {
 
 });
 
-
-const _generateValidEquipmentId = async () => {
-    const { equipment_id: id } = await services.createEquipment(factory.generateEquipment());
-    return id;
-}
-
 const _registerEquipmentId = async equipment => {
     const { equipment_id: id } = await services.createEquipment(equipment);
     return id;
@@ -122,7 +116,7 @@ const _registerEquipmentId = async equipment => {
 describe('Delete test', () => {
 
     it('should return status 204 when trying to delete a equipment using its own id', async () => {
-        const equipmentId = await _generateValidEquipmentId();
+        const equipmentId = await factory.generateEquipmentId();
         const response = await services.deleteEquipmentById(equipmentId);
 
         expect(response.status).toBe(204);
@@ -146,7 +140,7 @@ describe('Delete test', () => {
 describe('Search by id test', () => {
 
     it('should be true when comparing sent id with id returned', async () => {
-        const SENT_ID = await _generateValidEquipmentId();
+        const SENT_ID = await factory.generateEquipmentId();
         const response = await services.getEquipmentsByFields({ id: SENT_ID });
         const RETURNED_ID = response.equipments[0].id;
 
@@ -179,7 +173,7 @@ describe('Get all test', () => {
 describe('Update test', () => {
 
     it('should return status 204 when updating a equipment using its id', async () => {
-        const equipmentId = await _generateValidEquipmentId();
+        const equipmentId = await factory.generateEquipmentId();
         const equipmentToUpdate = factory.generateEquipment();
 
         equipmentToUpdate.id = equipmentId;
