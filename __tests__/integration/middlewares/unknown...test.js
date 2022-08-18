@@ -14,3 +14,7 @@ describe('Unkown routes test', () => {
 
     });
 });
+
+describe('Invalid http method test', () => {
+
+});
