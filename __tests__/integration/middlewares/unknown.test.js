@@ -146,43 +146,43 @@ describe('Unkown UPDATE equipment routes test', () => {
         });
         expect(response.code).toBe('13101');
     });
-    
+
     it('Should return error code 13101 when trying to reach: /equipment/update/', async () => {
         const id = await factory.generateEquipmentId();
         const { body: response } = await request.get({
             route: '/equipment/update/',
             headers: { authorization: validToken },
-            body: {id: id}
+            body: { id: id }
         });
         expect(response.code).toBe('13101');
     });
-    
+
     it('Should return error code 13101 when trying to reach: /equipment/update/aa', async () => {
         const id = await factory.generateEquipmentId();
         const { body: response } = await request.get({
             route: '/equipment/update/aa',
             headers: { authorization: validToken },
-            body: {id: id}
+            body: { id: id }
         });
         expect(response.code).toBe('13101');
     });
-    
+
     it('Should return error code 13101 when trying to reach: /equip/update', async () => {
         const id = await factory.generateEquipmentId();
         const { body: response } = await request.get({
             route: '/equip/update',
             headers: { authorization: validToken },
-            body: {id: id}
+            body: { id: id }
         });
         expect(response.code).toBe('13101');
     });
-    
+
     it('Should return error code 13101 when trying to reach: /equipement/update', async () => {
         const id = await factory.generateEquipmentId();
         const { body: response } = await request.get({
             route: '/equipement/update',
             headers: { authorization: validToken },
-            body: {id: id}
+            body: { id: id }
         });
         expect(response.code).toBe('13101');
     });
@@ -198,7 +198,7 @@ describe('Unkown GET ALL equipment routes tpostgetest', () => {
         });
         expect(response.code).toBe('13101');
     });
-    
+
     it('Should return error code 13101 when trying to reach: /user/all/', async () => {
         const { body: response } = await request.get({
             route: '/user/all/',
@@ -206,7 +206,7 @@ describe('Unkown GET ALL equipment routes tpostgetest', () => {
         });
         expect(response.code).toBe('13101');
     });
-    
+
     it('Should return error code 13101 when trying to reach: /equip/all', async () => {
         const { body: response } = await request.get({
             route: '/equip/all',
@@ -225,7 +225,7 @@ describe('Unkown SEARCH equipment routes test', () => {
         });
         expect(response.code).toBe('13101');
     });
-    
+
     it('Should return error code 13101 when trying to reach: /equipment/research', async () => {
         const { body: response } = await request.post({
             route: '/equipment/research',
@@ -233,7 +233,7 @@ describe('Unkown SEARCH equipment routes test', () => {
         });
         expect(response.code).toBe('13101');
     });
-   
+
     it('Should return error code 13101 when trying to reach: /equipment/ssearch', async () => {
         const { body: response } = await request.post({
             route: '/equipment/ssearch',
@@ -241,7 +241,7 @@ describe('Unkown SEARCH equipment routes test', () => {
         });
         expect(response.code).toBe('13101');
     });
-    
+
     it('Should return error code 13101 when trying to reach: /equip/search', async () => {
         const { body: response } = await request.post({
             route: '/equip/search',
@@ -269,7 +269,7 @@ describe('Unkown REGISTER user routes test', () => {
         });
         expect(response.code).toBe('13101');
     });
-    
+
     it('Should return error code 13101 when trying to reach: /auth/registry', async () => {
         const { body: response } = await request.post({
             route: '/auth/registry',
@@ -278,16 +278,16 @@ describe('Unkown REGISTER user routes test', () => {
         });
         expect(response.code).toBe('13101');
     });
-    
-    it('Should return error code 13101 when trying to reach: /authenticate/register', async () => {
+
+    it('Should return error code 13101 when trying to reach: /authentication/register', async () => {
         const { body: response } = await request.post({
-            route: '/authenticate/register',
+            route: '/authentication/register',
             headers: { authorization: validToken },
             body: factory.generateUser()
         });
         expect(response.code).toBe('13101');
     });
-    
+
     it('Should return error code 13101 when trying to reach: /user/register', async () => {
         const { body: response } = await request.post({
             route: '/user/register',
@@ -296,7 +296,7 @@ describe('Unkown REGISTER user routes test', () => {
         });
         expect(response.code).toBe('13101');
     });
-    
+
     it('Should return error code 13101 when trying to reach: /user/sign-up', async () => {
         const { body: response } = await request.post({
             route: '/user/sign-up',
@@ -305,16 +305,16 @@ describe('Unkown REGISTER user routes test', () => {
         });
         expect(response.code).toBe('13101');
     });
-    
-    it('Should return error code 13101 when trying to reach: /authenticate/sign-up', async () => {
+
+    it('Should return error code 13101 when trying to reach: /authentication/sign-up', async () => {
         const { body: response } = await request.post({
-            route: '/authenticate/sign-up',
+            route: '/authentication/sign-up',
             headers: { authorization: validToken },
             body: factory.generateUser()
         });
         expect(response.code).toBe('13101');
     });
-    
+
     it('Should return error code 13101 when trying to reach: /auth/sign-up', async () => {
         const { body: response } = await request.post({
             route: '/auth/sign-up',
@@ -325,7 +325,7 @@ describe('Unkown REGISTER user routes test', () => {
     });
 });
 
-describe('Unkown AUTHENTICATE user routes test', () => {
+describe('Unkown AUTHENTICATion user routes test', () => {
 
     it('Should return error code 13101 when trying to reach: /auth/auth', async () => {
         const { body: response } = await request.post({
@@ -335,7 +335,7 @@ describe('Unkown AUTHENTICATE user routes test', () => {
         });
         expect(response.code).toBe('13101');
     });
-    
+
     it('Should return error code 13101 when trying to reach: /auth/login', async () => {
         const { body: response } = await request.post({
             route: '/auth/login',
@@ -344,16 +344,16 @@ describe('Unkown AUTHENTICATE user routes test', () => {
         });
         expect(response.code).toBe('13101');
     });
-    
-    it('Should return error code 13101 when trying to reach: /authenticate/auth', async () => {
+
+    it('Should return error code 13101 when trying to reach: /authentication/auth', async () => {
         const { body: response } = await request.post({
-            route: '/authenticate/auth',
+            route: '/authentication/auth',
             headers: { authorization: validToken },
             body: factory.generateUser()
         });
         expect(response.code).toBe('13101');
     });
-    
+
     it('Should return error code 13101 when trying to reach: /user/login', async () => {
         const { body: response } = await request.post({
             route: '/user/login',
@@ -362,7 +362,7 @@ describe('Unkown AUTHENTICATE user routes test', () => {
         });
         expect(response.code).toBe('13101');
     });
-    
+
     it('Should return error code 13101 when trying to reach: /user/sign-in', async () => {
         const { body: response } = await request.post({
             route: '/user/sign-in',
@@ -371,19 +371,19 @@ describe('Unkown AUTHENTICATE user routes test', () => {
         });
         expect(response.code).toBe('13101');
     });
-    
-    it('Should return error code 13101 when trying to reach: /authenticate/authenticate', async () => {
+
+    it('Should return error code 13101 when trying to reach: /authentication/authentication', async () => {
         const { body: response } = await request.post({
-            route: '/authenticate/authenticate',
+            route: '/authentication/authentication',
             headers: { authorization: validToken },
             body: factory.generateUser()
         });
         expect(response.code).toBe('13101');
     });
-    
-    it('Should return error code 13101 when trying to reach: /auth/authenticate/', async () => {
+
+    it('Should return error code 13101 when trying to reach: /auth/authentication/', async () => {
         const { body: response } = await request.post({
-            route: '/auth/authenticate/',
+            route: '/auth/authentication/',
             headers: { authorization: validToken },
             body: factory.generateUser()
         });
@@ -391,28 +391,29 @@ describe('Unkown AUTHENTICATE user routes test', () => {
     });
 });
 
+
 describe('Invalid http method for CREATE equipment route test', () => {
 
     it('Should return error code 13102 when trying to reach CREATE equipment route with DELETE http method', async () => {
-        const {body : response} = await request.delete({
+        const { body: response } = await request.delete({
             route: routes.equipment.create,
-            headers: {authorization: validToken},
+            headers: { authorization: validToken },
             body: factory.generateEquipment()
         });
         expect(response.code).toBe('13102');
     });
     it('Should return error code 13102 when trying to reach CREATE equipment route with PUT http method', async () => {
-        const {body : response} = await request.put({
+        const { body: response } = await request.put({
             route: routes.equipment.create,
-            headers: {authorization: validToken},
+            headers: { authorization: validToken },
             body: factory.generateEquipment()
         });
         expect(response.code).toBe('13102');
     });
     it('Should return error code 13102 when trying to reach CREATE equipment route with GET http method', async () => {
-        const {body : response} = await request.get({
+        const { body: response } = await request.get({
             route: routes.equipment.create,
-            headers: {authorization: validToken},
+            headers: { authorization: validToken },
             body: factory.generateEquipment()
         });
         expect(response.code).toBe('13102');
@@ -422,26 +423,154 @@ describe('Invalid http method for CREATE equipment route test', () => {
 describe('Invalid http method for DELETE equipment route test', () => {
 
     it('Should return error code 13102 when trying to reach DELETE equipment route with POST http method', async () => {
-        const {body : response} = await request.post({
-            route: routes.equipment.create,
-            headers: {authorization: validToken},
+        const id = await factory.generateEquipmentId();
+        const { body: response } = await request.post({
+            route: routes.equipment.delete(id),
+            headers: { authorization: validToken },
             body: factory.generateEquipment()
         });
         expect(response.code).toBe('13102');
     });
-    it('Should return error code 13102 when trying to reach CREATE equipment route with PUT http method', async () => {
-        const {body : response} = await request.put({
-            route: routes.equipment.create,
-            headers: {authorization: validToken},
+    it('Should return error code 13102 when trying to reach DELETE equipment route with PUT http method', async () => {
+        const id = await factory.generateEquipmentId();
+        const { body: response } = await request.put({
+            route: routes.equipment.delete(id),
+            headers: { authorization: validToken },
             body: factory.generateEquipment()
         });
         expect(response.code).toBe('13102');
     });
-    it('Should return error code 13102 when trying to reach CREATE equipment route with GET http method', async () => {
-        const {body : response} = await request.get({
-            route: routes.equipment.create,
-            headers: {authorization: validToken},
+    it('Should return error code 13102 when trying to reach DELETE equipment route with GET http method', async () => {
+        const id = await factory.generateEquipmentId();
+        const { body: response } = await request.get({
+            route: routes.equipment.delete(id),
+            headers: { authorization: validToken },
             body: factory.generateEquipment()
+        });
+        expect(response.code).toBe('13102');
+    });
+});
+
+describe('Invalid http method for GET ALL equipment route test', () => {
+
+    it('Should return error code 13102 when trying to reach GET ALL equipment route with POST http method', async () => {
+        const { body: response } = await request.post({
+            route: routes.equipment.getAll,
+            headers: { authorization: validToken },
+        });
+        expect(response.code).toBe('13102');
+    });
+    it('Should return error code 13102 when trying to reach GET ALL equipment route with PUT http method', async () => {
+        const { body: response } = await request.put({
+            route: routes.equipment.getAll,
+            headers: { authorization: validToken },
+        });
+        expect(response.code).toBe('13102');
+    });
+    it('Should return error code 13102 when trying to reach GET ALL equipment route with DELETE http method', async () => {
+        const { body: response } = await request.delete({
+            route: routes.equipment.getAll,
+            headers: { authorization: validToken },
+        });
+        expect(response.code).toBe('13102');
+    });
+});
+
+describe('Invalid http method for SEARCH equipment route test', () => {
+
+    it('Should return error code 13102 when trying to reach GET ALL equipment route with GET http method', async () => {
+        const { body: response } = await request.get({
+            route: routes.equipment.search,
+            headers: { authorization: validToken },
+        });
+        expect(response.code).toBe('13102');
+    });
+    it('Should return error code 13102 when trying to reach GET ALL equipment route with PUT http method', async () => {
+        const { body: response } = await request.put({
+            route: routes.equipment.search,
+            headers: { authorization: validToken },
+        });
+        expect(response.code).toBe('13102');
+    });
+    it('Should return error code 13102 when trying to reach GET ALL equipment route with DELETE http method', async () => {
+        const { body: response } = await request.delete({
+            route: routes.equipment.search,
+            headers: { authorization: validToken },
+        });
+        expect(response.code).toBe('13102');
+    });
+});
+
+describe('Invalid http method for UPDATE equipment route test', () => {
+
+    it('Should return error code 13102 when trying to reach GET ALL equipment route with GET http method', async () => {
+        const { body: response } = await request.get({
+            route: routes.equipment.update,
+            headers: { authorization: validToken },
+        });
+        expect(response.code).toBe('13102');
+    });
+    it('Should return error code 13102 when trying to reach GET ALL equipment route with POST http method', async () => {
+        const { body: response } = await request.post({
+            route: routes.equipment.update,
+            headers: { authorization: validToken },
+        });
+        expect(response.code).toBe('13102');
+    });
+    it('Should return error code 13102 when trying to reach GET ALL equipment route with DELETE http method', async () => {
+        const { body: response } = await request.delete({
+            route: routes.equipment.update,
+            headers: { authorization: validToken },
+        });
+        expect(response.code).toBe('13102');
+    });
+});
+
+describe('Invalid http method for REGISTER user route test', () => {
+
+    it('Should return error code 13102 when trying to reach REGISTER equipment route with GET http method', async () => {
+        const { body: response } = await request.get({
+            route: routes.authentication.register,
+            headers: { authorization: validToken },
+        });
+        expect(response.code).toBe('13102');
+    });
+    it('Should return error code 13102 when trying to reach REGISTER equipment route with PUT http method', async () => {
+        const { body: response } = await request.put({
+            route: routes.authentication.register,
+            headers: { authorization: validToken },
+        });
+        expect(response.code).toBe('13102');
+    });
+    it('Should return error code 13102 when trying to reach REGISTER equipment route with DELETE http method', async () => {
+        const { body: response } = await request.delete({
+            route: routes.authentication.register,
+            headers: { authorization: validToken },
+        });
+        expect(response.code).toBe('13102');
+    });
+});
+
+describe('Invalid http method for AUTHENTICATE user route test', () => {
+
+    it('Should return error code 13102 when trying to reach AUTHENTICATE user route with GET http method', async () => {
+        const { body: response } = await request.get({
+            route: routes.authentication.authenticate,
+            headers: { authorization: validToken },
+        });
+        expect(response.code).toBe('13102');
+    });
+    it('Should return error code 13102 when trying to reach AUTHENTICATE user route with PUT http method', async () => {
+        const { body: response } = await request.put({
+            route: routes.authentication.authenticate,
+            headers: { authorization: validToken },
+        });
+        expect(response.code).toBe('13102');
+    });
+    it('Should return error code 13102 when trying to reach AUTHENTICATE user route with DELETE http method', async () => {
+        const { body: response } = await request.delete({
+            route: routes.authentication.authenticate,
+            headers: { authorization: validToken },
         });
         expect(response.code).toBe('13102');
     });
