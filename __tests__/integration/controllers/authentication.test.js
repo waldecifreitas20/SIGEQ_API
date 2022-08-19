@@ -7,12 +7,10 @@ const routes = require('../../routes').authentication
 
 describe('Register test', () => {
 
-    const user = generateUser();
-
     it('should register a new user and it returns status 200 OK', async () => {
         const response = await request.post({
             route: routes.register,
-            body: user
+            body: generateUser(),
         });
         console.log(response.body);
         expect(response.status).toBe(200);
