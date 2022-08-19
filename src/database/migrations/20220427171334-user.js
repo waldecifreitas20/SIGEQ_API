@@ -9,15 +9,15 @@ module.exports = {
         autoIncrement: true
       },
       firstName: {
-        type: Sequelize.STRING(10),
+        type: Sequelize.STRING(20),
         allowNull: false,
       },
       surname: {
-        type: Sequelize.STRING(10),
+        type: Sequelize.STRING(20),
         allowNull: false,
       },
       email: {
-        type: Sequelize.STRING(40),
+        type: Sequelize.STRING(50),
         allowNull: false,
         unique: true
       },

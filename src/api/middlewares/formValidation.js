@@ -1,9 +1,10 @@
 const { getRequiredFieldsError, getErrorResponse, ERROR_CODE } = require("../../utils/errors");
-const { hasKeys, isEmptyObject } = require('../../utils/shorts');
+const { hasManyKeys, isEmptyObject, ROUTES, hasEmptyFields } = require('../../utils/shorts');
 
 
 const keysExpectedTo = {
-    user: ['firstName', 'surname',
+    user: [
+        'firstName', 'surname',
         'email', 'password', 'cpf',
     ],
     equipment: [
@@ -16,59 +17,61 @@ const keysExpectedTo = {
 
 module.exports = {
 
-    register: function (req, res, next) {
-        const keysReceived = req.body;
-
-        let requiredKeysReceived = hasKeys(keysReceived, keysExpectedTo.user);
-
-        if (requiredKeysReceived != keysExpectedTo.user.length) {
-            return res.status(400).send(
-                getRequiredFieldsError(keysExpectedTo.user, requiredKeysReceived)
-            );
-        }
-        return next();
-    },
-
-    login: function (req, res, next) {
-        const keysReceived = req.body;
-
-        const requiredKeysReceived = hasKeys(keysReceived, keysExpectedTo.login);
-
-        if (requiredKeysReceived != keysExpectedTo.login.length) {
-            return res.status(400).send(
-                getRequiredFieldsError(keysExpectedTo.login, requiredKeysReceived)
-            );
-        }
-
-        return next();
-    },
-
-    createEquipment: function (req, res, next) {
-        const keysReceived = req.body;
-
-        const requiredKeysReceived = hasKeys(keysReceived, keysExpectedTo.equipment);
-
-        if (requiredKeysReceived != keysExpectedTo.equipment.length) {
-            return res.status(400).send(
-                getRequiredFieldsError(keysExpectedTo.equipment, requiredKeysReceived)
-            );
-        }
-
-        return next();
-    },
-
     isRequestBodyNull: function (req, res, next) {
         const equipment = req.body;
- 
+
         if (isEmptyObject(equipment)) {
             return res.status(400).send(getErrorResponse({
                 status: 400,
-                code : ERROR_CODE.REQUEST.EMPTY_BODY,
+                code: ERROR_CODE.REQUEST.EMPTY_BODY,
                 error: 'none parameter sent',
                 description: 'request body is empty'
             }));
         }
 
+        next();
+    },
+
+    hasEquipmentId: function (req, res, next) {
+        const id = req.body.id;
+
+        if (!id) {
+            return res.status(400).send(getErrorResponse({
+                status: 400,
+                code: ERROR_CODE.EQUIPMENT.ID_NOT_SENT,
+                error: 'equipment id not found',
+                description: 'there is not equipment id on request body'
+            }));
+        }
+        next();
+    },
+    
+    hasRequiredFields: function (req, res, next) {
+        const keysReceived = req.body;
+        const URL = req.originalUrl;
+
+        let keysExpected;
+
+        if (URL.indexOf('equipment') !== -1) {
+            keysExpected = keysExpectedTo.equipment;
+        } else if (URL.indexOf('register') !== -1) {
+            keysExpected = keysExpectedTo.user;
+        
+        } else if (URL.indexOf('authenticate') !== -1) {
+            keysExpected = keysExpectedTo.login;
+        }
+
+        const numberKeysReceived = hasManyKeys(keysReceived, keysExpected);
+
+        const cond1 = numberKeysReceived != keysExpected.length;
+        const cond2 = hasEmptyFields(keysReceived, keysExpected);
+        
+        if (cond1 || cond2) {
+            return res.status(400).send(
+                getRequiredFieldsError(keysExpected, numberKeysReceived)
+            );
+        }
+    
         next();
     }
 }

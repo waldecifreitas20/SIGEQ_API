@@ -12,7 +12,7 @@ module.exports = {
 
     isEmptyObject: object => Object.keys(object).length === 0,
 
-    hasKeys: function (object = {}, keys = []) {
+    hasManyKeys: function (object = {}, keys = []) {
         let matchs = 0;
         for (let i = 0; i < keys.length; i++) {
             const key = keys[i];
@@ -23,12 +23,23 @@ module.exports = {
         return matchs;
     },
 
+    hasEmptyFields : function (object, requiredKeys) {
+        for (const key of requiredKeys) {
+            const value = `${object[key]}`.trim();
+
+            if (!object[key] || value.length === 0) {
+                return true;
+            }
+        }
+        return false;    
+    },
+
     ROUTES: {
         GET: [
-            '/equipment/search',
             '/equipment/all',
         ],
         POST: [
+            '/equipment/search',
             '/equipment/create',
             '/auth/register',
             '/auth/authenticate',

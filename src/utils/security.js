@@ -16,6 +16,10 @@ module.exports = {
     },
 
     isPasswordEqualsHash: function (password, hash) {
-        return bcrypt.compareSync(password, hash);
+        try {
+            return bcrypt.compareSync(password, hash);
+        } catch (error) {
+            return false;
+        }
     }
 }
