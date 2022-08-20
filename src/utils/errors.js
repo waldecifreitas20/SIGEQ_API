@@ -4,6 +4,7 @@ const ERROR_CODE = {
         MISSING_FIELDS: '11002',
         EMPTY_DATABASE: '11003',
         ID_NOT_SENT: '11004',
+        INVALID_ID: '11005',
     },
     USER: {
         TOKEN: {
