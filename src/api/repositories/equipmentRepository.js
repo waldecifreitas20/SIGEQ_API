@@ -84,17 +84,22 @@ module.exports = {
     },
 
     remove: async function (id) {
-        const equipment = await Equipment.findOne({ where: { id: id } });
-        const isEquipmentNull = !equipment;
-
-        if (isEquipmentNull) {
+        let equipment = null;
+        try {
+            equipment = await Equipment.findOne({ where: { id: id } });
+        } catch (error) {
+            console.log(error);
             throw _getNotFoundEquipmentError({
-                code: ERROR_CODE.EQUIPMENT.NOT_REGISTERED
+                code: ERROR_CODE.REQUEST.INVALID_ENDPOINT
             });
         }
-        await equipment.destroy();
-
-        return true;
+        if (equipment !== null) {
+            await equipment.destroy();
+            return true;
+        }
+        throw _getNotFoundEquipmentError({
+            code: ERROR_CODE.EQUIPMENT.NOT_REGISTERED
+        });
     },
 
     updateFields: async function (equipment) {
