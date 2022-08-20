@@ -22,15 +22,6 @@ describe('Unkown CREATE equipment routes test', () => {
         expect(response.code).toBe('13101');
     });
 
-    it('Should return error code 13101 when trying to reach: /equipment/create/', async () => {
-        const { body: response } = await request.post({
-            route: '/equipment/create/',
-            headers: { authorization: validToken },
-            body: factory.generateEquipment()
-        });
-        expect(response.code).toBe('13101');
-    });
-
     it('Should return error code 13101 when trying to reach: /equipment/creaty', async () => {
         const { body: response } = await request.post({
             route: '/equipment/creaty',
@@ -58,7 +49,7 @@ describe('Unkown CREATE equipment routes test', () => {
         expect(response.code).toBe('13101');
     });
 
-    it('Should return error code 13101 when trying to reach: //equipment/create', async () => {
+    it('Should return error code 13101 when trying to reach: //equipment/create/0', async () => {
         const { body: response } = await request.post({
             route: '/equipment/create/0',
             headers: { authorization: validToken },
@@ -84,7 +75,7 @@ describe('Unkown DELETE equipment routes test', () => {
             route: '/equipment/delete',
             headers: { authorization: validToken },
         });
-        expect(response.code).toBe('13101');
+        expect(response.code).toBe('11005');
     });
 
     it('Should return error code 13101 when trying to reach: /equipment/delete/a', async () => {
@@ -116,7 +107,7 @@ describe('Unkown DELETE equipment routes test', () => {
             route: '/equipment/delete/',
             headers: { authorization: validToken },
         });
-        expect(response.code).toBe('13101');
+        expect(response.code).toBe('11005');
     });
 
     it('Should return error code 13101 when trying to reach: /equipment/delete/a1', async () => {
@@ -127,7 +118,7 @@ describe('Unkown DELETE equipment routes test', () => {
         expect(response.code).toBe('13101');
     });
 
-    it('Should return error code 13101 when trying to reach: /equipment/delete/a1', async () => {
+    it('Should return error code 13101 when trying to reach: /equip/delete/a1', async () => {
         const { body: response } = await request.delete({
             route: '/equip/delete/a1',
             headers: { authorization: validToken },
@@ -143,16 +134,6 @@ describe('Unkown UPDATE equipment routes test', () => {
         const { body: response } = await request.get({
             route: '/equipment/update/' + id,
             headers: { authorization: validToken },
-        });
-        expect(response.code).toBe('13101');
-    });
-
-    it('Should return error code 13101 when trying to reach: /equipment/update/', async () => {
-        const id = await factory.generateEquipmentId();
-        const { body: response } = await request.get({
-            route: '/equipment/update/',
-            headers: { authorization: validToken },
-            body: { id: id }
         });
         expect(response.code).toBe('13101');
     });
@@ -190,14 +171,6 @@ describe('Unkown UPDATE equipment routes test', () => {
 });
 
 describe('Unkown GET ALL equipment routes tpostgetest', () => {
-
-    it('Should return error code 13101 when trying to reach: /equipment/all/', async () => {
-        const { body: response } = await request.get({
-            route: '/equipment/all/',
-            headers: { authorization: validToken },
-        });
-        expect(response.code).toBe('13101');
-    });
 
     it('Should return error code 13101 when trying to reach: /user/all/', async () => {
         const { body: response } = await request.get({
@@ -261,15 +234,6 @@ describe('Unkown SEARCH equipment routes test', () => {
 
 describe('Unkown REGISTER user routes test', () => {
 
-    it('Should return error code 13101 when trying to reach: /auth/register/', async () => {
-        const { body: response } = await request.post({
-            route: '/auth/register/',
-            headers: { authorization: validToken },
-            body: factory.generateUser()
-        });
-        expect(response.code).toBe('13101');
-    });
-
     it('Should return error code 13101 when trying to reach: /auth/registry', async () => {
         const { body: response } = await request.post({
             route: '/auth/registry',
@@ -325,7 +289,7 @@ describe('Unkown REGISTER user routes test', () => {
     });
 });
 
-describe('Unkown AUTHENTICATion user routes test', () => {
+describe('Unkown AUTHENTICATiON user routes test', () => {
 
     it('Should return error code 13101 when trying to reach: /auth/auth', async () => {
         const { body: response } = await request.post({
@@ -375,15 +339,6 @@ describe('Unkown AUTHENTICATion user routes test', () => {
     it('Should return error code 13101 when trying to reach: /authentication/authentication', async () => {
         const { body: response } = await request.post({
             route: '/authentication/authentication',
-            headers: { authorization: validToken },
-            body: factory.generateUser()
-        });
-        expect(response.code).toBe('13101');
-    });
-
-    it('Should return error code 13101 when trying to reach: /auth/authentication/', async () => {
-        const { body: response } = await request.post({
-            route: '/auth/authentication/',
             headers: { authorization: validToken },
             body: factory.generateUser()
         });
