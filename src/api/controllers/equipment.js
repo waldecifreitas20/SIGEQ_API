@@ -28,7 +28,7 @@ module.exports = {
     },
 
     delete: async function (req, res) {
-        const { id } = req.params;
+        const { id } = req.query;
         const response = await services.deleteEquipmentById(id);
 
         return res.status(response.status).send(response);
