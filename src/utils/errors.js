@@ -70,6 +70,8 @@ module.exports = {
         switch (error) {
             case ERROR_CODE.EQUIPMENT.NOT_REGISTERED:
                 return 'equipment might be not registered yet';
+            case ERROR_CODE.EQUIPMENT.INVALID_ID:
+                return 'id sent is not integer number';
             case ERROR_CODE.SEQUELIZE.INVALID_VALUE_SENT:
                 return 'request body has one or more fields with invalid values';
             case ERROR_CODE.SEQUELIZE.NONEXISTING_FOREING_KEY:
