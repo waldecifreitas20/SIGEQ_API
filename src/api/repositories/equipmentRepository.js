@@ -88,9 +88,12 @@ module.exports = {
         try {
             equipment = await Equipment.findOne({ where: { id: id } });
         } catch (error) {
-            console.log(error);
-            throw _getNotFoundEquipmentError({
-                code: ERROR_CODE.REQUEST.INVALID_ENDPOINT
+            const errorCode = ERROR_CODE.EQUIPMENT.INVALID_ID;
+            throw getErrorResponse({
+                status: 400,
+                code: errorCode,
+                error: 'invalid id sent',
+                description: getErrorDescription(errorCode)
             });
         }
         if (equipment !== null) {
