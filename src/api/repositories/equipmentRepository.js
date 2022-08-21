@@ -70,8 +70,6 @@ module.exports = {
             }
             return allEquipments;
         } catch (error) {
-
-            console.log(error);
             const errorCode = getErrorCode(error);
             throw _getNotFoundEquipmentError({
                 code: errorCode,
