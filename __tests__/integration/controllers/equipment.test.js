@@ -169,16 +169,18 @@ describe('Create equipment test', () => {
 describe('Get all equipment test', () => {
 
     it('should return status 200 ok when trying get all equipments', async () => {
+        const id = await factory.generateEquipmentId();
         const response = await request.get({
-            route: routes.getAll,
+            route: routes.getAll(id),
             headers: { authorization: validToken }
         });
         expect(response.status).toBe(200);
     });
 
     it('should return error code 12202 ok when trying get all equipments without permission', async () => {
+        const id = await factory.generateEquipmentId();
         const response = await request.get({
-            route: routes.getAll,
+            route: routes.getAll(id),
             headers: { authorization: 'Bearer ' + tokenWithoutPermission }
         });
         expect(response.body.code).toBe('12202');
@@ -245,16 +247,18 @@ const _registerEquipment = async equipment => {
 describe('Get all equipments test', () => {
 
     it('should return status 200 when trying to get all equipments with valid token', async () => {
+        const id = await factory.generateEquipmentId();
         const response = await request.get({
-            route: routes.getAll,
+            route: routes.getAll(id),
             headers: { authorization: validToken }
         });
         expect(response.status).toBe(200);
     });
 
     it('should return error code 12202 when trying to get all equipments without permission', async () => {
+        const id = await factory.generateEquipmentId();
         const response = await request.get({
-            route: routes.getAll,
+            route: routes.getAll(id),
             headers: { authorization: 'Bearer ' + tokenWithoutPermission }
         });
         expect(response.body.code).toBe('12202');

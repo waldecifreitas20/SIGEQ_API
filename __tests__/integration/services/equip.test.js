@@ -164,7 +164,7 @@ describe('Search by id test', () => {
 describe('Get all test', () => {
 
     it('should return all equipments from database', async () => {
-        const response = await services.getAllEquipment();
+        const response = await services.getAllEquipment(1);
 
         expect(response.status).toBe(200);
     });

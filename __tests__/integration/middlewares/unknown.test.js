@@ -410,21 +410,21 @@ describe('Invalid http method for GET ALL equipment route test', () => {
 
     it('Should return error code 13102 when trying to reach GET ALL equipment route with POST http method', async () => {
         const { body: response } = await request.post({
-            route: routes.equipment.getAll,
+            route: routes.equipment.getAll(1),
             headers: { authorization: validToken },
         });
         expect(response.code).toBe('13102');
     });
     it('Should return error code 13102 when trying to reach GET ALL equipment route with PUT http method', async () => {
         const { body: response } = await request.put({
-            route: routes.equipment.getAll,
+            route: routes.equipment.getAll(1),
             headers: { authorization: validToken },
         });
         expect(response.code).toBe('13102');
     });
     it('Should return error code 13102 when trying to reach GET ALL equipment route with DELETE http method', async () => {
         const { body: response } = await request.delete({
-            route: routes.equipment.getAll,
+            route: routes.equipment.getAll(1),
             headers: { authorization: validToken },
         });
         expect(response.code).toBe('13102');
