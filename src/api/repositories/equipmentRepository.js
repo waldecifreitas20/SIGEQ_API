@@ -58,12 +58,12 @@ module.exports = {
         return equipments;
     },
 
-    getAll: async function (startId) {
+    getAll: async function (params) {
         let allEquipments = [];
         try {
             allEquipments = await Equipment.findAll({
-                where : { id : { [Op.gt] : startId}},
-                limit : 10
+                where : { id : { [Op.gt] : params.startId}},
+                limit : params.limit
             });
             if (isEmptyArray(allEquipments)) {
                 throw ERROR_CODE.EQUIPMENT.NOT_REGISTERED
