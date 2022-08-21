@@ -2,7 +2,6 @@ const ERROR_CODE = {
     EQUIPMENT: {
         NOT_REGISTERED: '11001',
         MISSING_FIELDS: '11002',
-        EMPTY_DATABASE: '11003',
         ID_NOT_SENT: '11004',
         INVALID_ID: '11005',
     },
