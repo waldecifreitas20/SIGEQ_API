@@ -84,17 +84,25 @@ module.exports = {
     },
 
     remove: async function (id) {
-        const equipment = await Equipment.findOne({ where: { id: id } });
-        const isEquipmentNull = !equipment;
-
-        if (isEquipmentNull) {
-            throw _getNotFoundEquipmentError({
-                code: ERROR_CODE.EQUIPMENT.NOT_REGISTERED
+        let equipment = null;
+        try {
+            equipment = await Equipment.findOne({ where: { id: id } });
+        } catch (error) {
+            const errorCode = ERROR_CODE.EQUIPMENT.INVALID_ID;
+            throw getErrorResponse({
+                status: 400,
+                code: errorCode,
+                error: 'invalid id sent',
+                description: getErrorDescription(errorCode)
             });
         }
-        await equipment.destroy();
-
-        return true;
+        if (equipment !== null) {
+            await equipment.destroy();
+            return true;
+        }
+        throw _getNotFoundEquipmentError({
+            code: ERROR_CODE.EQUIPMENT.NOT_REGISTERED
+        });
     },
 
     updateFields: async function (equipment) {

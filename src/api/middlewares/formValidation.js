@@ -1,5 +1,5 @@
 const { getRequiredFieldsError, getErrorResponse, ERROR_CODE } = require("../../utils/errors");
-const { hasManyKeys, isEmptyObject, ROUTES, hasEmptyFields } = require('../../utils/shorts');
+const { hasManyKeys, isEmptyObject, hasEmptyFields } = require('../../utils/shorts');
 
 
 const keysExpectedTo = {

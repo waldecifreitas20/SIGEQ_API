@@ -259,15 +259,6 @@ describe('Get all equipments test', () => {
         });
         expect(response.body.code).toBe('12202');
     });
-
-    it('should return error code 13102 when trying to reach the route with a invalid http method', async () => {
-        const response = await request.post({
-            route: routes.getAll,
-            headers: { authorization: validToken }
-        });
-        expect(response.body.code).toBe('13102');
-    });
-
 });
 
 describe('Delete equipment test', () => {
@@ -281,12 +272,12 @@ describe('Delete equipment test', () => {
         expect(response.status).toBe(204);
     });
 
-    it('should return error code 13101 when trying to delete a equipment with a noninteger id value', async () => {
+    it('should return error code 11005 when trying to delete a equipment with a noninteger id value', async () => {
         const response = await request.delete({
             route: routes.delete('a'),
             headers: { authorization: validToken }
         });
-        expect(response.body.code).toBe('13101');
+        expect(response.body.code).toBe('11005');
 
     });
 
@@ -306,20 +297,13 @@ describe('Delete equipment test', () => {
         expect(response.body.code).toBe('12204');
     });
 
-    it('should return error code 13102 when trying to reach the route with a invalid http method', async () => {
-        const response = await request.post({
-            route: routes.delete(-1),
-            headers: { authorization: 'Bearer ' + tokenWithoutPermission }
-        });
-        expect(response.body.code).toBe('13102');
-    });
 
-    it('should return error code 13101 when trying to reach the route sending no id', async () => {
-        const response = await request.post({
+    it('should return error code 11005 when trying to reach the route sending no id', async () => {
+        const response = await request.delete({
             route: routes.delete(),
-            headers: { authorization: 'Bearer ' + validToken }
+            headers: { authorization: validToken }
         });
-        expect(response.body.code).toBe('13101');
+        expect(response.body.code).toBe('11005');
     });
 });
 
@@ -329,9 +313,9 @@ describe('Update equipment test', () => {
     it('should return status 200 when trying to update an equipment', async () => {
         const equipment = factory.generateEquipment();
         const id = await _registerEquipment(equipment);
-        
-        equipment.id = id;        
-        
+
+        equipment.id = id;
+
         const response = await request.put({
             route: routes.update,
             headers: { authorization: validToken },
@@ -339,7 +323,7 @@ describe('Update equipment test', () => {
         });
         expect(response.status).toBe(204);
     });
-    
+
     it('should return 11004 when trying to update an equipment sending no id', async () => {
         const response = await request.put({
             route: routes.update,
@@ -348,41 +332,41 @@ describe('Update equipment test', () => {
         });
         expect(response.body.code).toBe('11004');
     });
-   
+
     it('should return 11001 when trying to update a not registered equipment', async () => {
         const response = await request.put({
             route: routes.update,
             headers: { authorization: validToken },
-            body: {id : -1},
+            body: { id: -1 },
         });
         expect(response.body.code).toBe('11001');
     });
-    
+
     it('should return 22P02 when trying to update an equipment sending a noninteger id', async () => {
         const response = await request.put({
             route: routes.update,
             headers: { authorization: validToken },
-            body: {id : '%a'},
+            body: { id: '%a' },
         });
         expect(response.body.code).toBe('22P02');
     });
-    
+
     it('should return 22P02 when trying to update an equipment sending a blank space as id', async () => {
         const response = await request.put({
             route: routes.update,
             headers: { authorization: validToken },
-            body: {id : '                                    '},
+            body: { id: '                                    ' },
         });
         expect(response.body.code).toBe('22P02');
     });
-    
-    it('should return 22003 when trying to update an equipment sending a blank space as id', async () => {
+
+    it('should return 22003 when trying to update an equipment sending a so long id', async () => {
         const response = await request.put({
             route: routes.update,
             headers: { authorization: validToken },
-            body: {id : '564664656664664646464646464646465654646556165116546546451651654654516565465451654654616545646416546'},
+            body: { id: '564664656664664646464646464646465654646556165116546546451651654654516565465451654654616545646416546' },
         });
-        
+
         expect(response.body.code).toBe('22003');
     });
 });

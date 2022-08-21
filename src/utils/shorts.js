@@ -23,7 +23,7 @@ module.exports = {
         return matchs;
     },
 
-    hasEmptyFields : function (object, requiredKeys) {
+    hasEmptyFields: function (object, requiredKeys) {
         for (const key of requiredKeys) {
             const value = `${object[key]}`.trim();
 
@@ -31,27 +31,55 @@ module.exports = {
                 return true;
             }
         }
-        return false;    
+        return false;
     },
 
     ROUTES: {
-        GET: [
-            '/equipment/all',
-        ],
-        POST: [
-            '/equipment/search',
-            '/equipment/create',
-            '/auth/register',
-            '/auth/authenticate',
-            '/auth/check_token',
-            '/auth/recovery_password',
-        ],
-        DELETE: [
-            '/equipment/delete/'
-        ],
-        PUT: [
-            '/equipment/update'
-        ],
+        '/equipment/all': {
+            method: 'GET',
+            hasParams: false,
+            allowUrlQueries: true,
+            permissionRequired : 'READ'
+        },
+        '/equipment/search': {
+            method: 'POST',
+            hasParams: false,
+            UrlQueries: true,
+            permissionRequired : 'READ'
+        },
+        '/equipment/create': {
+            method: 'POST',
+            hasParams: false,
+            UrlQueries: false,
+            permissionRequired : 'CREATE'
+        },
+        '/equipment/delete/': {
+            method: 'DELETE',
+            hasParams: false,
+            UrlQueries: true,
+            permissionRequired : 'DELETE'
+        },
+        '/equipment/update': {
+            method: 'PUT',
+            hasParams: false,
+            UrlQueries: false,
+            permissionRequired : 'UPDATE'
+        },
+        '/auth/authenticate': {
+            method: 'POST',
+            hasParams: false,
+            UrlQueries: false,
+        },
+        '/auth/register': {
+            method: 'POST',
+            hasParams: false,
+            UrlQueries: false,
+        },
+        '/auth/check_token': {
+            method: 'POST',
+            hasParams: false,
+            UrlQueries: false,
+        },
 
     }
 }
