@@ -3,11 +3,11 @@ const { hasManyKeys, isEmptyObject, hasEmptyFields } = require('../../utils/shor
 
 
 const keysExpectedTo = {
-    user: [
+    registerUser: [
         'firstName', 'surname',
         'email', 'password', 'cpf',
     ],
-    equipment: [
+    createEquipment: [
         "title", "model", "categoryId",
         "manufacturerId", "locationId", "statusId"
     ],
@@ -52,10 +52,10 @@ module.exports = {
 
         let keysExpected;
 
-        if (URL.indexOf('equipment') !== -1) {
-            keysExpected = keysExpectedTo.equipment;
+        if (URL.indexOf('create') !== -1) {
+            keysExpected = keysExpectedTo.createEquipment;
         } else if (URL.indexOf('register') !== -1) {
-            keysExpected = keysExpectedTo.user;
+            keysExpected = keysExpectedTo.registerUser;
         
         } else if (URL.indexOf('authenticate') !== -1) {
             keysExpected = keysExpectedTo.login;
