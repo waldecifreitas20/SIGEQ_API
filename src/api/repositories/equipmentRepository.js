@@ -1,11 +1,12 @@
+const { Op } = require('sequelize');
 const { getErrorCode, ERROR_CODE } = require('../../utils/errors');
 const { utils, models } = require('../../utils/paths');
 
-const Category = require(models.category);
-const Status = require(models.status);
-const Manufacturer = require(models.manufacturer);
-const Location = require(models.location);
-const Equipment = require(models.equipment);
+const Category      = require(models.category);
+const Status        = require(models.status);
+const Manufacturer  = require(models.manufacturer);
+const Location      = require(models.location);
+const Equipment     = require(models.equipment);
 
 const { isEmptyArray, isEmptyObject } = require(utils.shorts);
 const { getErrorResponse, getErrorDescription } = require(utils.errors);
@@ -19,6 +20,7 @@ const _getNotFoundEquipmentError = ({ code, description = 'equipment might be no
         description
     });
 }
+
 const _updateFields = (model, equipment) => {
 
     const fieldsToUpdate = Object.keys(equipment);
@@ -56,15 +58,26 @@ module.exports = {
         return equipments;
     },
 
-    getAll: async function () {
-        const allEquipments = await Equipment.findAll();
-        if (isEmptyArray(allEquipments)) {
+    getAll: async function (startId) {
+        let allEquipments = [];
+        try {
+            allEquipments = await Equipment.findAll({
+                where : { id : { [Op.gt] : startId}},
+                limit : 10
+            });
+            if (isEmptyArray(allEquipments)) {
+                throw ERROR_CODE.EQUIPMENT.NOT_REGISTERED
+            }
+            return allEquipments;
+        } catch (error) {
+
+            console.log(error);
+            const errorCode = getErrorCode(error);
             throw _getNotFoundEquipmentError({
-                code: ERROR_CODE.EQUIPMENT.EMPTY_DATABASE,
-                description: 'database might be empty or unable to reach it'
+                code: errorCode,
+                description: getErrorDescription(errorCode)
             });
         }
-        return allEquipments;
     },
 
     create: async function (equipment) {
@@ -118,7 +131,9 @@ module.exports = {
             _updateFields(equipmentFromDatabase, equipment);
 
             return await equipmentFromDatabase.save();
+        
         } catch (error) {
+
             const errorCode = getErrorCode(error);
             throw getErrorResponse({
                 code: errorCode,
