@@ -23,9 +23,16 @@ services:
     restart: always
     ports:
       - 5001:5001
-    env_file:
-      - ".env.docker"
-      
+    environment:
+      - "DB_HOST=sigeq_db"
+      - "DB_USER=docker"
+      - "DB_PASS=1234"
+      - "DB_NAME=sigeq_docker"
+      - "DB_DIALECT=postgres"
+      - "DB_PORT=5432"
+      - "API_SECRET=2cf8fd943de2a46c8babceb7da2d4e8e"
+      - "PORT=5001"
+
     depends_on:
       - db
     networks:
@@ -37,4 +44,3 @@ volumes:
 networks:
   sigeq_net:
     driver: bridge
-
