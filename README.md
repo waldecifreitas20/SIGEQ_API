@@ -11,11 +11,11 @@ API's Endpoints:
  
  For CRUD of equipments:
  
- - /equipment/create     (POST)
- - /equipment/all        (GET)
- - /equipment/delete/:id (DELETE)
- - /equipment/search     (POST)
- - /equipment/update     (PUT)
+ - /equipment/create                           (POST)
+ - /equipment/all/?start_id=${id}&&limit=10    (GET)
+ - /equipment/delete/:id                       (DELETE)
+ - /equipment/search                           (POST)
+ - /equipment/update                           (PUT)
  
  
 HTTP STATUS SENT:
@@ -30,7 +30,7 @@ ERROR CODES SENT ON RESPONSES:
  
  - '11001' : Equipment not registered yet, 
  - '11002' : Required fields missing
- - '11003' : Database is empty
+ - '11004' : Database is empty
  
  - '12101' : No token found on request body
  - '12102' : Bearer not found on token
