@@ -82,6 +82,8 @@ module.exports = {
                 return 'request body should be a JSON';
             case ERROR_CODE.SEQUELIZE.LENGTH_TOO_LONG:
                 return 'at least one field has been too long';
+            case ERROR_CODE.USER.AUTH.INVALID_CREDENTIALS:
+                break;
             default:
                 return 'object sent is not allowed';
         }
