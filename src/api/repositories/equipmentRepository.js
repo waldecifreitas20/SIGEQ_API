@@ -62,7 +62,7 @@ module.exports = {
         let allEquipments = [];
         try {
             allEquipments = await Equipment.findAll({
-                where : { id : { [Op.gt] : params.startId}},
+                where : { id : { [Op.gte] : params.startId}},
                 limit : params.limit
             });
             if (isEmptyArray(allEquipments)) {
