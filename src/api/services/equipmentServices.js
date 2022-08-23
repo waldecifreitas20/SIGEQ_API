@@ -30,8 +30,8 @@ module.exports = {
         };
     },
 
-    getAllEquipment: async function () {
-        const repositoryResponse = await _callRepository(equipmentRepository.getAll, 200);
+    getAllEquipment: async function (startId=1, limit=10) {
+        const repositoryResponse = await _callRepository(equipmentRepository.getAll, {startId, limit});
         return {
             status: repositoryResponse.status,
             equipments: repositoryResponse.response,

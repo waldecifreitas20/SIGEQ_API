@@ -1,7 +1,7 @@
 module.exports = {
     equipment: {
         create: '/equipment/create',
-        getAll: '/equipment/all',
+        getAll: (id) => `/equipment/all/?start_id${id}`,
         search: `/equipment/search`,
         update: '/equipment/update',
         delete: (id) => `/equipment/delete/?id=${id}`

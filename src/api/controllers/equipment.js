@@ -5,7 +5,8 @@ const services = require(
 
 module.exports = {
     getAll: async function (req, res) {
-        const response = await services.getAllEquipment();
+        const {start_id, limit} = req.query;
+        const response = await services.getAllEquipment(start_id, limit);
         return res.status(response.status).send(response);
     },
 

@@ -35,7 +35,7 @@ module.exports = {
     },
 
     ROUTES: {
-        '/equipment/all': {
+        '/equipment/all/': {
             method: 'GET',
             hasParams: false,
             allowUrlQueries: true,
