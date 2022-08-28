@@ -15,7 +15,7 @@ module.exports = app => {
 
     router.get('/all',hasPermission, equipmentController.getAll);
 
-    router.post('/search', [hasPermission,formValidation.isRequestBodyNull], equipmentController.search);
+    router.post('/search', [hasPermission,formValidation.isRequestBodyNull, formValidation.hasValidFields], equipmentController.search);
 
     router.post('/create', [hasPermission,formValidation.hasRequiredFields], equipmentController.create);
 
