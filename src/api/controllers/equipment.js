@@ -11,8 +11,11 @@ module.exports = {
     },
 
     search: async function (req, res) {
-        const equipmentFields = req.body;
-        const response = await services.getEquipmentsByFields(equipmentFields);
+        const searchParams = {
+            equipmentFields : req.body,
+            limit : req.query.limit || 10
+        }
+        const response = await services.getEquipmentsByFields(searchParams);
         return res.status(response.status).send(response);
     },
 

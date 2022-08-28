@@ -11,15 +11,16 @@ const _callRepository = async (action = Function(), params = Object(), successSt
             response: await action(params)
         };
     } catch (error) {
+        console.log(error);
         return getErrorResponse(error);
     }
 }
 
 
 module.exports = {
-    getEquipmentsByFields: async function (fields) {
+    getEquipmentsByFields: async function (searchParams) {
         const repositoryResponse = await _callRepository(
-            equipmentRepository.getEquipmentsBy, fields, 200
+            equipmentRepository.getEquipmentsBy, searchParams, 200
         );
         return {
             status: repositoryResponse.status,
