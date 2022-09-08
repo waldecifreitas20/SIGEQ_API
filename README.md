@@ -24,7 +24,7 @@ HTTP STATUS SENT:
  - 204 : Sucess, but response does not have body
  - 400 : Invalid request
  - 401 : Not authorized to reach that endpoint
-
+ - 404 : Url requested does not exist
 
 ERROR CODES SENT ON RESPONSES:
  
