@@ -115,6 +115,8 @@ const _registerEquipmentId = async equipment => {
 
 describe('Delete test', () => {
 
+  
+
     it('should return status 204 when trying to delete a equipment using its own id', async () => {
         const equipmentId = await factory.generateEquipmentId();
         const response = await services.deleteEquipmentById(equipmentId);
@@ -138,10 +140,18 @@ describe('Delete test', () => {
 });
 
 describe('Search by id test', () => {
+    let searchParams = {
+        limit: 10, 
+        equipmentFields: {},
+        startId : 1,
+    }
 
     it('should be true when comparing sent id with id returned', async () => {
         const SENT_ID = await factory.generateEquipmentId();
-        const response = await services.getEquipmentsByFields({ id: SENT_ID });
+
+        searchParams.equipmentFields.id = SENT_ID;
+        
+        const response = await services.getEquipmentsByFields(searchParams);
         const RETURNED_ID = response.equipments[0].id;
 
         expect(SENT_ID).toBe(RETURNED_ID);
@@ -192,7 +202,7 @@ describe('Update test', () => {
 
         expect(response.status).toBe(400);
     });
-    
+
     it('should return status 400 when updating a equipment sending noninteger id', async () => {
         const nonIntegerId = 'a';
         const equipmentToUpdate = factory.generateEquipment();
@@ -202,17 +212,17 @@ describe('Update test', () => {
 
         expect(response.status).toBe(400);
     });
-   
+
     it('should return status 400 when trying to send no equipment', async () => {
         const response = await services.updateEquipment();
 
         expect(response.status).toBe(400);
     });
-    
+
     it('should return status 400 when trying to send no required fields', async () => {
         const equipment = factory.generateEquipment();
         const id = await _registerEquipmentId(equipment);
-        
+
         equipment.id = id;
         equipment.categoryId = undefined;
         equipment.title = undefined;

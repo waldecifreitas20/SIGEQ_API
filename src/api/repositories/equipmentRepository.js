@@ -37,10 +37,14 @@ const _updateFields = (model, equipment) => {
 
 module.exports = {
 
-    getEquipmentsBy: async function (field) {
+    getEquipmentsBy: async function (searchParams) {
         let equipments = null;
         try {
-            equipments = await Equipment.findAll({ where: field });
+            equipments = await Equipment.findAll({ 
+                where: searchParams.equipmentFields,
+                limit : searchParams.limit || 10,
+                include : [Status, Location, Manufacturer, Category] 
+            });
         } catch (error) {
             const errorCode = getErrorCode(error);
             throw _getNotFoundEquipmentError({
@@ -49,7 +53,7 @@ module.exports = {
             });
         }
 
-        if (isEmptyArray(equipments) || isEmptyObject(field)) {
+        if (isEmptyArray(equipments) || isEmptyObject(searchParams.equipmentFields)) {
             throw _getNotFoundEquipmentError({
                 code: ERROR_CODE.EQUIPMENT.NOT_REGISTERED
             });
@@ -62,8 +66,8 @@ module.exports = {
         let allEquipments = [];
         try {
             allEquipments = await Equipment.findAll({
-                where : { id : { [Op.gte] : params.startId}},
-                limit : params.limit
+                where : { id : { [Op.gte] : params.startId || 1}},
+                limit : params.limit || 10
             });
             if (isEmptyArray(allEquipments)) {
                 throw ERROR_CODE.EQUIPMENT.NOT_REGISTERED

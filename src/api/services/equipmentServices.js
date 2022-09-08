@@ -15,26 +15,38 @@ const _callRepository = async (action = Function(), params = Object(), successSt
     }
 }
 
+const _formatForeigns = (equipments = []) =>{
+    let response = [];
+    const foreignKeys = ['categoryId', 'manufacturerId', 'locationId', 'statusId'];
+    for (const equipment of equipments) {
+        for (const key of foreignKeys) {
+            equipment[key] = undefined;
+        }
+        response.push(equipment);
+    }
+    return response;
+}
+
 
 module.exports = {
-    getEquipmentsByFields: async function (fields) {
+    getEquipmentsByFields: async function (searchParams) {
         const repositoryResponse = await _callRepository(
-            equipmentRepository.getEquipmentsBy, fields, 200
+            equipmentRepository.getEquipmentsBy, searchParams, 200
         );
         return {
             status: repositoryResponse.status,
-            equipments: repositoryResponse.response,
+            equipments: _formatForeigns(repositoryResponse.response),
             code: repositoryResponse.code,
             error: repositoryResponse.error,
             description: repositoryResponse.description
         };
     },
-
+ 
     getAllEquipment: async function (startId=1, limit=10) {
         const repositoryResponse = await _callRepository(equipmentRepository.getAll, {startId, limit});
         return {
             status: repositoryResponse.status,
-            equipments: repositoryResponse.response,
+            equipments: _formatForeigns(repositoryResponse.response),
             code: repositoryResponse.code,
             error: repositoryResponse.error,
             description: repositoryResponse.description

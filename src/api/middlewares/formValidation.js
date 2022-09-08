@@ -45,7 +45,7 @@ module.exports = {
         }
         next();
     },
-    
+
     hasRequiredFields: function (req, res, next) {
         const keysReceived = req.body;
         const URL = req.originalUrl;
@@ -56,7 +56,7 @@ module.exports = {
             keysExpected = keysExpectedTo.createEquipment;
         } else if (URL.indexOf('register') !== -1) {
             keysExpected = keysExpectedTo.registerUser;
-        
+
         } else if (URL.indexOf('authenticate') !== -1) {
             keysExpected = keysExpectedTo.login;
         }
@@ -65,13 +65,38 @@ module.exports = {
 
         const cond1 = numberKeysReceived != keysExpected.length;
         const cond2 = hasEmptyFields(keysReceived, keysExpected);
-        
+
         if (cond1 || cond2) {
             return res.status(400).send(
                 getRequiredFieldsError(keysExpected, numberKeysReceived)
             );
         }
-    
+
         next();
+    },
+
+    hasValidFields: function (req, res, next) {
+        const keysReceived = Object.keys(req.body);
+        const validKeys = [
+            'title', 'manufacturerId', 'categoryId', 'model', 'heritage',
+            'locationId', 'statusId', 'warrantyExpiresAt'
+        ];
+
+        for (const keyReceived of keysReceived) {
+            if (validKeys.indexOf(keyReceived) != -1) {
+                return next();
+            }
+        }
+
+        return res.status(404).send(getErrorResponse({
+            status: 404,
+            code: ERROR_CODE.EQUIPMENT.MISSING_FIELDS,
+            error: 'Missing valid fields',
+            description: 'were expected at least one valid field on request',
+            details: {
+                valid_fields: validKeys
+            }
+        }));
+
     }
 }
