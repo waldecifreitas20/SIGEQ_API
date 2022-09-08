@@ -11,11 +11,11 @@ API's Endpoints:
  
  For CRUD of equipments:
  
- - /equipment/create                           (POST)
- - /equipment/all/?start_id=${id}&&limit=10    (GET)
- - /equipment/delete/:id                       (DELETE)
- - /equipment/search                           (POST)
- - /equipment/update                           (PUT)
+ - /equipment/create                            (POST)
+ - /equipment/all/?start_id=${id}&&limit=${int} (GET)
+ - /equipment/delete/:id                        (DELETE)
+ - /equipment/search/limit=${int}           (POST)
+ - /equipment/update                            (PUT)
  
  
 HTTP STATUS SENT:
@@ -28,25 +28,33 @@ HTTP STATUS SENT:
 
 ERROR CODES SENT ON RESPONSES:
  
+ <> For Equipment:
  - '11001' : Equipment not registered yet, 
  - '11002' : Required fields missing
  - '11004' : Database is empty
+ - '11005' : Id sent is not integer
  
+ <> For Authentication:
  - '12101' : No token found on request body
  - '12102' : Bearer not found on token
  - '12103' : Invalid token
+ 
+ <> For Authorization:
  - '12201' : It needs CREATE permission to reach this route
  - '12202' : It needs READ permission to reach this route
  - '12203' : It needs UPDATE permission to reach that route
  - '12204' ; It needs DELETE permission to reach that route
 
+ <> For Login
  - '12301' : Invalid credentials at login
  
+ <> For Requests
  - '13101' : Endpoint does not exist
  - '13102' : Invalid http method for this endpoint
  - '13103' : Request body is empty
 
- - '22P02' : Id is not a integer
+ <> For Request Body
+ - '22P02' : Invalid value of foreign key
  - '23503' : Id does not exist into the database
  - '23505' : Object already existing
  - '42883' : Resquest body is not a JSON 
