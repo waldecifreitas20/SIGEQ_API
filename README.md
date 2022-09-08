@@ -14,9 +14,9 @@ API's Endpoints:
  - /equipment/create                            (POST)
  - /equipment/all/?start_id=${id}&&limit=${int} (GET)
  - /equipment/delete/:id                        (DELETE)
- - /equipment/search/limit=${int}           (POST)
+ - /equipment/search/limit=${int}               (POST)
  - /equipment/update                            (PUT)
- 
+
  
 HTTP STATUS SENT:
 
