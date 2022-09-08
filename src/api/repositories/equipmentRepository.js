@@ -42,7 +42,7 @@ module.exports = {
         try {
             equipments = await Equipment.findAll({ 
                 where: searchParams.equipmentFields,
-                limit : searchParams.limit,
+                limit : searchParams.limit || 10,
                 include : [Status, Location, Manufacturer, Category] 
             });
         } catch (error) {
@@ -66,8 +66,8 @@ module.exports = {
         let allEquipments = [];
         try {
             allEquipments = await Equipment.findAll({
-                where : { id : { [Op.gte] : params.startId}},
-                limit : params.limit
+                where : { id : { [Op.gte] : params.startId || 1}},
+                limit : params.limit || 10
             });
             if (isEmptyArray(allEquipments)) {
                 throw ERROR_CODE.EQUIPMENT.NOT_REGISTERED

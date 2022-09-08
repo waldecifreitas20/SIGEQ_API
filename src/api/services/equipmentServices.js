@@ -15,7 +15,7 @@ const _callRepository = async (action = Function(), params = Object(), successSt
     }
 }
 
-const _formatForeigns = equipments =>{
+const _formatForeigns = (equipments = []) =>{
     let response = [];
     const foreignKeys = ['categoryId', 'manufacturerId', 'locationId', 'statusId'];
     for (const equipment of equipments) {
