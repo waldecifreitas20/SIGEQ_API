@@ -196,13 +196,13 @@ describe('Get all equipment test', () => {
         expect(response.body.code).toBe('12202');
     });
 
-    it('should return result with length 20 when trying get all equipments sending a limit', async () => {
+    it('should return result with length fewer or equals 20 when trying get all equipments sending a limit', async () => {
         const id = await factory.generateEquipmentId();
         const { body: response } = await request.get({
             route: `${routes.getAll(id)}&&limit=20`,
             headers: { authorization: validToken }
         });
-        expect(response.equipments.length).toBe(20);
+        expect(response.equipments.length <= 20).toBe(true);
     });
 });
 
