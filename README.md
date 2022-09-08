@@ -31,19 +31,19 @@ ERROR CODES SENT ON RESPONSES:
  <> For Equipment:
  - '11001' : Equipment not registered yet, 
  - '11002' : Required fields missing
- - '11004' : Database is empty
+ - '11004' : Id not found on request body
  - '11005' : Id sent is not integer
  
  <> For Authentication:
- - '12101' : No token found on request body
+ - '12101' : No token found on request headers
  - '12102' : Bearer not found on token
  - '12103' : Invalid token
  
  <> For Authorization:
- - '12201' : It needs CREATE permission to reach this route
- - '12202' : It needs READ permission to reach this route
- - '12203' : It needs UPDATE permission to reach that route
- - '12204' ; It needs DELETE permission to reach that route
+ - '12201' : CREATE's permission is required to reach this route
+ - '12202' : READ's permission is required to reach this route
+ - '12203' : UPDATE's permission is required to reach this route
+ - '12204' ; DELETE's permission is required to reach this route
 
  <> For Login
  - '12301' : Invalid credentials at login
