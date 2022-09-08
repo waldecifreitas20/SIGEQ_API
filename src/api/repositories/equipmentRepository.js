@@ -67,7 +67,8 @@ module.exports = {
         try {
             allEquipments = await Equipment.findAll({
                 where : { id : { [Op.gte] : params.startId || 1}},
-                limit : params.limit || 10
+                limit : params.limit || 10,
+                include : [Status, Location, Manufacturer, Category]
             });
             if (isEmptyArray(allEquipments)) {
                 throw ERROR_CODE.EQUIPMENT.NOT_REGISTERED

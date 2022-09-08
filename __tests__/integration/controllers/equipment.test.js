@@ -208,16 +208,6 @@ describe('Get all equipment test', () => {
 
 describe('Search equipment test', () => {
 
-    it('should return 200 ok when trying to get a equipment sending a id', async () => {
-        const id = await factory.generateEquipmentId();
-        const response = await request.post({
-            route: routes.search,
-            headers: { authorization: validToken },
-            body: { id, },
-        });
-        expect(response.status).toBe(200);
-    });
-
     it('should return 200 ok when trying to get a equipment sending all fields', async () => {
         const equipment = factory.generateEquipment();
         await _registerEquipment(equipment);
@@ -233,20 +223,36 @@ describe('Search equipment test', () => {
 
 
     it('should return error code 22P02 when trying to search a invalid id value', async () => {
+        const equipment = factory.generateEquipment();
+        equipment.id = "a";
+
         const response = await request.post({
             route: routes.search,
             headers: { authorization: validToken },
-            body: { id: "a" },
+            body: equipment,
         });
 
         expect(response.body.code).toBe('22P02');
     });
 
-    it('should return error code 11001 when trying to search a not registered equipment', async () => {
+    it('should return error code 11002 when trying to search without any valid field', async () => {
         const response = await request.post({
             route: routes.search,
             headers: { authorization: validToken },
-            body: { id: -1 },
+            body: { id: "1" },
+        });
+
+        expect(response.body.code).toBe('11002');
+    });
+
+    it('should return error code 11001 when trying to search a not registered equipment', async () => {
+        const equipment = factory.generateEquipment();
+        equipment.id = -1;
+
+        const response = await request.post({
+            route: routes.search,
+            headers: { authorization: validToken },
+            body: equipment,
         });
 
         expect(response.body.code).toBe('11001');
